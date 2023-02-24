@@ -1,6 +1,6 @@
 <template>
     <div>
-            404页面
+           <h2> 404页面</h2>
     </div>
 </template>
 
