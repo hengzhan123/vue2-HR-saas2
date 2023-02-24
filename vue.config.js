@@ -1,5 +1,21 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave:false
+  lintOnSave: false,
+  devServer: {
+    //   // port: port,
+    //   open: true,
+    //   overlay: {
+    //     warnings: false,
+    //     errors: true
+    //   },
+    // 配置反向代理
+    proxy: {
+      "/api": {
+        target: "http://ihrm-java.itheima.net",
+        changeOrigin: true,  //是否跨域
+      }
+    }
+  },
+
 })

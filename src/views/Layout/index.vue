@@ -1,20 +1,20 @@
 <template>
     <div class="bigbox">
-    
 
-    <el-menu route default-active="1-4-1" class="el-menu-vertical-demo"  @close="handleClose" :collapse="isCollapse" text-color="#fff" collapse-transition="true">
-      <img src="@/common/logo.png" class="logo" width="100%">
-      <router-link to="/layout/dashboard">
+    <el-menu route default-active="1-1" class="el-menu-vertical-demo"  @close="handleClose" :collapse="isCollapse"
+     text-color="#fff"  active-text-color="#ffd04b" >
+      <img src="@/common/logo.png" class="logo" width="90%">
+      <router-link to="/layout/dashboard" >
       <el-menu-item index="1" >       
   <i class="el-icon-menu "></i>
-    <span slot="title" >
+    <span slot="title"  >
       首页
     </span>
   </el-menu-item>
 </router-link>
 <router-link to="/layout/departments">
   <el-menu-item index="2">
-    <i class="el-icon-menu"></i>
+    <i class="el-icon-printer"></i>
     <span slot="title" >
      组织架构
     </span>
@@ -63,21 +63,28 @@
   </el-menu-item>
 </router-link>
 </el-menu>
-<el-menu 
-  :default-active="activeIndex2"
+<div class="navs">
+  <el-menu 
+ 
   class="el-menu-demo"
   mode="horizontal"
   @select="handleSelect"
-  background-color="#4879FA"
+  background-color="#5485FD"
   text-color="#fff"
   active-text-color="#ffd04b">
  
-<el-menu-item class="el-icon-s-fold"  @click="isCollapse=!isCollapse"></el-menu-item>
+<el-menu-item class="el-icon-s-fold"  @click="isCollapse=!isCollapse">
+</el-menu-item>
 <div class="heads">
   <span class="title">人力资源管理系统</span>
- <el-dropdown>
+ <div class="head-right">
+  <i class="el-icon-search" style="margin-right: 15px;"></i>
+  <i class="el-icon-rank" style="margin-right: 15px;"></i>
+  <el-color-picker size="medium" style="margin:10px 15px 0px;"></el-color-picker>
+  <el-dropdown>
   <span class="el-dropdown-link">
-    管理员<i class="el-icon-arrow-down el-icon--right"></i>
+    <img src="@/common/bigUserHeader.png" class="userImg"/>
+    {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item>首页</el-dropdown-item>
@@ -85,22 +92,27 @@
     
   </el-dropdown-menu>
 </el-dropdown>
+ </div>
 </div>
-<div class="main">
+<div id="main">
         <router-view></router-view>
     </div>
 </el-menu>
 </div>
+</div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
    export default {
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
         isCollapse: false
       };
+    },
+    computed:{
+      ...mapGetters(['name'])
     },
     methods: {
       handleSelect(key, keyPath) {
@@ -117,47 +129,92 @@
 </script>
 
 <style lang="less" scoped>
+.navs{
+  position: relative;
+  width: 100%;
+}
+body{
+  margin: 0;
+  padding: 0;
+}
 .bigbox{
 
+  margin: 0;
+  padding: 0;
     display: flex;
     width: 100%; 
     height: 100%; 
     .el-menu-demo{
-        width: 100%;
+      // position: absolute;
+      // left: 0%;
+       width: 100%;
         height: 50px;
       line-height: 50px;
+      .heads{
+        
+      display: flex;
+     justify-content: space-between;
+     
+     .head-right{
+      height: 50px;
+     padding:0px 10px;
+     line-height: 50px;
+    
+      i{
+        display:inline-block;
+        width: 30px;
+         
+      }
+     el-dropdown{
+      padding:0px 0px;
+    
+     }
+      }
+     }
+  //
     }
     .el-icon-s-fold{
-  
+      // margin-left: 200px;
       height: 50px;
     }
     .title{
       color: white;
     }
     .el-menu-vertical-demo{
-      // width: 180px;
+    //  position: fixed;
+     z-index: 11;
       height: 730px;
-      z-index: 33;
       background-color: rgb(84,133,254);
       // el-menu-item {
       //   color: white!important;;
       // }
       align-items: center;
+    
       .logo{
         margin-top: 5px;
       }
     }
-    .heads{
-      display: flex;
-     justify-content: space-between;
-     }
+    
  
+
 }
 a {
   text-decoration: none;
 }
- 
-.router-link-active {
-  text-decoration: none;
-}
+i{
+        color: #FFFF;
+      }
+
+      el-icon-menu:first-of-type{
+        background-color: #fff;
+      }
+
+      .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 185px;
+    min-height: 400px;
+  }
+ .userImg{
+  width: 35px;
+ }
+
 </style>
