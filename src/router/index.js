@@ -30,9 +30,9 @@ const routes=[
             {
                 path:"dashboard",
                 component:dashboard,
-                meta:{
-                    title:"首页"
-                 }
+                // meta:{
+                //     title:"首页"
+                //  }
             },
             {
                 path:"departments",

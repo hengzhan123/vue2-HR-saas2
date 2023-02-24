@@ -83,12 +83,14 @@
   <el-color-picker size="medium" style="margin:10px 15px 0px;"></el-color-picker>
   <el-dropdown>
   <span class="el-dropdown-link">
+   <label>
     <img src="@/common/bigUserHeader.png" class="userImg"/>
-    {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
+    管理员<i class="el-icon-arrow-down el-icon--right"></i>
+   </label>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item>首页</el-dropdown-item>
-    <el-dropdown-item>退出登录</el-dropdown-item>
+    <el-dropdown-item >首页</el-dropdown-item>
+    <el-dropdown-item   @click="loginout">退出登录</el-dropdown-item>
     
   </el-dropdown-menu>
 </el-dropdown>
@@ -103,7 +105,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+// import {mapGetters} from 'vuex'
 
    export default {
     data() {
@@ -111,9 +113,9 @@ import {mapGetters} from 'vuex'
         isCollapse: false
       };
     },
-    computed:{
-      ...mapGetters(['name'])
-    },
+    // computed:{
+    //   ...mapGetters(['name'])
+    // },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
@@ -123,6 +125,9 @@ import {mapGetters} from 'vuex'
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      loginout(){
+        
       }
     }
   }

@@ -3,7 +3,7 @@ import { loginAPI, getUserProfileAPI } from '@/api'
 
 const getDefaultState = () => {
   return {
-    token: getToken(), // 用户 Token，默认为 ''
+    token: getToken(), // 用户 Token，默认  为 ''
     userInfo: {}
   }
 }
@@ -57,19 +57,19 @@ const actions = {
     // }
   },
   // 获取用户-信息
-  // async getUserInfoActions(context){
-  //   const result=await getUserProfileAPI()  //提交到mutations
-  //   context.commit('SET_USER',result)
-  //   return result
-  // },
-
-  async getUserInfoActions({ commit }) {
-    const { data: userObj } = await getUserProfileAPI() // 获取用户基本资料对象
-    const { data: photoObj } = await getUserPhotoAPI(userObj.userId) // 获取用户头像等
-
-    const newObj = { ...userObj, ...photoObj } // 合并一个信息非常全的对象
-    commit('SET_USER', newObj) // 保存到vuex的userInfo对象上 -> 一会儿用调试工具查看
+  async getUserInfoActions(context){
+    const result=await getUserProfileAPI()  //提交到mutations
+    context.commit('SET_USER',result)
+    return result
   },
+
+  // async getUserInfoActions({ commit }) {
+  //   const { data: userObj } = await getUserProfileAPI() // 获取用户基本资料对象
+  //   const { data: photoObj } = await getUserPhotoAPI(userObj.userId) // 获取用户头像等
+
+  //   const newObj = { ...userObj, ...photoObj } // 合并一个信息非常全的对象
+  //   commit('SET_USER', newObj) // 保存到vuex的userInfo对象上 -> 一会儿用调试工具查看
+  // },
   // 退出登录
   async logOutActions({ commit }) {
     commit('REMOVE_TOKEN')

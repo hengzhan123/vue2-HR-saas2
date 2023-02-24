@@ -1,5 +1,5 @@
 <template>
-  <div class="mbox">
+  <div id="app">
      <!-- 一级路由 -->
     <router-view></router-view>
  
@@ -20,9 +20,9 @@ export default {
   margin: 0;
   padding: 0;
 }
-.mbox{
+/* .mbox{
   width: 100%;
-}
+} */
 </style>
 <style lang="less" scoped>
 *{
