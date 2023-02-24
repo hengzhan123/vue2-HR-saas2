@@ -11,7 +11,7 @@
       <!-- 放置标题图片 @是设置的别名, 是在vue.config.js中设置的路径别名, 代表src绝对地址 -->
       <div class="title-container">
         <h3 class="title">
-          <img src="@/common/login-logo.png" alt="">
+          <img src="@/assets/common/login-logo.png" alt="">
         </h3>
       </div>
 
@@ -73,7 +73,7 @@
 <script>
 import { validMobile } from '@/utils/validate'
 import { mapActions } from 'vuex'
-import { getUserProfileAPI } from '@/api'
+// import { getUserProfileAPI } from '@/api'
 export default {
   name: 'Login',
   data() {
@@ -184,7 +184,7 @@ $cursor: #68b0fe; // 将输入框光标改成蓝色 */
 }
 .login-container {
   height: 730px;
-  background-image: url("@/common/login.jpg"); // 设置背景图片
+  background-image: url("@/assets/common/login.jpg"); // 设置背景图片
   background-position: center; // 将图片位置设置为充满整个屏幕
   .el-input {
     display: inline-block;

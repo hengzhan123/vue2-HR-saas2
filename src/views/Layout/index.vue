@@ -3,7 +3,7 @@
 
     <el-menu route default-active="1-1" class="el-menu-vertical-demo"  @close="handleClose" :collapse="isCollapse"
      text-color="#fff"  active-text-color="#ffd04b" >
-      <img src="@/common/logo.png" class="logo" width="90%">
+      <img src="@/assets/common/logo.png" class="logo" width="90%">
       <router-link to="/layout/dashboard" >
       <el-menu-item index="1" >       
   <i class="el-icon-menu "></i>
@@ -84,7 +84,7 @@
   <el-dropdown>
   <span class="el-dropdown-link">
    <label>
-    <img src="@/common/bigUserHeader.png" class="userImg"/>
+    <img src="@/assets/common/bigUserHeader.png" class="userImg"/>
     管理员<i class="el-icon-arrow-down el-icon--right"></i>
    </label>
   </span>
@@ -127,7 +127,7 @@
         console.log(key, keyPath);
       },
       loginout(){
-        
+
       }
     }
   }
