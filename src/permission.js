@@ -1,7 +1,6 @@
 import router from './router'
 import store from './store'
 
-
 // 白名单数组
 const whiteList = ['/login', '/404']
 

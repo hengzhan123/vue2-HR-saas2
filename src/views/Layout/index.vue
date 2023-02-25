@@ -1,8 +1,9 @@
 <template>
     <div class="bigbox">
 
-    <el-menu route default-active="1-1" class="el-menu-vertical-demo"  @close="handleClose" :collapse="isCollapse"
-     text-color="#fff"  active-text-color="#ffd04b" >
+    <el-menu route default-active="1-1" class="el-menu-vertical-demo"  @close="handleClose"
+     :collapse="isCollapse" 
+     text-color="#fff"  active-text-color="#5485FE" >
       <img src="@/assets/common/logo.png" class="logo" width="90%">
       <router-link to="/layout/dashboard" >
       <el-menu-item index="1" >       
@@ -73,7 +74,9 @@
   text-color="#fff"
   active-text-color="#ffd04b">
  
-<el-menu-item class="el-icon-s-fold"  @click="isCollapse=!isCollapse">
+<el-menu-item class="el-icon-s-fold"  @click="isCollapse=!isCollapse"
+ 
+>
 </el-menu-item>
 <div class="heads">
   <span class="title">人力资源管理系统</span>
@@ -90,7 +93,8 @@
   </span>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item >首页</el-dropdown-item>
-    <el-dropdown-item   @click="loginout">退出登录</el-dropdown-item>
+    <!-- 注意：此组件点击事件需加 .native 生效 -->
+    <el-dropdown-item   @click.native="loginout">退出登录</el-dropdown-item>
     
   </el-dropdown-menu>
 </el-dropdown>
@@ -126,8 +130,11 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      loginout(){
-
+      // 退出账户
+     async loginout(){
+        await this.$store.dispatch('user/logOutActions')
+        this.$router.push('/login')
+        // console.log(111);
       }
     }
   }
@@ -138,6 +145,12 @@
   position: relative;
   width: 100%;
 }
+// .state{
+//   margin-left: 180px;
+// }
+// .fas{
+//   margin-left:50px ;
+// }
 body{
   margin: 0;
   padding: 0;
@@ -179,16 +192,17 @@ body{
   //
     }
     .el-icon-s-fold{
-      // margin-left: 200px;
+     
       height: 50px;
     }
     .title{
       color: white;
     }
     .el-menu-vertical-demo{
+  
     //  position: fixed;
      z-index: 11;
-      height: 730px;
+      height: 830px;
       background-color: rgb(84,133,254);
       // el-menu-item {
       //   color: white!important;;
@@ -216,7 +230,7 @@ i{
 
       .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 185px;
-    min-height: 400px;
+    min-height: 700px;
   }
  .userImg{
   width: 35px;

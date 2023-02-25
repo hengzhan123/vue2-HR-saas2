@@ -19,6 +19,10 @@ const routes=[
         component:Login,
     },
     {
+        path:"/404",
+        component:falses
+    },
+    {
         path:'/',
         redirect:'/layout' 
     },
@@ -69,57 +73,9 @@ const routes=[
 
         ]
     },
-    {
-        path:"/404",
-        component:falses
-    }
+   
 ]
 
-// const whiteList = ['/login','/404'] // 白名单
-
-// router.beforeEach(async(to, from, next) => {
-//   // start progress bar
-//   NProgress.start()
-
-//   // set page title
-//   document.title = getPageTitle(to.meta.title)
-
-//   // determine whether the user has logged in
-//   const hasToken = getToken()
-
-//   if (store.getters.token) {
-//     if (to.path === '/login') {
-//       // 如果当前为登录页，跳转首页
-//       next('/')
-     
-//     } else {
-  
-//       if (!store.getters.userId) {
-
-//           // get user info
-//           await store.dispatch('user/getUserInfo')
-//       }
-//           next()
-//     }
-  
-//   } else {
-//     /* has no token*/
-
-//     if (whiteList.indexOf(to.path) > -1) {
-//       // in the free login whitelist, go directly
-//       next()
-//     } else {
-//       // other pages that do not have permission to access are redirected to the login page.
-//       next("/login")
-//       NProgress.done()
-//     }
-//   }
-// })
-
-// router.afterEach(() => {
-//   // finish progress bar
-//   NProgress.done()
-// })
 
 const router=new VueRouter({
     routes,

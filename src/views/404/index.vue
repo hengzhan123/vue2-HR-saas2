@@ -1,6 +1,6 @@
 <template>
     <div>
-           <h2> 404页面</h2><span></span>
+           <h2> 404页面</h2>
     </div>
 </template>
 
@@ -10,6 +10,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 
 </style>
