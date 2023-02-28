@@ -197,6 +197,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// .departments-container{
+//     width: 100% !important;
+// }
 .app-container {
     padding: 20px;
 }

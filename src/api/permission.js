@@ -8,8 +8,13 @@ export function getPermissionAPI(){
         method:"get",
     })
 }
-
-
+// 根据id获取权限详情
+export function getIdDetail(){
+    return request({
+        url:"/sys/permission/{id}",
+        method:"get"
+    })
+}
 
 
 

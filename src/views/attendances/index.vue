@@ -9,9 +9,9 @@
             条考勤审批尚未处理</span>
         </el-col>
         <el-col :span="6" :push="6">
-          <el-button size="mini" type="primary" @click="">导入</el-button>
+          <el-button size="mini" type="primary" >导入</el-button>
           <el-button size="mini" type="primary" @click="remind = true">提醒</el-button>
-          <el-button size="mini" type="primary" @click="">设置</el-button>
+          <el-button size="mini" type="primary" >设置</el-button>
           <el-button size="mini" type="primary" @click="$router.push('/layout/archiving')">历史归档</el-button>
           <el-button size="mini" type="primary" @click="$router.push('/layout/report')">3月份报表</el-button>
           <!-- <el-button size="mini" type="primary" @click="$router.push('/attendances/report')">3月份报表</el-button>
@@ -166,16 +166,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box {
-  width: 100%;
-  height: 100%;
 
+.box {
+  width: 90%;
+  height: 100%;
   //     overflow-x:hidden;
   // overflow-y:hidden;
-  //   padding: 20px;
+    // padding: 20px;
   // background: #fff;
   // border-radius: 3px;
-  // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   .el-card {
     margin: 10px;
 
@@ -187,7 +187,7 @@ export default {
   }
 
   .tabs {
-    //     width: 100%;
+        width: 100%;
     //     height: 100%;
     //     overflow-x:hidden;
     // overflow-y:hidden;

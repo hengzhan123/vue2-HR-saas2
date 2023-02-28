@@ -24,15 +24,13 @@
   inactive-text="不可见">
 </el-switch>
   </el-form-item>
-  <el-form-item label="按钮样式" prop="name">
+  <el-form-item label="菜单顺序" prop="name">
     <el-input v-model="ruleForm.name"></el-input>
   </el-form-item>
-  <el-form-item label="按钮icon" prop="name">
+  <el-form-item label="菜单icon" prop="name">
     <el-input v-model="ruleForm.name"></el-input>
   </el-form-item>
-  <el-form-item label="按钮状态" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
+ 
 
   <!-- <el-form-item>
     <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -118,6 +116,7 @@
 </script>
 
 <style lang="less" scoped>
+
 .el-dialog_body{
   padding: 0px;
 }

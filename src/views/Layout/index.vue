@@ -64,7 +64,7 @@
   </el-menu-item>
 </router-link>
 </el-menu>
-<div class="navs">
+<div class="navs" :class="{ss:isCollapse}">
   <el-menu 
  
   class="el-menu-demo"
@@ -166,8 +166,13 @@ import {mapGetters} from 'vuex'
 
 <style lang="less" scoped>
 .navs{
-  position: relative;
   width: 100%;
+margin-left: 184px;
+transition:all 0.40s linear;
+}
+.ss{
+  margin-left: 64px;
+  transition:all 0.13s linear;
 }
 // 左侧导航菜单选择默认背景颜色
 .el-menu-item.is-active{
@@ -186,18 +191,16 @@ body{
   padding: 0;
 }
 .bigbox{
-
   margin: 0;
   padding: 0;
     display: flex;
     width: 100%; 
     height: 100%; 
     .el-menu-demo{
-      // position: absolute;
-      // left: 0%;
+     
        width: 100%;
         height: 50px;
-        line-height: 50px;
+        // line-height: 50px;
         
       .heads{
        align-items: center;
@@ -228,15 +231,14 @@ body{
     }
     .el-menu-vertical-demo{
   
-    //  position: fixed;
+      position: fixed;
+      left: 0;
+      top:0;
+      bottom: 0;
+      // transition:all 0.21s linear;
      z-index: 11;
-      height: 830px;
       background-color: rgb(84,133,254);
-      // el-menu-item {
-      //   color: white!important;;
-      // }
       align-items: center;
-    
       .logo{
         margin-top: 5px;
       }
