@@ -27,14 +27,14 @@ const routes = [
     path: "/404",
     component: falses,
   },
+  // {
+  //   path: "/",
+  //   redirect: "/layout",
+  // },
   {
     path: "/",
-    redirect: "/layout",
-  },
-  {
-    path: "/layout",
     component: layout,
-    redirect: "/layout/dashboard",
+    redirect: "/dashboard",
     children: [
       {
         path: "dashboard",
