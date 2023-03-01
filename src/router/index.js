@@ -4,6 +4,7 @@ import layout from "@/views/Layout"
 import dashboard from "@/views/dashboard"
 import departments from "@/views/departments"
 import employees from "@/views/employees"
+import detail from "@/views/employees/detail"
 import setting from "@/views/setting"
 import permission from "@/views/permission"
 import social from "@/views/social"
@@ -13,72 +14,76 @@ import apprmission from "@/views/approvals"
 import Login from "@/views/login"
 import falses from "@/views/404"
 Vue.use(VueRouter)
-const routes=[
+const routes = [
     {
-        path:'/login',
-        component:Login,
+        path: '/login',
+        component: Login,
     },
     {
-        path:"/404",
-        component:falses
+        path: "/404",
+        component: falses
     },
     {
-        path:'/',
-        redirect:'/layout' 
+        path: '/',
+        redirect: '/layout'
     },
     {
-        path:"/layout",
-        component:layout,
-        redirect:"/layout/dashboard",
-        children:[
+        path: "/layout",
+        component: layout,
+        redirect: "/layout/dashboard",
+        children: [
             {
-                path:"dashboard",
-                component:dashboard,
+                path: "dashboard",
+                component: dashboard,
                 // meta:{
                 //     title:"首页"
                 //  }
             },
             {
-                path:"departments",
-                component:departments
+                path: "departments",
+                component: departments
             },
             {
-                path:"employees",
-                component:employees
+                path: "employees",
+                component: employees
             },
             {
-                path:"setting",
-                component:setting
+                path: "detail",
+                component: detail
             },
             {
-                path:"permission",
-                component:permission
+                path: "setting",
+                component: setting
             },
             {
-                path:"social",
-                component:social
+                path: "permission",
+                component: permission
             },
             {
-                path:"attendances",
-                component:attendances
+                path: "social",
+                component: social
             },
             {
-                path:"salarys",
-                component:salarys
+                path: "attendances",
+                component: attendances
             },
             {
-                path:"apprmission",
-                component:apprmission
+                path: "salarys",
+                component: salarys
+            },
+            {
+                path: "apprmission",
+                component: apprmission
             },
 
         ]
     },
-   
+
 ]
 
 
-const router=new VueRouter({
+const router = new VueRouter({
     routes,
-    mode:"history"   //上线需要 服务器支持 否则找的是文件夹
-  });
+    mode: "history"   //上线需要 服务器支持 否则找的是文件夹
+});
 export default router
