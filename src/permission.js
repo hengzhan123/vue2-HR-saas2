@@ -15,12 +15,13 @@ router.beforeEach(async(to, from, next) => {
       next('/')
   
     } else {
-      // 如果存在 token，访问的是其他页面，直接放行
       next()
+      // 如果存在 token，访问的是其他页面，直接放行
       if (!store.getters.userId) {
-       await  store.dispatch('user/getUserInfoActions')
-         }
-         next()
+        await  store.dispatch('user/getUserInfoActions')
+          }
+     
+      
     }
   } else {
     // 如果不存在 token，访问的是白名单内容，直接放行

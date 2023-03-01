@@ -135,3 +135,4 @@ export function transTree(list, rootValue) { // list: 整个数组, rootValue本
   })
   return treeData // 遍历结束, rootValue的id对应下属们收集成功, 返回给上一次递归调用children, 加到父级对象的children属性下
 }
+
