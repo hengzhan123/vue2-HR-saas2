@@ -8,7 +8,13 @@ export function getEmployeesListAPI(params) {
     })
 }
 
-//获取员工基本
+//获取员工基本信息
+// export function getDepartAPI(id) {
+//     return request({
+//         url: '/sys/user',
+//         method: 'get',
+//     })
+// }
 
 //添加员工
 export function addEmployeeAPI(data) {

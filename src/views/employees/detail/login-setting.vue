@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getEmployeesListAPI, saveUserDetailByIdAPI } from '@/api'
+import { getDepartAPI, saveUserDetailByIdAPI } from '@/api'
 export default {
     data() {
         return {
@@ -32,16 +32,16 @@ export default {
     },
     created() {
         //获取用户信息
-        this.getUserInfoFn()
+        // this.getUserInfoFn()
     },
     methods: {
-        async getUserInfoFn() {
-            const res = await getEmployeesListAPI(this.$route.query.id)
-            console.log(res);
-            this.userInfo.username = res.data.username
-            this.userInfo.password = res.data.password
+        // async getUserInfoFn() {
+        //     const res = await getDepartAPI(this.data)
+        //     console.log(res);
+        //     this.userInfo.username = res.data.username
+        //     this.userInfo.password = res.data.password
 
-        },
+        // },
         //保存更新用户信息
         updateFn() {
             this.$refs.userForm.validate(async valid => {
