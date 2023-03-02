@@ -27,10 +27,6 @@ const routes = [
     path: "/404",
     component: falses
   },
-  // {
-  //   path: '/',
-  //   redirect: '/layout'
-  // },
   {
     path: "/",
     component: layout,

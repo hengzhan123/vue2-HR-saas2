@@ -177,7 +177,7 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
   .el-card {
-    margin: 10px;
+    margin: 20px 0px 10px 20px;
 
     .el-form {
       .el-form-item {
@@ -187,7 +187,7 @@ export default {
   }
 
   .tabs {
-    width: 100%;
+    width: 98.5%;
     //     height: 100%;
     //     overflow-x:hidden;
     // overflow-y:hidden;

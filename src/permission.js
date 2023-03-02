@@ -12,8 +12,7 @@ router.beforeEach(async(to, from, next) => {
   if (token) {
     if (to.path === '/login') {
       // 如果存在 token，访问的是登录页面，直接跳转到主页
-      next('/')
-  
+      next('/') 
     } else {
       next()
       // 如果存在 token，访问的是其他页面，直接放行

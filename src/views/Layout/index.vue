@@ -4,7 +4,7 @@
     <el-menu route default-active="1" class="el-menu-vertical-demo" @close="handleClose" :collapse="isCollapse"
       text-color="#fff" active-text-color="#5485FE">
       <img src="@/assets/common/logo.png" class="logo" width="90%">
-      <router-link to="/layout/dashboard">
+      <router-link to="/dashboard">
         <el-menu-item index="1">
           <i class="el-icon-tickets "></i>
           <span slot="title">
@@ -12,7 +12,7 @@
           </span>
         </el-menu-item>
       </router-link>
-      <router-link to="/departments">
+      <router-link to="/layout/departments">
         <el-menu-item index="2">
           <i class="el-icon-printer"></i>
           <span slot="title">
@@ -20,43 +20,43 @@
           </span>
         </el-menu-item>
       </router-link>
-      <router-link to="/employees">
+      <router-link to="/layout/employees">
         <el-menu-item index="3">
           <i class="el-icon-news"></i>
           <span slot="title">员工</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/setting">
+      <router-link to="/layout/setting">
         <el-menu-item index="4">
           <i class="el-icon-setting"></i>
           <span slot="title">公司设置</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/permission">
+      <router-link to="/layout/permission">
         <el-menu-item index="5">
           <i class="el-icon-setting"></i>
           <span slot="title">权限设置</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/social">
+      <router-link to="/layout/social">
         <el-menu-item index="6">
           <i class="el-icon-menu"></i>
           <span slot="title">社保</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/attendances">
+      <router-link to="/layout/attendances">
         <el-menu-item index="7">
           <i class="el-icon-date"></i>
           <span slot="title">考勤</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/salarys">
+      <router-link to="/layout/salarys">
         <el-menu-item index="8">
           <i class="el-icon-sold-out"></i>
           <span slot="title">工资</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/apprmission">
+      <router-link to="/layout/apprmission">
         <el-menu-item index="9">
           <i class="el-icon-edit-outline"></i>
           <span slot="title">审批</span>
@@ -159,7 +159,7 @@ export default {
 .navs {
   width: 100%;
   margin-left: 184px;
-  transition: all 0.40s linear;
+  transition: all 0.32s linear;
 }
 
 .ss {
@@ -275,4 +275,5 @@ el-icon-menu:first-of-type {
   width: 35px;
   margin-right: 5px;
   vertical-align: middle;
-}</style>
+}
+</style>

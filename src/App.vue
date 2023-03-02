@@ -26,8 +26,7 @@ export default {
 
 </style>
 <style lang="less" scoped>
-*{
-
+#app{
   background-color: #EFF1F4
 }
 
