@@ -9,14 +9,14 @@
                 <el-input v-model="userInfo.password" type="password" style="width: 300px;" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="updateFn">更新</el-button>
+                <el-button type="primary">更新</el-button>
             </el-form-item>
         </el-form>
     </div>
 </template>
 
 <script>
-import { getDepartAPI, saveUserDetailByIdAPI } from '@/api'
+import { getDepartAPI } from '@/api'
 export default {
     data() {
         return {
@@ -32,26 +32,29 @@ export default {
     },
     created() {
         //获取用户信息
-        // this.getUserInfoFn()
+        this.getUserInfoFn()
     },
     methods: {
-        // async getUserInfoFn() {
-        //     const res = await getDepartAPI(this.data)
-        //     console.log(res);
-        //     this.userInfo.username = res.data.username
-        //     this.userInfo.password = res.data.password
-
-        // },
+        async getUserInfoFn() {
+            const res = await getDepartAPI(this.$route.query.id)
+            // console.log(res);
+            this.userInfo = res.data
+        },
         //保存更新用户信息
-        updateFn() {
-            this.$refs.userForm.validate(async valid => {
-                if (valid) {
-                    await saveUserDetailByIdAPI(this.userInfo)
-                }
-            })
-        }
+        // updateFn() {
+        //     this.$refs.userForm.validate(async valid => {
+        //         if (valid) {
+        //             await saveUserDetailByIdAPI(this.userInfo)
+        //             this.$message.success(res.message)
+        //         }
+        //     })
+        // }
     }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+/deep/ label {
+    font-weight: 700;
+}
+</style>

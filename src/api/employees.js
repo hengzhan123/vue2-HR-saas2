@@ -9,12 +9,11 @@ export function getEmployeesListAPI(params) {
 }
 
 //获取员工基本信息
-// export function getDepartAPI(id) {
-//     return request({
-//         url: '/sys/user',
-//         method: 'get',
-//     })
-// }
+export function getDepartAPI(id) {
+    return request({
+        url: `/sys/user/${id}?id=${id}`
+    })
+}
 
 //添加员工
 export function addEmployeeAPI(data) {
@@ -26,11 +25,20 @@ export function addEmployeeAPI(data) {
 }
 
 //保存员工信息
-export function saveUserDetailByIdAPI(data) {
+// export function saveUserDetailByIdAPI(data) {
+//     return request({
+//         url: `/sys/user/${data.id}`,
+//         method: 'put',
+//         data: data
+//     })
+// }
+
+//为员工分配角色
+export function assignRolesAPI(data) {
     return request({
-        url: `/sys/user/${data.id}`,
+        url: '/sys/user/assignRoles',
         method: 'put',
-        data: data
+        data
     })
 }
 

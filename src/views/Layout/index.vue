@@ -12,7 +12,7 @@
           </span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/departments">
+      <router-link to="/departments">
         <el-menu-item index="2">
           <i class="el-icon-printer"></i>
           <span slot="title">
@@ -20,43 +20,43 @@
           </span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/employees">
+      <router-link to="/employees">
         <el-menu-item index="3">
           <i class="el-icon-news"></i>
           <span slot="title">员工</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/setting">
+      <router-link to="/setting">
         <el-menu-item index="4">
           <i class="el-icon-setting"></i>
           <span slot="title">公司设置</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/permission">
+      <router-link to="/permission">
         <el-menu-item index="5">
           <i class="el-icon-setting"></i>
           <span slot="title">权限设置</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/social">
+      <router-link to="/social">
         <el-menu-item index="6">
           <i class="el-icon-menu"></i>
           <span slot="title">社保</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/attendances">
+      <router-link to="/attendances">
         <el-menu-item index="7">
           <i class="el-icon-date"></i>
           <span slot="title">考勤</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/salarys">
+      <router-link to="/salarys">
         <el-menu-item index="8">
           <i class="el-icon-sold-out"></i>
           <span slot="title">工资</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/layout/apprmission">
+      <router-link to="/apprmission">
         <el-menu-item index="9">
           <i class="el-icon-edit-outline"></i>
           <span slot="title">审批</span>

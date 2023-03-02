@@ -19,7 +19,11 @@
             <el-table :data="employeesList" style="width: 100%;" border size="medium">
                 <el-table-column type="index" label="序号" width="60" />
                 <el-table-column prop="username" label="姓名" width="100" sortable />
-                <el-table-column prop="staffPhoto" label="头像" width="120"></el-table-column>
+                <el-table-column prop="staffPhoto" label="头像" width="120">
+                    <template v-slot="{ row }">
+                        <image-holder class="staffPhoto" :src="row.staffPhoto" alt="" />
+                    </template>
+                </el-table-column>
                 <el-table-column prop="mobile" label="手机号" width="120" sortable />
                 <el-table-column prop="workNumber" label="工号" width="100" sortable :sort-method="workNumberSortFn" />
                 <el-table-column prop="formOfEmployment" label="聘用形式" width="120" sortable>
@@ -34,13 +38,13 @@
                     </el-switch>
                 </el-table-column>
                 <el-table-column label="操作" fixed="right" width="250">
-                    <template>
-                        <el-button @click="lookDetailFn" type="text" size="small">查看</el-button>
+                    <template v-slot="{ row }">
+                        <el-button @click="lookDetailFn(row.id)" type="text" size="small">查看</el-button>
                         <!-- <el-button type="text" size="small">转正</el-button>
-                        <el-button @click="" type="text" size="small">调岗</el-button>
+                        <el-button type="text" size="small">调岗</el-button>
                         <el-button type="text" size="small">离职</el-button> -->
-                        <el-button @click="cancleDialog" type="text" size="small">角色</el-button>
-                        <el-button @click="open" type="text" size="small">删除</el-button>
+                        <el-button @click="cancleDialog(row)" type="text" size="small">角色</el-button>
+                        <el-button disabled type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -57,24 +61,27 @@
         </el-dialog>
         <!-- 角色-弹窗 -->
         <el-dialog title="角色" :visible.sync="showRoleDialog">
-            <assign-role-dialog :show.sync="showRoleDialog" />
+            <assign-role-dialog ref="assignRoleDialog" :show.sync="showRoleDialog" :all-role-list="allRoleList"
+                @addRoleEV="addRoleFn" />
         </el-dialog>
     </div>
 </template>
 
 <script>
-import { getEmployeesListAPI, departmentsListAPI, addEmployeeAPI } from '@/api'
+import { getEmployeesListAPI, departmentsListAPI, addEmployeeAPI, listRolesAPI, getDepartAPI, assignRolesAPI } from '@/api'
 import EmpDialog from './components/empDialog.vue'
 import AssignRoleDialog from './components/assignRoleDialog.vue'
 import Employees from '@/api/constant'
 import Detail from './detail.vue'
+import ImageHolder from './components/imageHolder.vue'
 import { transTree } from '@/utils'
 import dayjs from 'dayjs'
 export default {
     components: {
         EmpDialog,
         Detail,
-        AssignRoleDialog
+        AssignRoleDialog,
+        ImageHolder
     },
     data() {
         return {
@@ -86,7 +93,9 @@ export default {
             },
             total: 0, // 数据总条数
             showDialog: false, // 添加员工组件的展示
-            showRoleDialog: false //角色弹窗
+            showRoleDialog: false, //角色弹窗
+            allRoleList: [],  //所有角色列表
+            clickEmpId: ''  //点击分配角色时，选中员工id
         }
     },
     methods: {
@@ -106,26 +115,24 @@ export default {
             this.showDialog = true
         },
         //角色->点击弹窗
-        cancleDialog() {
+        async cancleDialog(empObj) {
+            const res = await getDepartAPI(empObj.id)
+            console.log(res);
+            this.clickEmpId = empObj.id
             this.showRoleDialog = true
+            this.$nextTick(() => {
+                this.$refs.assignRoleDialog.roleIdsList = res.data.roleIds
+            })
         },
-        open() {
-            this.$confirm('是否删除此条记录?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });
-            });
+        //调用接口保存，员工的最新角色id
+        async addRoleFn(roleIdsList) {
+            const res = await assignRolesAPI({
+                id: this.clickEmpId,
+                roleIds: roleIdsList
+            })
+            // console.log(res);
         },
+
         // 获取员工列表
         async getEmployeeListFn() {
             const res = await getEmployeesListAPI(this.query)
@@ -139,6 +146,19 @@ export default {
             if (!res.success) return this.$message.error(res.message)
             this.treeData = transTree(res.data.depts, '')
             // console.log(this.treeData)
+        },
+        //获取角色列表
+        async listRolesFn() {
+            const res = await listRolesAPI({
+                page: 1,
+                pageSize: 10
+            })
+            const allRes = await listRolesAPI({
+                page: 1,
+                pageSize: res.data.total
+            })
+            // console.log(allRes);
+            this.allRoleList = allRes.data.rows
         },
         // 格式化表格的某一项
         formatter(row) {
@@ -171,9 +191,8 @@ export default {
             console.log(this.$refs.addEmpDialog)
             this.$refs.addEmpDialog.$refs.addForm.resetFields()
         },
-        //员工列表->点击查看
-        lookDetailFn() {
-            this.$router.push('/detail')
+        lookDetailFn(empId) {
+            this.$router.push(`/detail?id=${empId}`)
         }
     },
     created() {
@@ -181,6 +200,8 @@ export default {
         this.getEmployeeListFn()
         // 调用获取部门列表的方法
         this.getDepartments()
+        //调用获取角色列表的方法
+        this.listRolesFn()
     }
 }
 </script>
@@ -194,5 +215,23 @@ export default {
     height: 30px;
     margin-top: 10px;
     text-align: right;
+}
+
+.staffPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+/deep/ .el-dialog__header {
+    background-color: #66b1ff;
+
+    .el-dialog__title {
+        color: #fff;
+    }
+
+    .el-dialog__close {
+        color: #fff;
+    }
 }
 </style>

@@ -27,7 +27,7 @@ export default {
         LoginSetting,
         UserInfo,
         JobInfo
-    }
+    },
 }
 </script>
 

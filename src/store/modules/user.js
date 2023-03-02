@@ -36,14 +36,14 @@ const mutations = {
 
 const actions = {
   // 登录逻辑-封装
-  async loginActions(context,data) {
+  async loginActions(context, data) {
     // 调用api接口
-    const result=await loginAPI(data)  //拿到token
+    const result = await loginAPI(data)  //拿到token
     // console.log(result);
     // axios里有一层data                
     // if(result.data.success){
-      // 为true ，则登录成功
-      context.commit("SET_TOKEN",result.data)   //设置token
+    // 为true ，则登录成功
+    context.commit("SET_TOKEN", result.data)   //设置token
     // }
     // try {
     //   const res = await loginAPI(value)
@@ -57,12 +57,12 @@ const actions = {
     // }
   },
   // 获取用户-信息
-  async getUserInfoActions(context){
-    const result=await getUserProfileAPI()  //提交到mutations
-    console.log(result);
-    context.commit('SET_USER',result.data)
+  async getUserInfoActions(context) {
+    const result = await getUserProfileAPI()  //提交到mutations
+    // console.log(result);
+    context.commit('SET_USER', result.data)
     return result
-    
+
   },
   // 复杂写法
   // async getUserInfoActions({ commit }) {
