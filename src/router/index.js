@@ -16,6 +16,7 @@ import falses from "@/views/404"
 import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
+import viewSee from "@/views/approvals/viewSee"
 
 Vue.use(VueRouter)
 const routes = [
@@ -79,39 +80,41 @@ const routes = [
         path: "apprmission",
         component: apprmission
       },
+      {
+        // 审批
+        path: "security",
+        component: security,
+        meta: {
+          title: "流程设置",
+        }
+      },
+      {
+        // 审批
+        path: "viewSee/:processId",
+        component: viewSee,
+      },
+      {
+        //考勤
+        path: "report",
+        component: report,
+        meta: {
+          title: "月份报表",
+        },
+      },
+      {
+        //考勤
+        path: "archiving",
+        component: archiving,
+        meta: {
+          title: "历史归档",
 
+        }
+      }
     ]
   },
-
 ]
-{
-  // 审批
-  path: "security",
-    component: security,
-      meta: {
-    title: "流程设置",
-        },
-},
 
-{
-  //考勤
-  path: "report",
-    component: report,
-      meta: {
-    title: "月份报表",
-        },
-},
-{
-  //考勤
-  path: "archiving",
-    component: archiving,
-      meta: {
-    title: "历史归档",
-        },
-},
-    ],
-  },
-];
+
 
 
 const router = new VueRouter({
