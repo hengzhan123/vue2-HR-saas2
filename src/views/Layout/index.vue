@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
    export default {
     data() {
@@ -137,14 +137,14 @@ import {mapGetters} from 'vuex'
         await this.$store.dispatch('user/logOutActions')
         this.$router.push('/login')
         // console.log(111);
-      }).catch(()=>{
-        
+      }).catch(() => {
+
       })
-       
-      },
-    
-    }
+
+    },
+
   }
+}
 </script>
 
 <style lang="less" scoped>
@@ -157,28 +157,35 @@ transition:all 0.32s linear;
   // position: absolute;
   // right: 0%;
   width: 100%;
+  margin-left: 184px;
+  transition: all 0.32s linear;
 }
-.ss{
+
+.ss {
   margin-left: 64px;
-  transition:all 0.13s linear;
+  transition: all 0.13s linear;
 }
+
 // 左侧导航菜单选择默认背景颜色
-.el-menu-item.is-active{
+.el-menu-item.is-active {
   background-color: #fff;
 }
-// 左侧导航菜单移上变色
-  li:hover{
- color: #5485FE !important;
-    i{
-      color: #5485FE !important;
-    }
-  }
 
-body{
+// 左侧导航菜单移上变色
+li:hover {
+  color: #5485FE !important;
+
+  i {
+    color: #5485FE !important;
+  }
+}
+
+body {
   margin: 0;
   padding: 0;
 }
-.bigbox{
+
+.bigbox {
   margin: 0;
   padding: 0;
     display: flex;
@@ -193,73 +200,78 @@ body{
       .heads{
       align-items: center;
       display: flex;
-     justify-content: space-between;
-     
-     .head-right{
-     padding:0px 10px;
-      i{
-        display:inline-block;
-        width: 30px;
-         
-      }
-     el-dropdown{
-      padding:0px 0px;
-    
-     }
-     .toggle{
-      // position: absolute;
-      // top:20%;
+      justify-content: space-between;
 
-     }
-      }
-     }
-  //
-    }
-    .el-icon-s-fold{
-     
-      height: 50px;
-    }
-    .title{
-      color: white;
-    }
-    .el-menu-vertical-demo{
-  
-      position: fixed;
-      left: 0;
-      top:0;
-      bottom: 0;
-      // transition:all 0.21s linear;
-     z-index: 11;
-      background-color: rgb(84,133,254);
-      align-items: center;
-      .logo{
-        margin-top: 5px;
+      .head-right {
+        padding: 0px 10px;
+
+        i {
+          display: inline-block;
+          width: 30px;
+
+        }
+
+        el-dropdown {
+          padding: 0px 0px;
+
+        }
       }
     }
+
+    //
+  }
+
+  .el-icon-s-fold {
+
+    height: 50px;
+  }
+
+  .title {
+    color: white;
+  }
+
+  .el-menu-vertical-demo {
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    // transition:all 0.21s linear;
+    z-index: 11;
+    background-color: rgb(84, 133, 254);
+    align-items: center;
+
+    .logo {
+      margin-top: 5px;
+    }
+  }
 }
-.name{
+
+.name {
   display: inline-block;
-  
+
 }
+
 a {
   text-decoration: none;
 }
-i{
-        color: #FFFF;
-      }
 
-      el-icon-menu:first-of-type{
-        background-color: #fff;
-      }
+i {
+  color: #FFFF;
+}
 
-      .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 185px;
-    min-height: 700px;
-  }
- .userImg{
+el-icon-menu:first-of-type {
+  background-color: #fff;
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 185px;
+  min-height: 700px;
+}
+
+.userImg {
   width: 35px;
   margin-right: 5px;
   vertical-align: middle;
- }
-
+}
 </style>

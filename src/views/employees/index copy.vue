@@ -350,13 +350,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// *{
-//     margin: 0;
-//     padding: 0;
-// }
-.employees-container{
-    width: 98%;
-}
 .app-container {
   padding: 20px;
 }

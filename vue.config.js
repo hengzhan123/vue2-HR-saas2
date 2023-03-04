@@ -11,9 +11,9 @@ module.exports = defineConfig({
     //   },
     // 配置反向代理
     proxy: {
-      "/prod-api": {
+      "/api": {
         // target: "http://ihrm-java.itheima.net",
-        target:"http://ihrm.itheima.net",
+        target: "http://ihrm.itheima.net",
         changeOrigin: true,  //是否跨域
       }
     }

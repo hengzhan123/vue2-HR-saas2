@@ -302,10 +302,11 @@ export default {
   padding-bottom: 50px;
   //     overflow-x:hidden;
   // overflow-y:hidden;
-    // padding: 20px;
+  // padding: 20px;
   // background: #fff;
   // border-radius: 3px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
   .el-card {
     margin:20px 0px 10px 20px;
     &:nth-child(2){
@@ -376,4 +377,5 @@ export default {
       color: #fff;
     }
   }
-}</style>
+}
+</style>
