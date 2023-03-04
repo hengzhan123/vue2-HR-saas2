@@ -9,14 +9,14 @@ import permission from "@/views/permission";
 import social from "@/views/social";
 import attendances from "@/views/attendances";
 import salarys from "@/views/salarys";
-import apprmission from "@/views/approvals";
+import approvals from "@/views/approvals";
 import Login from "@/views/login";
 import falses from "@/views/404";
 import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
 import myInfo from "@/views/users/info"
-
+import detail from "@/views/employees/detail"
 Vue.use(VueRouter);
 const routes = [
   // 登录
@@ -32,37 +32,56 @@ const routes = [
       {
         path: "dashboard",
         component: dashboard,
-        // meta:{
-        //     title:"首页"
-        //  }
+        meta:{
+            title:"首页"
+         }
       },
       {
         path: "departments",
-        component: departments
+        component: departments,
+        meta:{
+          title:"组织架构"
+       }
       },
       {
         path: "employees",
-        component: employees
+        component: employees,
+        meta:{
+          title:"员工"
+       }
       },
+      // 员工-查看
       {
         path: "detail",
         component: detail
       },
       {
         path: "setting",
-        component: setting
+        component: setting,
+        meta:{
+          title:"公司设置"
+       }
       },
       {
         path: "permission",
-        component: permission
+        component: permission,
+        meta:{
+          title:"权限设置"
+       }
       },
       {
         path: "social",
-        component: social
+        component: social,
+        meta:{
+          title:"社保"
+       }
       },
       {
         path: "attendances",
         component: attendances,
+        meta:{
+          title:"考勤"
+       }
       },
       {
         //考勤-月份报表
@@ -80,6 +99,25 @@ const routes = [
           title: "历史归档",
               },
       },
+      {
+        path:"salarys",
+        component:salarys,
+        meta:{
+          title:'工资'
+        }
+      },
+      {
+        path:"approvals",
+        component:approvals,
+        meta:{
+          title:'审批'
+        }
+      },
+      // 审批-流程设置
+      {
+        path:"security",
+        component:security,
+      },
             // 个人信息
             {
               path: "myInfo",
@@ -89,6 +127,13 @@ const routes = [
                 title: '我的信息'
               }
             },
+           {
+            path:"falses",
+            component:falses,
+            meta:{
+              title:"404"
+            }
+           }
     ],
   },
 

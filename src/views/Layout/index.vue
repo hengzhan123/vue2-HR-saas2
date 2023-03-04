@@ -1,7 +1,7 @@
 <template>
     <div class="bigbox">
 
-    <el-menu route default-active="1-1" class="el-menu-vertical-demo"  @close="handleClose"
+    <el-menu route default-active="" class="el-menu-vertical-demo" 
      :collapse="isCollapse" 
      text-color="#fff"  active-text-color="#5485FE" >
       <img src="@/assets/common/logo.png" class="logo" width="90%">
@@ -57,7 +57,7 @@
     <span slot="title">工资</span>
   </el-menu-item>
 </router-link>
-  <router-link to="/apprmission">
+  <router-link to="/approvals">
   <el-menu-item index="9">
     <i class="el-icon-edit-outline"></i>
     <span slot="title">审批</span>
@@ -168,10 +168,7 @@ margin-left: 184px;
 transition:all 0.32s linear;
 }
 #main{
-  // position: absolute;
-  // right: 0%;
   width: 100%;
-  margin-left: 184px;
   transition: all 0.32s linear;
 }
 
@@ -206,29 +203,25 @@ body {
     width: 100%; 
     height: 100%; 
     .el-menu-demo{
-    //  position: relative;
        width: 100%;
         height: 50px;
-        // line-height: 50px;
         
       .heads{
+        // margin-top: 7px;
       align-items: center;
       display: flex;
      justify-content: space-between;
      
      .head-right{
-     padding:0px 10px;
-      // i{
-      //   display:inline-block;
-      //   width: 30px; 
-      // }
+     padding:0px 15px;
+      
       .right-menu-item{
         display:inline-block;
         width: 30px;
         height: 30px;
         line-height: 35px;
         text-align: center;
-        margin: 0 2px;
+        margin: 8px 5px;
       }
      el-dropdown{
       padding:0px 0px;
@@ -236,12 +229,9 @@ body {
      }
       }
     }
-
-    //
   }
 
   .el-icon-s-fold {
-
     height: 50px;
   }
 
@@ -250,7 +240,6 @@ body {
   }
 
   .el-menu-vertical-demo {
-
     position: fixed;
     left: 0;
     top: 0;
@@ -293,7 +282,7 @@ el-icon-menu:first-of-type {
 .userImg {
   width: 35px;
   height: 35px;
-  margin:0 3px;
+  margin:0 5px;
   vertical-align: middle;
   margin-bottom: 5px;
   border-radius: 50%;

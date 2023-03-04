@@ -51,8 +51,6 @@ export function importEmployeeAPI(data) {
     })
 }
 
-import request from '@/utils/request'
-
 // 读取用户详情的基础信息
 export function getPersonalDetail(id) {
   return request({

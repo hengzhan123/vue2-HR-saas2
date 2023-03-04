@@ -7,7 +7,7 @@ export * from "./user"         //用户信息
 export * from "./permission"    //权限管理
 export * from "./setting"
 export * from "./social"
-
+export * from "./approvals"
 export * from './departments'
 export * from './employees'
 export * from './salarys'     //工资

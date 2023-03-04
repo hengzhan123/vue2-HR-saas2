@@ -292,6 +292,7 @@ a {
 .home {
   margin: 10px;
   .header-card {
+    margin-top: 25px;
     .header-box {
       display: flex;
       .header-imgBox {

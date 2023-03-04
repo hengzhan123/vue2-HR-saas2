@@ -1,6 +1,5 @@
 import request from "@/utils/request"
 
-
 //申请列表
 export function applicationsListAPI(data) {
     return request({
@@ -34,8 +33,9 @@ export function DetailsAPI(id) {
 export function DetailAPT(id) {
     return request({
         url: `/user/process/instance/${id}`,
-import request from '@/utils/request'
 
+})
+}
 // 离职
 export function startProcess(data) {
   return request({
@@ -54,5 +54,4 @@ export function updateUser(data) {
   })
 }
 
-    })
-}
+ 

@@ -5,7 +5,7 @@ import request from '@/utils/request'
  */
 export function loginAPI(data) { 
   return request({
-    url: 'api/sys/login',
+    url: '/sys/login',
     method: 'post',
     data
   })
@@ -16,7 +16,7 @@ export function loginAPI(data) {
  */
 export function getUserProfileAPI() {
   return request({
-    url: 'api/sys/profile',
+    url: '/sys/profile',
     method: 'post'
   })
 }

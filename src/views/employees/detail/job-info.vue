@@ -122,7 +122,7 @@
 
             <el-row c1ass="inline-info" type="flex" justify="center">
                 <el-col :span="12">
-                    <el-button type="primary" @click="">保存更新</el-button>
+                    <el-button type="primary" >保存更新</el-button>
                     <el-button @click="$router.back()">返回</el-button>
                 </el-col>
             </el-row>
