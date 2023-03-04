@@ -42,7 +42,7 @@ export function assignRolesAPI(data) {
     })
 }
 
-//导入excel
+//导入员工数据  excel 参数data是一个数组类型
 export function importEmployeeAPI(data) {
     return request({
         url: '/sys/user/batch',
@@ -50,3 +50,4 @@ export function importEmployeeAPI(data) {
         data
     })
 }
+

@@ -7,7 +7,7 @@
         <span style="background-color: #e6f7ff; padding: 5px 10px;border-radius: 3px;border: 1px solid #91d5ff;"><i class="el-icon-info" style="color:#409EFF"></i>当前审批中 0 本月审批通过 1 本月审批驳回 0</span>
       </template>
       <template>
-        <el-button size="mini" class="top-right" type="primary" @click="$router.push('/layout/security')">流程设置</el-button>
+        <el-button size="mini" class="top-right" type="primary" @click="$router.push('/security')">流程设置</el-button>
       </template>
     </el-card>
     <!-- 主要内容 -->

@@ -16,16 +16,13 @@ import falses from "@/views/404"
 import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
+import importExcel  from "@/views/import/index"
 
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/login',
     component: Login,
-  },
-  {
-    path: "/404",
-    component: falses
   },
   {
     path: "/",
@@ -75,36 +72,47 @@ const routes = [
         path: "apprmission",
         component: apprmission
       },
+      {
+        // 审批
+        path: "security",
+        component: security,
+        meta: {
+          title: "流程设置",
+        },
+      },
+    
+      {
+        //考勤
+        path: "report",
+        component: report,
+        meta: {
+          title: "月份报表",
+        },
+      },
+      {
+        //考勤
+        path: "archiving",
+        component: archiving,
+        meta: {
+          title: "历史归档",
+        },
+      },
+      // 员工导入
+      {
+        path: "importExcel",
+        component: importExcel
+      },
+
 
     ]
   },
-
-
   {
-    // 审批
-    path: "security",
-    component: security,
-    meta: {
-      title: "流程设置",
-    },
+    path: "/404",
+    component: falses
   },
 
-  {
-    //考勤
-    path: "report",
-    component: report,
-    meta: {
-      title: "月份报表",
-    },
-  },
-  {
-    //考勤
-    path: "archiving",
-    component: archiving,
-    meta: {
-      title: "历史归档",
-    },
-  },
+
+
 ]
 
 
