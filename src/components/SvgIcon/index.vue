@@ -52,11 +52,13 @@ export default {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+ 
 }
 
 .svg-external-icon {
   background-color: currentColor;
   mask-size: cover!important;
   display: inline-block;
+  
 }
 </style>

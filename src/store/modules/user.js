@@ -1,17 +1,17 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { loginAPI, getUserProfileAPI } from '@/api'
 
-const getDefaultState = () => {
+const getDefaultState = () => { 
   return {
     token: getToken(), // 用户 Token，默认  为 ''
     userInfo: {}
   }
 }
-const state = getDefaultState()
+const state = getDefaultState() 
 
 const mutations = {
   RESET_STATE: (state) => {
-    Object.assign(state, getDefaultState())
+    Object.assign(state, getDefaultState()) 
   },
   // 设置token
   SET_TOKEN(state, token) {
@@ -62,7 +62,7 @@ const actions = {
     context.commit('SET_USER',result)
     return result
   },
-
+  // 复杂写法
   // async getUserInfoActions({ commit }) {
   //   const { data: userObj } = await getUserProfileAPI() // 获取用户基本资料对象
   //   const { data: photoObj } = await getUserPhotoAPI(userObj.userId) // 获取用户头像等
@@ -71,9 +71,9 @@ const actions = {
   //   commit('SET_USER', newObj) // 保存到vuex的userInfo对象上 -> 一会儿用调试工具查看
   // },
   // 退出登录
-  async logOutActions({ commit }) {
-    commit('REMOVE_TOKEN')
-    commit('RESET_STATE')
+  async logOutActions(context) {
+    context.commit('REMOVE_TOKEN')
+    context.commit('RESET_STATE')
   }
 
 }

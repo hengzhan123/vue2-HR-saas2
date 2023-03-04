@@ -1,12 +1,11 @@
 import router from './router'
 import store from './store'
 
-
 // 白名单数组
 const whiteList = ['/login', '/404']
 
 // 前置路由守卫
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async(to, from, next) => { 
   // 获取到 token
   const token = store.getters.token
   // 如果存在 token

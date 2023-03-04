@@ -15,8 +15,6 @@ Vue.use(less)
 // Vue.use(SvgIcon)
 // 
 
-
-
 Vue.config.productionTip = false
 
 new Vue({

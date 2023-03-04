@@ -5,5 +5,11 @@ const getters = {
   avatar: state => state.user.avatar,  //返回用户头像
   name: state => state.user.userInfo.username, // 返回用户名
   userId: state => state.user.userInfo.userId,
+
+  soList: state => state.social.soList,
+  hiList: state => state.social.hiList,
+
+  seList: state => state.salarys.seList
+
 }
-export default getters
+export default getters 
