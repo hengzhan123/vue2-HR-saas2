@@ -6,7 +6,6 @@ import departments from "@/views/departments";
 import employees from "@/views/employees";
 import setting from "@/views/setting";
 import permission from "@/views/permission";
-import social from "@/views/social";
 import attendances from "@/views/attendances";
 import salarys from "@/views/salarys";
 import apprmission from "@/views/approvals";
@@ -15,6 +14,7 @@ import falses from "@/views/404";
 import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
+import myInfo from "@/views/users/info"
 
 
 Vue.use(VueRouter);
@@ -60,10 +60,6 @@ const routes = [
         component: permission,
       },
       {
-        path: "social",
-        component: social,
-      },
-      {
         path: "attendances",
         component: attendances,
       },
@@ -101,6 +97,16 @@ const routes = [
           title: "历史归档",
         },
       },
+      // 个人信息
+      {
+        path: "myInfo",
+        component:myInfo,
+        name: 'myInfo',
+        meta: {
+          title: '我的信息'
+        }
+      },
+
     ],
   },
 ];

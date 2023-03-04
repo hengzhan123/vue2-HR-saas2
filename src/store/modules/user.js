@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { loginAPI, getUserProfileAPI } from '@/api'
+import { loginAPI, getUserProfileAPI,getUserDetailById } from '@/api/user'
 
 const getDefaultState = () => {
   return {
@@ -58,11 +58,34 @@ const actions = {
   },
   // 获取用户-信息
   async getUserInfoActions(context){
-    const result=await getUserProfileAPI()  //提交到mutations
-    console.log(result);
-    context.commit('SET_USER',result.data)
-    return result
+    // // 获取用户资料
+    // // const result=await getUserProfileAPI()  //提交到mutations
+    //     // console.log(result);
+        // console.log(result.data.userId,111);
+    const {data:userObj }=await getUserProfileAPI()  //提交到mutations
+    localStorage.setItem("userId",userObj.userId)
+      // 获取用户的详情(头像)
+      // const baseInfo = await getUserDetailById(result.data.userId)
+      // console.log(baseInfo);
+      const {data:photoObj} = await getUserDetailById(userObj.userId)
+    // console.log(photoObj);
+      // context.commit('SET_USER',result.data)
+    // context.commit('SET_USER', { ...result, ...baseInfo }) // 两个接口合并
+    context.commit('SET_USER', { ...userObj, ...photoObj }) 
+
+    // return userObj
+    // return result
+    // const result = await getUserProfileAPI()//获取返回值
+    // const baseInfo = await getUserDetailById(result.data.userId)//为了获取头像
+    // const baseResult = {...result,...baseInfo}//将两个接口合并
+    // context.commit('SET_USER',baseResult)//提交mutations
+    // return baseResult //这里为什么要返回 为后面埋下伏笔
     
+  //   const result = await getUserProfileAPI()
+  //   // 获取用户的详情 用户的详情数据
+  //   const baseInfo = await getUserDetailById(result.userId)
+  //   context.commit('setUserInfo', { ...result, ...baseInfo }) // 提交到mutations
+  //   return result // 这里为什么要return呢 这里是给我们后期做权限的时候 留下的伏笔
   },
   // 复杂写法
   // async getUserInfoActions({ commit }) {

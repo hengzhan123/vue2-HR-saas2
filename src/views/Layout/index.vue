@@ -8,7 +8,7 @@
       <router-link to="/layout/dashboard" >
       <el-menu-item index="1" >       
   <i class="el-icon-tickets "></i>
-    <span slot="title"  >
+    <span slot="title">
       首页
     </span>
   </el-menu-item>
@@ -80,14 +80,26 @@
 </el-menu-item>
 <div class="heads">
   <span class="title">人力资源管理系统</span>
+
  <div class="head-right">
-  <i class="el-icon-search" style="margin-right: 15px;"></i>
-  <i class="el-icon-rank" style="margin-right: 15px;"></i>
-  <el-color-picker size="medium"  v-model="color1" style="margin: 0px 20px 0px 0px;"></el-color-picker>
+  <!-- 多语言切换 -->
+  <!-- <el-tooltip  content="语言" placement="bottom" >
+  <lang class="right-menu-item" />
+</el-tooltip> -->
+   <!-- 全屏 -->
+   <el-tooltip  content="全屏" placement="bottom">
+    <ScreenFull class="right-menu-item"/>
+    </el-tooltip>
+    <!--  切换主题组件 -->
+   <el-tooltip  content="换肤" placement="bottom"  >
+    <theme-picker class="right-menu-item"  style="margin-bottom: -5px !important;"/>
+  </el-tooltip>
   <el-dropdown>
   <span class="el-dropdown-link">
    <label >
-    <img src="@/assets/common/bigUserHeader.png" class="userImg"/>
+    <!-- <img src="@/assets/common/bigUserHeader.png" class="userImg"/> -->
+    <img v-imagerror="defaultImg" :src="staffPhoto" class="userImg"/>
+
     <span class="name">{{ $store.getters.name }}<i class="el-icon-arrow-down el-icon--right"></i></span>
    </label>
   </span>
@@ -101,6 +113,8 @@
  </div>
 </div>
 <div id="main">
+  <!-- tab导航标签 -->
+  <!-- <tags-view/> -->
         <router-view></router-view>
     </div>
 </el-menu>
@@ -116,17 +130,13 @@ import {mapGetters} from 'vuex'
       return {
         color1:"#409EFF",
         isCollapse: false,
-        titles:this.$route.meta.title
+        titles:this.$route.meta.title,
+        defaultImg: require('@/assets/common/head.jpg')
       };
     },
     computed:{
-      ...mapGetters(['name'])
+      ...mapGetters(['name','staffPhoto'])
     },
-  //  watch:{
-  //   $route(){
-  //     this.titles=this.$route.meta.title
-  //   }
-  //  },
   created(){
 
   },
@@ -206,10 +216,17 @@ body{
      
      .head-right{
      padding:0px 10px;
-      i{
+      // i{
+      //   display:inline-block;
+      //   width: 30px; 
+      // }
+      .right-menu-item{
         display:inline-block;
         width: 30px;
-         
+        height: 30px;
+        line-height: 35px;
+        text-align: center;
+        margin: 0 2px;
       }
      el-dropdown{
       padding:0px 0px;
@@ -244,6 +261,8 @@ body{
 }
 .name{
   display: inline-block;
+  margin-left: 2px;
+  color: #fff;
   
 }
 a {
@@ -263,8 +282,11 @@ i{
   }
  .userImg{
   width: 35px;
-  margin-right: 5px;
+  height: 35px;
+  margin:0 3px;
   vertical-align: middle;
+  margin-bottom: 5px;
+  border-radius: 50%;
  }
 
 </style>

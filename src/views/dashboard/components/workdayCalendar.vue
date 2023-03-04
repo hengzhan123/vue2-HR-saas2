@@ -31,7 +31,6 @@
 export default {
   data() {
     return {
-      //   value: new Date(),
       newYear: null,
       newMonth: null,
       newDate: null,//当前时间
@@ -42,23 +41,23 @@ export default {
   created() {
     this.newYear = new Date().getFullYear()
     this.newMonth = new Date().getMonth() + 1
-    // this.newDay = new Date().getDay()
     this.yearList = Array.from(Array(11), (val, index) => index + this.newYear - 5)
-    // console.log(data.day);
 
   },
   methods: {
+    // 切换月份
     dateChange() {
       const year = this.newYear
       const month = this.newMonth
       this.newDate = new Date(`${year}-${month}-1`)
     },
+    // 周末显示休息
     isWeek(value){
-      console.log(63, value.getDay());
       return value.getDay() === 6 || value.getDay() === 0
     }
 
   },
+  // 日历过滤第一个数为0
   filters:{
     getday(value){
       const day =value

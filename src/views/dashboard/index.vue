@@ -4,15 +4,15 @@
     <el-card class="header-card">
       <div class="header-box">
         <div class="header-imgBox">
-          <!-- <div> -->
-          <img src="@/assets/common/head.jpg" alt="" />
-          <!-- </div> -->
+          <img v-imagerror="defaultImg" :src="staffPhoto" class="userImg" />
         </div>
         <div class="header-imgBoxRight">
-          <!-- <div> -->
-          <p>早安，管理员，祝你开心每一天！</p>
-          <p>管理员 | 中兴南昌-总裁办</p>
-          <!-- </div> -->
+
+          <p>早安，{{ userInfo.username }}，祝你开心每一天！</p>
+          <p>
+            {{ userInfo.username }} | {{ userInfo.company }} -
+            {{ userInfo.departmentName }}
+          </p>
         </div>
       </div>
     </el-card>
@@ -26,7 +26,7 @@
             <div class="date-top">
               <p>工作日历</p>
             </div>
-            
+
             <!-- 日历组件 -->
             <div class="date-main" type="flex" content>
               <workdayCalendar></workdayCalendar>
@@ -89,24 +89,28 @@
               <span>流程申请</span>
             </div>
             <div class="right-btnBox">
-              <el-button class="flow-btn">加班离职</el-button>
+              <el-button class="flow-btn" @click="dialogVisible = true">加班离职</el-button>
               <el-button class="flow-btn">请假调休</el-button>
               <el-button class="flow-btn">审批列表</el-button>
-              <el-button class="flow-btn">我的信息</el-button>
+              <el-button class="flow-btn" @click="$router.push('myInfo')">我的信息</el-button>
             </div>
           </el-card>
           <!-- 快速开始/便携导航 -->
           <el-card class="right-nav">
             <div class="nav-title">
-              <span>快速开始/便携导航 </span>
+              <!-- <span>快速开始/便携导航 </span> -->
+              <span class="bgc_null">绩效指数 </span>
             </div>
-            <div class="right-btnBox">
+            <!-- 旧版的 -->
+            <!-- <div class="right-btnBox">
               <router-link to="/layout/social" class="el-button">人事月报</router-link>
               <router-link to="/layout/attendances" class="el-button">考勤查询</router-link>
               <router-link to="/layout/attendances" class="el-button">考勤统计</router-link>
               <router-link to="/layout/employees" class="el-button">员工审核</router-link>
               <router-link to="/layout/departments" class="el-button">组织架构</router-link>
-            </div>
+            </div> -->
+            <!-- 雷达图 -->
+            <Radar></Radar>
           </el-card>
           <!-- 帮助连接 -->
           <el-card class="right-help">
@@ -139,18 +143,123 @@
         </div>
       </div>
     </div>
+    <!-- 加班离职对话框 -->
+    <el-dialog title="申请" :visible="dialogVisible" width="40%" @close="btnCancel">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="120px">
+        <!-- 离职表单 申请类型 -->
+        <el-form-item label="申请类型" prop="processName">
+          <el-select v-model="ruleForm.processName" placeholder="请选择">
+            <el-option v-for="item in processList" :defaultProps="{ label: 'processName' }" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <!--  期望离职时间-->
+        <template v-if="ruleForm.processName == '离职'">
+          <el-form-item label="期望离职时间" style="width: 100px" prop="exceptTime">
+            <el-date-picker v-model="ruleForm.exceptTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+          <!-- 离职原因 -->
+          <el-form-item label="离职原因" prop="reason">
+            <el-input type="textarea" v-model="ruleForm.reason" style="width: 80%" placeholder="请输入内容" :autosize="{ minRows: 3, maxRows: 6 }"></el-input>
+          </el-form-item>
+        </template>
+        <!-- 加班 -->
+        <template v-else>
+          <el-form-item label="加班开始时间" prop="exceptTime">
+            <el-date-picker v-model="ruleForm.exceptTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+          <el-form-item label="加班结束时间" prop="exceptTime">
+            <el-date-picker v-model="ruleForm.exceptTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+          <el-form-item label="加班原因" prop="reason">
+            <el-input v-model="ruleForm.reason" type="textarea" :autosize="{ minRows: 3, maxRows: 8 }" placeholder="请输入内容" />
+          </el-form-item>
+        </template>
+      </el-form>
+      <!-- 提交 重置 -->
+      <el-row slot="footer" type="flex" justify="flex-start">
+        <el-col :offset="3" :span="6">
+          <el-button @click="btnOK">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-col>
+      </el-row>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { mapGetters, createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("user");
 import workdayCalendar from "./components/workdayCalendar.vue";
+import { startProcess } from "@/api/approvals";
+import Radar from "./components/radar.vue";
+
 export default {
-  components:{
-    workdayCalendar
+  components: {
+    workdayCalendar,
+    Radar,
   },
   data() {
     return {
+      dialogVisible: false,
+      ruleForm: {
+        exceptTime: "", //离职时间
+        reason: "", //离职原因
+        processKey: "process_dimission", // 特定的审批
+        processName: "离职",
+      },
+      defaultImg: require("@/assets/common/head.jpg"),
+      processList: [
+        {
+          value: "加班",
+          label: "加班",
+        },
+        {
+          value: "离职",
+          label: "离职",
+        },
+      ],
     };
+  },
+  computed: {
+    ...mapGetters(["name", "staffPhoto"]),
+    ...mapState(["userInfo"]),
+  },
+  methods: {
+    // 重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    // 离职加班提交
+    //* 新版接口离职没有用，加班新旧都没有用，我的信息新接口显示一部分，旧接口都能显示，头像新接口是能看到动态的，旧的不可以
+    btnOK() {
+      this.$refs.ruleForm.validate(async (isOK) => {
+        if (isOK) {
+          await startProcess({
+            ...this.ruleForm,
+            userId: this.userInfo.userId,
+            username: this.userInfo.username,
+          });
+          this.$message.success("提交流程成功");
+          this.dialogVisible = false;
+        }
+      });
+    },
+    // 关闭离职对话框
+    btnCancel() {
+      this.ruleForm = {
+        exceptTime: "",
+        reason: "",
+        processKey: "process_dimission", // 特定的审批
+        processName: "离职",
+        startTime: "",
+        endTime: "",
+        overtimeReason: "",
+      };
+      this.dialogVisible = false;
+      this.$refs.ruleForm.resetFields();
+    },
   },
 };
 </script>
@@ -161,21 +270,35 @@ a {
 }
 
 ::v-deep .el-calendar__header {
-    display: none
+  display: none;
 }
+// 离职加班对话框
+::v-deep .el-dialog__header {
+  background: #66b1ff;
+  height: 25px;
+  line-height: 25px;
+
+  .el-dialog__title {
+    height: 25px;
+    line-height: 25px;
+  }
+  .el-dialog__headerbtn {
+    .el-dialog__close {
+      color: #fff;
+    }
+  }
+}
+
 .home {
   margin: 10px;
   .header-card {
     .header-box {
       display: flex;
       .header-imgBox {
-        // width: 100%;
-        // height: 100%;
-        // border-radius: 50%;
         img {
-          //     width: 100%;
-          // height: 100%;
-          // border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
         }
       }
       .header-imgBoxRight {
@@ -204,7 +327,7 @@ a {
       .main-l {
         width: 60%;
         padding: 0;
-      margin: 0;
+        margin: 0;
         .date {
           position: relative;
           padding: 0;
@@ -214,21 +337,15 @@ a {
             left: 20px;
             top: 0px;
             z-index: 1;
-            // height: 60px;
-            // padding: 0;
-            // margin: 0;
-            // height: 60px;
             p {
               width: 100%;
-              display:block;
+              display: block;
               color: #2c3e50;
               font-size: 24px;
               margin-left: 20px;
-              // padding: 18px 20px;
-              // line-height: 60px;
             }
           }
-          .date-main{
+          .date-main {
             margin-top: 70px;
             border-top: 1px solid #ebeef5;
           }
@@ -236,7 +353,6 @@ a {
         .advContent-box {
           margin-top: 10px;
           .advContent {
-            border-top: solid 1px #ccc;
             .title {
               border-bottom: solid 1px #ccc;
             }
@@ -256,12 +372,10 @@ a {
                     width: 50px;
                     height: 50px;
                     margin-right: 10px;
-                    // vertical-align: middle;
                   }
                   div {
                     margin: 0;
                     padding: 0;
-                    //   padding: 15px 0;
                     p {
                       font-size: 14px;
                       margin: 0;
@@ -295,6 +409,11 @@ a {
               padding-bottom: 10px;
             }
           }
+          .nav-title {
+            .bgc_null {
+              border-bottom: none;
+            }
+          }
           .right-btnBox {
             margin-top: 20px;
             .flow-btn,
@@ -306,7 +425,6 @@ a {
             .el-row {
               margin-left: 10px;
               a {
-                // margin-left: 10px;
                 .icon {
                   display: inline-block;
                   width: 76px;
@@ -337,6 +455,7 @@ a {
             text-align: center;
           }
         }
+
         .right-flow {
           margin-top: 0;
         }

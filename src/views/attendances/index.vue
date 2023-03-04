@@ -59,7 +59,9 @@
     </el-card>
     <!-- 考勤表格 -->
     <el-card class="tabs">
-      <el-table :data="tableData" border style="width: 100%">
+      <div style="width:100%;position: relative;overflow-x: auto; overflow-y: hidden;">
+          <div style="width: 3000px;">
+      <el-table :data="tableData" border style="width: 100%" class="tableBox">
         <el-table-column prop="date" type="index" label="序号" width="50px">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="100">
@@ -106,6 +108,9 @@
         </el-table-column>
 
       </el-table>
+      </div>
+    </div>
+
     </el-card>
     <!-- 提醒对话框 -->
     <el-dialog title="提醒" :visible.sync="remind" width="300px" center>
@@ -166,10 +171,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// *{
+//   margin: 0;
+//   padding: 0;
+//   list-style: none;
+//   text-decoration: none;
+// }
 .box {
-  width: 100%;
-  height: 100%;
-
+  // width: 100%;
+  // height: 100%;
+  // overflow: hidden;
   //     overflow-x:hidden;
   // overflow-y:hidden;
   //   padding: 20px;
@@ -177,7 +188,7 @@ export default {
   // border-radius: 3px;
   // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   .el-card {
-    margin: 10px;
+    margin: 20px;
 
     .el-form {
       .el-form-item {
@@ -191,7 +202,14 @@ export default {
     //     height: 100%;
     //     overflow-x:hidden;
     // overflow-y:hidden;
-    overflow: auto;
+    // overflow: hidden;
+    .tableBox{
+      line-height: 36px;
+    border: solid 1px #ebeef5;
+    border-right: 0 none;
+    border-bottom: 0 none;
+    }
+
   }
 
   .el-dialog {

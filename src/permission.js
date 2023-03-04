@@ -18,7 +18,10 @@ router.beforeEach(async(to, from, next) => {
       next()
       // 如果存在 token，访问的是其他页面，直接放行
       if (!store.getters.userId) {
+      // if (!store.getters.userId && !localStorage.getItem("userId")) {
+
         await  store.dispatch('user/getUserInfoActions')
+        // await  store.dispatch('user/getUserProfileAPI')
           }
      
       
