@@ -17,21 +17,16 @@ import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
 import viewSee from "@/views/approvals/viewSee"
+import attimport from "@/views/attendances/components/att-import.vue"
+import importExcel from "@/views/import"
 
 Vue.use(VueRouter)
 const routes = [
+  // 登录
   {
     path: '/login',
     component: Login,
   },
-  {
-    path: "/404",
-    component: falses
-  },
-  // {
-  //   path: "/",
-  //   redirect: "/layout",
-  // },
   {
     path: "/",
     component: layout,
@@ -70,8 +65,51 @@ const routes = [
       },
       {
         path: "attendances",
-        component: attendances
+        component: attendances,
       },
+      {
+        //考勤-月份报表
+        path: "report/:month",
+        component: report,
+        meta: {
+          title: "月份报表",
+        },
+      },
+      {
+        //考勤- 历史归档
+        path: "archiving",
+        component: archiving,
+        meta: {
+          title: "历史归档",
+        },
+      },
+      {
+        // 考勤-导入
+        path: "attimport",
+        component: attimport,
+        meta: {
+          title: "导入模块"
+        }
+      },
+      {
+        // 审批- 流程设置
+        path: "security",
+        component: security,
+        meta: {
+          title: "流程设置",
+        },
+      },
+      {
+        // 审批
+        path: "viewSee/:processId",
+        component: viewSee,
+      },
+      // 导入模块
+      {
+        path: "importExcel",
+        component: importExcel
+      },
+
       {
         path: "salarys",
         component: salarys
@@ -80,41 +118,10 @@ const routes = [
         path: "apprmission",
         component: apprmission
       },
-      {
-        // 审批
-        path: "security",
-        component: security,
-        meta: {
-          title: "流程设置",
-        }
-      },
-      {
-        // 审批
-        path: "viewSee/:processId",
-        component: viewSee,
-      },
-      {
-        //考勤
-        path: "report",
-        component: report,
-        meta: {
-          title: "月份报表",
-        },
-      },
-      {
-        //考勤
-        path: "archiving",
-        component: archiving,
-        meta: {
-          title: "历史归档",
 
-        }
-      }
     ]
   },
 ]
-
-
 
 
 const router = new VueRouter({

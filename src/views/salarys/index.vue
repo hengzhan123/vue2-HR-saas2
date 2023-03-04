@@ -9,8 +9,8 @@
         </el-col>
         <el-col :span="4">
           <div class="grid-content bg-purple social_t_r">
-            <router-link to="/layout/setup" class="skip">设置</router-link>
-            <router-link to="/layout/payrollReport" class="skip"
+            <router-link to="/setup" class="skip">设置</router-link>
+            <router-link to="/payrollReport" class="skip"
               >202003月报表</router-link
             >
           </div>
@@ -56,86 +56,88 @@
       </el-row>
     </el-main>
     <el-main class="social-table">
-      <el-table :data="tableData" stripe style="width: 1100px">
-        <el-table-column prop="id" label="序号" width="50"> </el-table-column>
-        <el-table-column prop="name" label="姓名" width="90"> </el-table-column>
-        <el-table-column prop="phone" label="手机" width="180">
+      <el-table stripe style="width: 1100px">
+        <el-table-column type="index" prop="index" label="序号" width="50">
         </el-table-column>
-        <el-table-column prop="jobNo" label="工号" width="100">
+        <el-table-column prop="username" label="姓名" width="90">
         </el-table-column>
-        <el-table-column prop="department" label="聘用形式" width="120">
+        <el-table-column prop="mobile" label="手机" width="180">
         </el-table-column>
-        <el-table-column prop="entryDate" label="部门" width="120">
+        <el-table-column prop="workNumber" label="工号" width="100">
         </el-table-column>
-        <el-table-column prop="leaveDate" label="入职时间" width="120">
+        <el-table-column prop="formOfEmployment" label="聘用形式" width="120">
         </el-table-column>
-        <el-table-column prop="socialCities" label="工资基数" width="150">
+        <el-table-column prop="departmentName" label="部门" width="120">
+        </el-table-column>
+        <el-table-column prop="timeOfEntry" label="入职时间" width="120">
+        </el-table-column>
+        <el-table-column
+          prop="currentBasicSalary+currentPostWage"
+          label="工资基数"
+          width="150"
+        >
         </el-table-column>
         <el-table-column prop="providentCities" label="津贴方案" width="150">
         </el-table-column>
         <el-table-column prop="socialNumber" label="操作" width="180">
-            <el-button type="primary" @click="showFn">调薪 </el-button>
-            <div class="salarybgBox" ref="salaryShow">
-              <div class="salary">
-                <el-row>
-                  <el-col :span="12">
-                    <p>调薪</p>
+          <el-button type="primary" @click="showFn">调薪 </el-button>
+          <div class="salarybgBox" ref="salaryShow">
+            <div class="salary">
+              <el-row>
+                <el-col :span="12">
+                  <p>调薪</p>
+                </el-col>
+                <el-col :span="12">
+                  <i class="el-icon-close" @click="noShowFn"></i>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col class="salary_t">
+                  <el-col :span="3">
+                    <div class="block">
+                      <el-avatar :size="100" :src="circleUrl"></el-avatar>
+                    </div>
                   </el-col>
-                  <el-col :span="12">
-                    <i class="el-icon-close" @click="noShowFn"></i>
+                  <el-col :span="20">
+                    <p>张三</p>
+                    <p>部门:<span>总裁办</span></p>
+                    <p>入职时间:<span>2018-11-02</span></p>
                   </el-col>
-                </el-row>
-                <el-row>
-                  <el-col class="salary_t">
-                    <el-col :span="3">
-                      <div class="block">
-                        <el-avatar :size="100" :src="circleUrl"></el-avatar>
-                      </div>
-                    </el-col>
-                    <el-col :span="20">
-                      <p>张三</p>
-                      <p>部门:<span>总裁办</span></p>
-                      <p>入职时间:<span>2018-11-02</span></p>
-                    </el-col>
+                </el-col>
+                <el-col class="salary_b">
+                  <el-col :span="4">
+                    <p>调整基本工资</p>
+                    <p>调整岗位工资</p>
+                    <p>工资合计</p>
+                    <p>调整幅度</p>
                   </el-col>
-                  <el-col class="salary_b">
-                    <el-col :span="4">
-                      <p>调整基本工资</p>
-                      <p>调整岗位工资</p>
-                      <p>工资合计</p>
-                      <p>调整幅度</p>
-                    </el-col>
-                    <el-col :span="20">
-                      <p>
-                        <el-input placeholder="20" disabled></el-input>
-                        <span>-></span>
-                        <el-input
-                          placeholder="请输入调整后的基本工资"
-                        ></el-input>
-                      </p>
-                      <p>
-                        <el-input placeholder="20" disabled></el-input>
-                        <span>-></span>
-                        <el-input
-                          placeholder="请输入调整后的岗位工资"
-                        ></el-input>
-                      </p>
-                      <p>
-                        <el-input placeholder="40" disabled></el-input>
-                        <span>-></span>
-                        <el-input placeholder="0"></el-input>
-                      </p>
-                      <p>
-                        <el-input placeholder="-40" disabled></el-input>
-                      </p>
-                      <el-button type="primary">保存</el-button>
-                      <el-button type="primary">关闭</el-button>
-                    </el-col>
+                  <el-col :span="20">
+                    <p>
+                      <el-input placeholder="20" disabled></el-input>
+                      <span>-></span>
+                      <el-input placeholder="请输入调整后的基本工资"></el-input>
+                    </p>
+                    <p>
+                      <el-input placeholder="20" disabled></el-input>
+                      <span>-></span>
+                      <el-input placeholder="请输入调整后的岗位工资"></el-input>
+                    </p>
+                    <p>
+                      <el-input placeholder="40" disabled></el-input>
+                      <span>-></span>
+                      <el-input placeholder="0"></el-input>
+                    </p>
+                    <p>
+                      <el-input placeholder="-40" disabled></el-input>
+                    </p>
+                    <el-button type="primary">保存</el-button>
+                    <el-button type="primary">关闭</el-button>
                   </el-col>
-                </el-row>
-              </div>
+                </el-col>
+              </el-row>
             </div>
-            <el-button type="primary" @click="skipFn">查看</el-button>
+          </div>
+          <el-button type="primary" @click="skipFn">查看</el-button>
         </el-table-column>
       </el-table>
       <div class="block">
@@ -156,18 +158,145 @@
 </template>
 
 <script>
+// import { mapGetters } from "vuex";
+import { salarysAPI } from "@/api";
 export default {
   data() {
     return {
       checkList: ["选中且禁用", "复选框 A"],
-      tableData: [
-        {
-          id: 1,
-          name: "cgx",
-          phone: "11111111111",
-          jobNo: 1000,
-        },
-      ],
+      // saList: [
+      //   {
+      //     username: "管理员",
+      //     departmentName: "总裁办",
+      //     timeOfEntry: "2018-11-02T08:00:00.000+0000",
+      //     id: "1063705989926227968",
+      //     mobile: "13800000002",
+      //     workNumber: "9002",
+      //     currentBasicSalary: 123,
+      //     currentPostWage: 456,
+      //     departmentId: "1175310929766055936",
+      //     inServiceStatus: 1,
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     timeOfEntry: "2018-11-04T08:00:00.000+0000",
+      //     currentPostWage: 20,
+      //     workNumber: "111",
+      //     mobile: "13800000003",
+      //     currentBasicSalary: 20,
+      //     id: "1066370498633486336",
+      //     departmentId: "1175311466846683136",
+      //     departmentName: "市场部",
+      //     username: "孙财",
+      //     inServiceStatus: 1,
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     username: "罗晓晓",
+      //     timeOfEntry: "2018-12-02T08:00:00.000+0000",
+      //     currentBasicSalary: 3,
+      //     workNumber: "1111",
+      //     id: "1071632760222810112",
+      //     mobile: "13800000004",
+      //     departmentName: "人事部",
+      //     currentPostWage: 3,
+      //     departmentId: "1175311267684352000",
+      //     inServiceStatus: 1,
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     workNumber: "1001",
+      //     username: "文吉星",
+      //     departmentName: "人事部",
+      //     id: "1074238801330704384",
+      //     currentBasicSalary: 5000,
+      //     departmentId: "1175311267684352000",
+      //     mobile: "13400000001",
+      //     currentPostWage: 5000,
+      //     inServiceStatus: 1,
+      //     timeOfEntry: "2018-01-01T00:00:00.000+0000",
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     workNumber: "1002",
+      //     currentBasicSalary: 100,
+      //     departmentName: "人事部",
+      //     currentPostWage: 100,
+      //     mobile: "13400000002",
+      //     id: "1074238801402007552",
+      //     username: "巴思慧",
+      //     departmentId: "1175311267684352000",
+      //     inServiceStatus: 1,
+      //     timeOfEntry: "2018-01-01T00:00:00.000+0000",
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     departmentName: "总裁办",
+      //     currentBasicSalary: 7,
+      //     id: "1075383133106425856",
+      //     username: "乔海",
+      //     mobile: "13500000001",
+      //     currentPostWage: 7,
+      //     departmentId: "1175310929766055936",
+      //     workNumber: "2001",
+      //     inServiceStatus: 1,
+      //     timeOfEntry: "2018-01-01T00:00:00.000+0000",
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     username: "董昊空",
+      //     departmentName: "总裁办",
+      //     workNumber: "2002",
+      //     currentPostWage: 123,
+      //     mobile: "13500000002",
+      //     id: "1075383135371350016",
+      //     currentBasicSalary: 123,
+      //     departmentId: "1175310929766055936",
+      //     inServiceStatus: 1,
+      //     timeOfEntry: "2018-01-01T00:00:00.000+0000",
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     workNumber: "2003",
+      //     departmentName: "财务部",
+      //     departmentId: "1175311325720936448",
+      //     mobile: "13500000003",
+      //     username: "周乐天",
+      //     id: "1075383135459430400",
+      //     currentPostWage: 10,
+      //     currentBasicSalary: 10,
+      //     inServiceStatus: 1,
+      //     timeOfEntry: "2018-01-01T00:00:00.000+0000",
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     timeOfEntry: "1992-08-04T08:00:00.000+0000",
+      //     id: "1235396724497268736",
+      //     departmentName: "总裁办",
+      //     currentBasicSalary: 8888,
+      //     mobile: "13600000001",
+      //     workNumber: "0001",
+      //     currentPostWage: 8888,
+      //     username: "吕勇锐",
+      //     departmentId: "1175310929766055936",
+      //     inServiceStatus: 1,
+      //     formOfEmployment: 1,
+      //   },
+      //   {
+      //     username: "袁永安",
+      //     mobile: "13600000002",
+      //     workNumber: "0002",
+      //     currentPostWage: null,
+      //     departmentName: "总裁办",
+      //     currentBasicSalary: null,
+      //     id: "1235396819959627776",
+      //     departmentId: "1175310929766055936",
+      //     timeOfEntry: "1993-08-04T08:00:00.000+0000",
+      //     inServiceStatus: 1,
+      //     formOfEmployment: 1,
+      //   },
+      // ],
+        saList:[],
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
@@ -190,10 +319,10 @@ export default {
       });
     },
     // 点击查看按钮跳转路由到员工信息页面
-    skipFn(){
+    skipFn() {
       this.$router.push({
-        path:"/layout/lookup"
-      })
+        path: "/layout/lookup",
+      });
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -201,6 +330,20 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
+    async FFn(){
+      const res = await salarysAPI();
+      console.log(res);
+    }
+  },
+  computed: {
+    // ...mapGetters(["saList"]),
+  },
+   created() {
+    // this.$store.dispatch("salarys/getSaListAll");
+    // const res =  salarysAPI();
+    // this.saList = res.data.rows;
+    // console.log(res);
+   this.FFn()
   },
 };
 </script>
@@ -421,7 +564,7 @@ export default {
                     margin-left: 10px;
                   }
                 }
-                p:not(:first-of-type){
+                p:not(:first-of-type) {
                   font-size: 14px;
                 }
               }

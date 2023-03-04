@@ -1,7 +1,6 @@
 <template>
     <div class="bigbox">
-
-    <el-menu route default-active="1" class="el-menu-vertical-demo"  @close="handleClose"
+    <el-menu  default-active="" class="el-menu-vertical-demo" 
      :collapse="isCollapse" 
      text-color="#fff"  active-text-color="#5485FE" >
       <img src="@/assets/common/logo.png" class="logo" width="90%">
@@ -69,7 +68,7 @@
  
   class="el-menu-demo"
   mode="horizontal"
-  @select="handleSelect"
+
   background-color="#5485FD"
   text-color="#fff"
   active-text-color="#ffd04b">
@@ -92,8 +91,8 @@
    </label>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item @click.native="goIndex">首页</el-dropdown-item>
-    <!-- 注意：此组件点击事件需加 .native 生效 -->
+    <el-dropdown-item @click.native="$router.push('/dashboard')">首页</el-dropdown-item>
+   <!-- 注意：此组件点击事件需加 .native 生效 -->
     <el-dropdown-item   @click.native="loginout">退出登录</el-dropdown-item>
     
   </el-dropdown-menu>
@@ -101,7 +100,9 @@
  </div>
 </div>
 <div id="main">
-        <router-view></router-view>
+        <router-view>
+          <router-view></router-view>
+        </router-view>
     </div>
 </el-menu>
 </div>
@@ -109,7 +110,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
    export default {
     data() {
@@ -122,28 +123,10 @@ import {mapGetters} from 'vuex'
     computed:{
       ...mapGetters(['name'])
     },
-  //  watch:{
-  //   $route(){
-  //     this.titles=this.$route.meta.title
-  //   }
-  //  },
   created(){
 
   },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      goIndex(){
-        this.$router.push('/')
-        console.log(111);
-      },
       // 退出账户
     loginout(){
       this.$confirm('确定退出？','提示',{
@@ -154,14 +137,14 @@ import {mapGetters} from 'vuex'
         await this.$store.dispatch('user/logOutActions')
         this.$router.push('/login')
         // console.log(111);
-      }).catch(()=>{
-        
+      }).catch(() => {
+
       })
-       
-      },
-    
-    }
+
+    },
+
   }
+}
 </script>
 
 <style lang="less" scoped>
@@ -171,36 +154,45 @@ margin-left: 184px;
 transition:all 0.32s linear;
 }
 #main{
+  // position: absolute;
+  // right: 0%;
   width: 100%;
+  margin-left: 184px;
+  transition: all 0.32s linear;
 }
-.ss{
+
+.ss {
   margin-left: 64px;
-  transition:all 0.13s linear;
+  transition: all 0.13s linear;
 }
+
 // 左侧导航菜单选择默认背景颜色
-.el-menu-item.is-active{
+.el-menu-item.is-active {
   background-color: #fff;
 }
-// 左侧导航菜单移上变色
-  li:hover{
- color: #5485FE !important;
-    i{
-      color: #5485FE !important;
-    }
-  }
 
-body{
+// 左侧导航菜单移上变色
+li:hover {
+  color: #5485FE !important;
+
+  i {
+    color: #5485FE !important;
+  }
+}
+
+body {
   margin: 0;
   padding: 0;
 }
-.bigbox{
+
+.bigbox {
   margin: 0;
   padding: 0;
     display: flex;
     width: 100%; 
     height: 100%; 
     .el-menu-demo{
-     
+    //  position: relative;
        width: 100%;
         height: 50px;
         // line-height: 50px;
@@ -208,73 +200,78 @@ body{
       .heads{
       align-items: center;
       display: flex;
-     justify-content: space-between;
-     
-     .head-right{
-     padding:0px 10px;
-      i{
-        display:inline-block;
-        width: 30px;
-         
-      }
-     el-dropdown{
-      padding:0px 0px;
-    
-     }
-     .toggle{
-      // position: absolute;
-      // top:20%;
+      justify-content: space-between;
 
-     }
-      }
-     }
-  //
-    }
-    .el-icon-s-fold{
-     
-      height: 50px;
-    }
-    .title{
-      color: white;
-    }
-    .el-menu-vertical-demo{
-  
-      position: fixed;
-      left: 0;
-      top:0;
-      bottom: 0;
-      // transition:all 0.21s linear;
-     z-index: 11;
-      background-color: rgb(84,133,254);
-      align-items: center;
-      .logo{
-        margin-top: 5px;
+      .head-right {
+        padding: 0px 10px;
+
+        i {
+          display: inline-block;
+          width: 30px;
+
+        }
+
+        el-dropdown {
+          padding: 0px 0px;
+
+        }
       }
     }
+
+    //
+  }
+
+  .el-icon-s-fold {
+
+    height: 50px;
+  }
+
+  .title {
+    color: white;
+  }
+
+  .el-menu-vertical-demo {
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    // transition:all 0.21s linear;
+    z-index: 11;
+    background-color: rgb(84, 133, 254);
+    align-items: center;
+
+    .logo {
+      margin-top: 5px;
+    }
+  }
 }
-.name{
+
+.name {
   display: inline-block;
-  
+
 }
+
 a {
   text-decoration: none;
 }
-i{
-        color: #FFFF;
-      }
 
-      el-icon-menu:first-of-type{
-        background-color: #fff;
-      }
+i {
+  color: #FFFF;
+}
 
-      .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 185px;
-    min-height: 700px;
-  }
- .userImg{
+el-icon-menu:first-of-type {
+  background-color: #fff;
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 185px;
+  min-height: 700px;
+}
+
+.userImg {
   width: 35px;
   margin-right: 5px;
   vertical-align: middle;
- }
-
+}
 </style>

@@ -10,4 +10,5 @@ export * from "./setting"
 
 export * from './departments'
 export * from './employees'
-export * from "./approvals"
+export * from './salarys'     //工资
+export * from './attendances'    //考勤

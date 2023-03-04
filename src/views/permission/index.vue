@@ -99,7 +99,7 @@ import {transTree} from "@/utils/index"
             }, 
             // 删除权限 
           async delFn(did){
-            console.log(did);
+            // console.log(did);
                 await delPermissionAPI(did);
                 this.getPermissionList()
             }    
