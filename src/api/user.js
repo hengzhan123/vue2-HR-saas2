@@ -3,9 +3,9 @@ import request from '@/utils/request'
 /*
   用户登录
  */
-export function loginAPI(data) {
+export function loginAPI(data) { 
   return request({
-    url: '/sys/login',
+    url: 'api/sys/login',
     method: 'post',
     data
   })
@@ -16,7 +16,7 @@ export function loginAPI(data) {
  */
 export function getUserProfileAPI() {
   return request({
-    url: '/sys/profile',
+    url: 'api/sys/profile',
     method: 'post'
   })
 }
@@ -27,4 +27,5 @@ export function getUserDetailById(id) {
     url: `/sys/user/${id}`
   })
 }
+
 

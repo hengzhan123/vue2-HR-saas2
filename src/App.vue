@@ -23,10 +23,10 @@ export default {
 /* .mbox{
   width: 100%;
 } */
+
 </style>
 <style lang="less" scoped>
-*{
-
+#app{
   background-color: #EFF1F4
 }
 

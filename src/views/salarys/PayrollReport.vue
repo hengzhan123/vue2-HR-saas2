@@ -1,6 +1,6 @@
 <template>
   <div class="payrollReport">
-    <!-- 工资报表 -->
+    <!-- 工资--- 月份报表 因接口错误原因写不了功能 -->
     <el-main>
       <el-row>
         <el-col class="header">
@@ -11,18 +11,24 @@
         <el-button type="primary">导出</el-button>
       </el-row>
       <el-row class="table" :span="24">
-        <el-table height="250" border style="height: 284px" cellpadding="0" cellspacing="0" :header-cell-style="{
+        <el-table
+          height="250"
+          border
+          style="height: 284px"
+          cellpadding="0"
+          cellspacing="0"
+          :header-cell-style="{
             height: '35px',
-        }">
+          }"
+        >
           <el-table-column prop="" label="序号" width="50" height="20">
           </el-table-column>
-          <el-table-column prop="" label="姓名" width="120">
-          </el-table-column>
+          <el-table-column prop="" label="姓名" width="120"> </el-table-column>
           <el-table-column prop="" label="手机号" width="120">
           </el-table-column>
-          <el-table-column prop="" label="工号" width="120">
+          <el-table-column prop="" label="工号" width="120"> </el-table-column>
+          <el-table-column prop="" label="部门名称" width="120">
           </el-table-column>
-          <el-table-column prop="" label="部门名称" width="120"> </el-table-column>
           <el-table-column prop="" label="在职状态" width="120">
           </el-table-column>
           <el-table-column prop="" label="公积金个人" width="120">
@@ -63,10 +69,12 @@
 </template>
 
 <script>
+import { reportsAPI } from "@/api/salarys";
 export default {
   data() {
     return {
-     height:0,
+      height: 0,
+      yearMonth: 202003,
     };
   },
 };

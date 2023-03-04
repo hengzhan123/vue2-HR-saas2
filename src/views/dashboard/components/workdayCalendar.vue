@@ -13,7 +13,7 @@
         <!-- 日期 -->
         <el-calendar v-model="newDate">
           <!-- 通过设置名为 dateCell 的 scoped-slot 来自定义日历单元格中显示的内容。在 scoped-slot 可以获取到 date（当前单元格的日期）, data是对象 对象里有要显示的day,data（包括 type，isSelected，day 属性） -->
-          <template slot="dateCell" slot-scope="{date, data}" class="content">
+          <template slot="dateCell"  slot-scope="{date, data}" >
             <div class="date-content">
               <span class="text" :class="data.isSelected ? 'is-selected' : ''" >
               {{ data.day.split('-')[2] | getday}}

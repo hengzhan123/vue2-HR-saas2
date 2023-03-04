@@ -6,6 +6,7 @@ import departments from "@/views/departments";
 import employees from "@/views/employees";
 import setting from "@/views/setting";
 import permission from "@/views/permission";
+import social from "@/views/social";
 import attendances from "@/views/attendances";
 import salarys from "@/views/salarys";
 import apprmission from "@/views/approvals";
@@ -16,25 +17,17 @@ import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
 import myInfo from "@/views/users/info"
 
-
 Vue.use(VueRouter);
 const routes = [
+  // 登录
   {
-    path: "/login",
+    path: '/login',
     component: Login,
   },
   {
-    path: "/404",
-    component: falses,
-  },
-  {
     path: "/",
-    redirect: "/layout",
-  },
-  {
-    path: "/layout",
     component: layout,
-    redirect: "/layout/dashboard",
+    redirect: "/dashboard",
     children: [
       {
         path: "dashboard",
@@ -45,74 +38,65 @@ const routes = [
       },
       {
         path: "departments",
-        component: departments,
+        component: departments
       },
       {
         path: "employees",
-        component: employees,
+        component: employees
+      },
+      {
+        path: "detail",
+        component: detail
       },
       {
         path: "setting",
-        component: setting,
+        component: setting
       },
       {
         path: "permission",
-        component: permission,
+        component: permission
+      },
+      {
+        path: "social",
+        component: social
       },
       {
         path: "attendances",
         component: attendances,
       },
       {
-        path: "salarys",
-        component: salarys,
-      },
-      {
-        path: "apprmission",
-        component: apprmission,
-      },
-
-      {
-        // 审批
-        path: "security",
-        component: security,
-        meta: {
-          title: "流程设置",
-        },
-      },
-
-      {
-        //考勤
-        path: "report",
-        component: report,
-        meta: {
+        //考勤-月份报表
+        path: "report/:month",
+          component: report,
+            meta: {
           title: "月份报表",
-        },
+              },
       },
       {
-        //考勤
+        //考勤- 历史归档
         path: "archiving",
-        component: archiving,
-        meta: {
+          component: archiving,
+            meta: {
           title: "历史归档",
-        },
+              },
       },
-      // 个人信息
-      {
-        path: "myInfo",
-        component:myInfo,
-        name: 'myInfo',
-        meta: {
-          title: '我的信息'
-        }
-      },
-
+            // 个人信息
+            {
+              path: "myInfo",
+              component:myInfo,
+              name: 'myInfo',
+              meta: {
+                title: '我的信息'
+              }
+            },
     ],
   },
+
 ];
+
 
 const router = new VueRouter({
   routes,
-  mode: "history", //上线需要 服务器支持 否则找的是文件夹
+  mode: "history"   //上线需要 服务器支持 否则找的是文件夹
 });
-export default router;
+export default router

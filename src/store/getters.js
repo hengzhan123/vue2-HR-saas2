@@ -6,5 +6,6 @@ const getters = {
   name: state => state.user.userInfo.username, // 返回用户名
   userId: state => state.user.userInfo.userId,
   staffPhoto: state => state.user.userInfo.staffPhoto, // 建立用户头像的映像
+  comanyId: state => state.user.userInfo.companyId,
 }
-export default getters
+export default getters 

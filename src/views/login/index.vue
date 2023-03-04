@@ -61,7 +61,7 @@
       >登录</el-button>
 
       <div class="tips">
-       <a>暂无账户？立即注册</a>
+       <a>账号：1380000000-  密码：123456</a>
       </div>
 
       
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { validMobile } from '@/utils/validate'
+import { validMobile } from '@/utils/validate' 
 import { mapActions } from 'vuex'
 // import { getUserProfileAPI } from '@/api'
 export default {

@@ -11,5 +11,14 @@ export default{
         Vue.component('ThemePicker', ThemePicker)//主题颜色组件
         Vue.component('TagsView',TagsView)//table标签页导航
 
+import UploadExcel from './UploadExcel'
+
+export default {
+    install(Vue) {
+        Vue.component('UploadExcel', UploadExcel)//注册导入excel组件
+  
+
+    }
+}
     }
 }

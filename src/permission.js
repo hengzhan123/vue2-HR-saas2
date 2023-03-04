@@ -5,15 +5,14 @@ import store from './store'
 const whiteList = ['/login', '/404']
 
 // 前置路由守卫
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async(to, from, next) => { 
   // 获取到 token
   const token = store.getters.token
   // 如果存在 token
   if (token) {
     if (to.path === '/login') {
       // 如果存在 token，访问的是登录页面，直接跳转到主页
-      next('/')
-  
+      next('/') 
     } else {
       next()
       // 如果存在 token，访问的是其他页面，直接放行

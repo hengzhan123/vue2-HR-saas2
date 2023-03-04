@@ -1,102 +1,109 @@
 <template>
   <div class="lookupBox">
-    <!-- 工资---查看 -->
-    <el-col class="lookup_left">
-      <el-row class="lookup_l-t">
-        <el-col :span="3">
-          <div class="block">
-            <el-avatar :size="100" :src="circleUrl"></el-avatar>
-          </div>
-        </el-col>
-        <el-col :span="20">
-          <p>周乐天<span>在职</span></p>
-          <p>
-            入职时间: 2018-01-01 最新工资：0<i class="el-icon-question"></i>
-          </p>
-          <p>当月基本工资 / 当月岗位工资: /</p>
-        </el-col>
-      </el-row>
-      <el-row class="lookup_l-c">
-        <h3 class="title">津贴</h3>
-        <el-row class="salarys">
-          <el-col :span="6">
-            <p>津贴类型</p>
-            <p>交通补助</p>
-            <p>午餐补助</p>
-          </el-col>
-          <el-col :span="6"
-            ><p>补贴金额</p>
-            <p>0</p>
-            <p>0</p></el-col
-          >
-          <el-col :span="6"
-            ><p>津贴类型</p>
-            <p>通讯补助</p>
-            <p>住房补助</p></el-col
-          >
-          <el-col :span="6"
-            ><p>补贴金额</p>
-            <p>0</p>
-            <p>0</p></el-col
-          >
-        </el-row>
-      </el-row>
-      <el-row class="lookup_l-c">
-        <h3 class="title">社保公积金</h3>
-        <h3 class="title">企业0</h3>
-        <h3 class="title">个人0</h3>
-        <el-row class="salarys">
-          <el-col :span="6">
-            <p>缴费项目</p>
-            <p>社保</p>
-            <p>公积金</p>
-            <p>缴费合计</p>
-          </el-col>
-          <el-col :span="6">
-            <p>基数</p>
-          </el-col>
-          <el-col :span="6">
-            <p>企业缴纳</p>
-            <p></p>
-            <p></p>
-            <p>0</p>
-          </el-col>
-          <el-col :span="6">
-            <p>个人缴纳</p>
-            <p></p>
-            <p></p>
-            <p>0</p>
-          </el-col>
-        </el-row>
-      </el-row>
-      <el-row class="lookup_l-b">
-        <el-col :span="5">
-          <p>实际出勤天数（正式）：</p>
-          <p>计薪天数（正式）：</p>
-        </el-col>
-        <el-col :span="18">
-          <p><el-input placeholder="0" disabled></el-input></p>
-          <p><el-input placeholder="0" disabled></el-input></p>
-        </el-col>
-      </el-row>
-    </el-col>
-    <el-col class="lookup_right">
+    <!-- 工资---查看 因接口报错原因写不了功能-->
+    <div class="lookup_left">
+      <div class="header_t">
+        <template>
+          <img  alt="" />
+          <ul class="header_r">
+            <li>张三<span>在职</span></li>
+            <li>
+              入职时间: <span>2023-03-02</span> 最新工资：<span>0</span
+              ><span>?</span>
+            </li>
+            <li>
+              当月基本工资 / 当月岗位工资: <span>0</span>&nbsp;/&nbsp;<span
+                >0</span
+              >
+            </li>
+          </ul>
+        </template>
+      </div>
+      <table cellpaceing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th>津贴</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>津贴类型</td>
+            <td>补贴金额</td>
+            <td>津贴类型</td>
+            <td>补贴金颜</td>
+          </tr>
+          <tr>
+            <td>交通补助</td>
+            <td>0</td>
+            <td>通讯补助</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>午餐补助</td>
+            <td>0</td>
+            <td>住房补助</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <table cellpaceing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th>社保公积金</th>
+            <th>企业0</th>
+            <th>个人0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>缴费项目</td>
+            <td>基数</td>
+            <td>企业缴纳</td>
+            <td>个人缴纳</td>
+          </tr>
+          <tr>
+            <td>社保</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>公积金</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>缴费合计</td>
+            <td></td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        实际出勤天数（正式）：<input type="text" placeholder="0" disabled />
+      </p>
+      <p>计薪天数（正式）：<input type="text" placeholder="0" disabled /></p>
+    </div>
+    <div class="lookup_right">
       <el-row> 招聘日程 </el-row>
       <el-timeline :reverse="reverse">
         <el-timeline-item
           v-for="(activity, index) in activities"
           :key="index"
           :timestamp="activity.timestamp"
-        >         
+        >
           {{ activity.content2 }}
           <h4>{{ activity.content }}</h4>
         </el-timeline-item>
       </el-timeline>
-    </el-col>
+    </div>
   </div>
 </template>
 
 <script>
+import { lookOverAPI, userSalarysAPI } from "@/api/salarys";
 export default {
   data() {
     return {
@@ -115,7 +122,13 @@ export default {
           timestamp: "2018-04-13",
         },
       ],
+      loList: [],
     };
+  },
+  async created() {
+    const res = await userSalarysAPI({ id: this.$route.query.id });
+    this.loList = res.data.rows;
+    console.log(res.data.rows);
   },
 };
 </script>
@@ -128,161 +141,153 @@ export default {
   text-decoration: none;
   .lookupBox {
     width: 98%;
-    margin: 0 auto;
+    margin: 20px auto;
     .lookup_left {
-      width: 77%;
+      float: left;
+      width: 71%;
       padding: 20px;
       background: white;
       box-shadow: 0px 0px 10px rgb(177, 177, 177);
-      .lookup_l-t {
-        margin-bottom: 20px;
-        .el-col:first-of-type {
+      .header_t {
+        overflow: hidden;
+        img {
+          float: left;
           width: 100px;
           height: 100px;
-          .block {
-            margin: 0 auto;
-            margin-right: 56px;
-          }
+          margin-right: 10px;
         }
-        .el-col:last-of-type {
-          text-align: left;
-          padding-left: 30px;
-          p {
-            font-size: 14px;
-            color: #555;
+        .header_r {
+          float: left;
+          li {
             line-height: 25px;
+            font-size: 12px;
+            color: #555;
+          }
+          li:first-of-type {
+            font-size: 14px;
+            font-weight: bold;
             span {
               display: inline-block;
-              height: 22px;
               width: 44px;
-              background: #67c23a;
-              color: white;
-              margin-left: 15px;
-              border-radius: 3px;
+              height: 22px;
               line-height: 22px;
               text-align: center;
+              color: white;
+              background: rgb(255, 98, 99);
+              border-radius: 3px;
               font-size: 12px;
-            }
-            .el-icon-question {
-              color: #ababab;
-              margin-left: 10px;
-              font-size: 16px;
-              line-height: 25px;
+              font-weight: none;
+              margin-left: 5px;
             }
           }
-          p:first-of-type {
+          li:nth-of-type(2) {
+            span:last-of-type {
+              display: inline-block;
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              line-height: 14px;
+              border: 1px solid #555;
+              font-size: 14px;
+              text-align: center;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid red;
+        text-align: center;
+        font-size: 14px;
+        border: none;
+        tr {
+          height: 30px;
+          line-height: 30px;
+          td {
             color: #555;
-            font-size: 14px;
+          }
+        }
+        tr:first-of-type {
+          td {
+            padding-top: 20px;
             font-weight: bold;
           }
         }
-      }
-      .lookup_l-c {
-        .title {
-          font-size: 14px;
-          font-weight: bold;
-          height: 40px;
-          line-height: 40px;
-          color: #555;
+        tr:last-of-type {
+          td {
+            padding-bottom: 20px;
+          }
         }
-        .salarys {
-          padding: 15px 0;
-          width: 100%;
+        thead {
+          th {
+            text-align: left;
+            line-height: 40px;
+            color: black;
+          }
+        }
+        tbody {
           background: rgb(249, 249, 249);
-          .el-col {
-            text-align: center;
-            p {
-              font-size: 14px;
-              color: #666;
-              height: 30px;
-              line-height: 30px;
-            }
-            p:first-of-type {
-              font-size: 14px;
-              font-weight: bold;
-              height: 40px;
-              line-height: 40px;
-              color: #555;
-            }
-          }
         }
       }
-      .lookup_l-c:last-of-type {
-        h3 {
-          height: 40px;
-          line-height: 40px;
-          color: #555;
-          float: left;
-        }
-        h3:not(:first-of-type) {
-          color: #555;
-          font-weight: normal;
-          padding: 0 80px;
-        }
-        .salarys {
-          clear: left;
-        }
+      table:first-of-type {
+        margin-top: 20px;
       }
-      .lookup_l-b {
-        .el-col:first-of-type {
-          p {
-            font-size: 14px;
-            color: #606266;
-          }
-        }
-        .el-col:last-of-type {
-          p {
-            .el-input {
-              width: 240px;
-              height: 36px;
-            }
-          }
+      p {
+        color: #555;
+        font-size: 14px;
+        input {
+          width: 240px;
+          height: 34px;
+          text-indent: 1em;
         }
       }
     }
-    .lookup_right {
-      height: 710px;
-      width: 22%;
-      float: right;
-      background: white;
-      padding: 0 15px;
-      box-shadow: 0px 0px 10px rgb(177, 177, 177);
-      .el-row:first-of-type {
-        color: #555;
-        font-size: 14px;
-        border-bottom: 1px solid #ccc;
-        font-weight: bold;
-        line-height: 40px;
-      }
-      .el-timeline {
-        margin-top: 30px;
-        padding-left: 110px;
-        .el-timeline-item {
-          width: 100%;
-          margin: 0 auto;
-          text-align: center;
-          /deep/ .el-timeline-item__tail {
-            background: #555;
-            left:10px;
-          }
-          /deep/ .el-timeline-item__node {
-            width: 7px;
-            height: 7px;
-            background-color: white;
-            border: 2px solid #44b549;
-            left: 6px;
-          }
-          /deep/ .el-timeline-item__wrapper {
-            width: 200px;
-            right: 170px;
-            position: relative;
+  }
+  .lookup_right {
+    float: right;
+    height: 710px;
+    width: 22%;
+    float: right;
+    background: white;
+    padding: 0 15px;
+    box-shadow: 0px 0px 10px rgb(177, 177, 177);
+    .el-row:first-of-type {
+      color: #555;
+      font-size: 14px;
+      border-bottom: 1px solid #ccc;
+      font-weight: bold;
+      line-height: 40px;
+    }
+    .el-timeline {
+      margin-top: 30px;
+      padding-left: 110px;
+      .el-timeline-item {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        /deep/ .el-timeline-item__tail {
+          background: #555;
+          left: 10px;
+        }
+        /deep/ .el-timeline-item__node {
+          width: 7px;
+          height: 7px;
+          background-color: white;
+          border: 2px solid #44b549;
+          left: 6px;
+        }
+        /deep/ .el-timeline-item__wrapper {
+          width: 200px;
+          right: 170px;
+          position: relative;
+          color: #555;
+          h4 {
             color: #555;
-            h4{
-                color: #555;
-                position: absolute;
-                top: -10px;
-                right: 0px;
-            }
+            position: absolute;
+            top: -10px;
+            right: 0px;
           }
         }
       }

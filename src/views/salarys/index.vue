@@ -1,5 +1,6 @@
 <template>
   <div class="reportForms">
+    <!-- 工资---首页 -->
     <el-main>
       <el-row class="social_top">
         <el-col :span="20">
@@ -9,11 +10,11 @@
         </el-col>
         <el-col :span="4">
           <div class="grid-content bg-purple social_t_r">
-            <router-link to="/layout/setup" class="skip">设置</router-link>
-            <router-link to="/layout/payrollReport" class="skip"
+            <router-link to="/setup" class="skip">设置</router-link>
+            <!-- <router-link to="/payrollReport" class="skip"
               >202003月报表</router-link
-            >
-          </div>
+            > -->
+          </div> 
         </el-col>
       </el-row>
       <el-row class="center">
@@ -32,50 +33,141 @@
         <el-col> </el-col>
         <el-col>
           <div class="grid-content bg-purple">部门:</div>
-          <el-checkbox-group v-model="checkList" class="checkBox">
-            <el-checkbox label="总裁办"></el-checkbox>
-            <el-checkbox label="行政部"></el-checkbox>
-            <el-checkbox label="人事部"></el-checkbox>
-            <el-checkbox label="财务部"></el-checkbox>
-            <el-checkbox label="技术部"></el-checkbox>
-            <el-checkbox label="运营部"></el-checkbox>
-            <el-checkbox label="市场部"></el-checkbox>
-            <el-checkbox label="财务核算部"></el-checkbox>
-            <el-checkbox label="税务管理部"></el-checkbox>
-            <el-checkbox label="薪资管理部"></el-checkbox>
-            <el-checkbox label="Java研发部"></el-checkbox>
-            <el-checkbox label="Python研发部"></el-checkbox>
-            <el-checkbox label="Php研发部"></el-checkbox>
-            <el-checkbox label="北京事业部"></el-checkbox>
-            <el-checkbox label="上海事业部"></el-checkbox>
-            <el-checkbox label="天天-天天"></el-checkbox>
-            <el-checkbox label="iu微软尤为引人"></el-checkbox>
-            <el-checkbox label="点点滴滴的的"></el-checkbox>
+          <el-checkbox-group
+            v-model="checkList"
+            class="checkBox"
+            v-for="obj in deList"
+            :key="obj.id"
+            @change="fn"
+          >
+            <el-checkbox :label="obj.name"></el-checkbox>
           </el-checkbox-group>
         </el-col>
       </el-row>
     </el-main>
     <el-main class="social-table">
-      <el-table :data="tableData" stripe style="width: 1100px">
-        <el-table-column prop="id" label="序号" width="50"> </el-table-column>
-        <el-table-column prop="name" label="姓名" width="90"> </el-table-column>
-        <el-table-column prop="phone" label="手机" width="180">
+      <el-table
+        :data="
+          saList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+        "
+        stripe
+        style="width: 1100px"
+      >
+        <el-table-column type="index" prop="index" label="序号" width="50">
         </el-table-column>
-        <el-table-column prop="jobNo" label="工号" width="100">
+        <el-table-column prop="username" label="姓名" width="90">
         </el-table-column>
-        <el-table-column prop="department" label="聘用形式" width="120">
+        <el-table-column prop="mobile" label="手机" width="180">
         </el-table-column>
-        <el-table-column prop="entryDate" label="部门" width="120">
+        <el-table-column prop="workNumber" label="工号" width="100">
         </el-table-column>
-        <el-table-column prop="leaveDate" label="入职时间" width="120">
+        <el-table-column prop="formOfEmployment" label="聘用形式" width="120">
+          <template slot-scope="scope">
+            {{ scope.row.formOfEmployment == 1 ? "正式" : "未知" }}
+          </template>
         </el-table-column>
-        <el-table-column prop="socialCities" label="工资基数" width="150">
+        <el-table-column prop="departmentName" label="部门" width="120">
         </el-table-column>
-        <el-table-column prop="providentCities" label="津贴方案" width="150">
+        <el-table-column
+          prop="timeOfEntry"
+          label="入职时间"
+          width="120"
+          :formatter="formatTime"
+        >
+        </el-table-column>
+        <el-table-column prop="currentBasicSalary" label="工资基数" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.currentBasicSalary + scope.row.currentPostWage }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="inServiceStatus" label="津贴方案" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.inServiceStatus == 1 ? "通用方案" : "通用方案" }}
+          </template>
         </el-table-column>
         <el-table-column prop="socialNumber" label="操作" width="180">
-            <el-button type="primary" @click="showFn">调薪 </el-button>
+          <template v-slot="{ row }">
+            <el-button
+              type="primary"
+              prop="departmentId"
+              @click="showFn(row.id)"
+              >定薪
+            </el-button>
             <div class="salarybgBox" ref="salaryShow">
+              <div class="salary">
+                <el-row>
+                  <el-col :span="12">
+                    <p>定薪</p>
+                  </el-col>
+                  <el-col :span="12">
+                    <i class="el-icon-close" @click="noShowFn"></i>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col class="salary_b">
+                    <el-col :span="4">
+                      <p>当前基本工资</p>
+                      <p>当前岗位工资</p>
+                      <p>当前工资合计</p>
+                      <p>转正基本工资</p>
+                      <p>转正岗位工资</p>
+                      <p>转正工资合计</p>
+                    </el-col>
+                    <el-col :span="20">
+                      <p>
+                        <el-input
+                          placeholder="当前基本工资"
+                          v-model="value1"
+                          @input="getSumOne"
+                        ></el-input>
+                      </p>
+                      <p>
+                        <el-input
+                          placeholder="当前岗位工资"
+                          v-model="value2"
+                          @input="getSumOne"
+                        ></el-input>
+                      </p>
+                      <p>
+                        <el-input
+                          placeholder=""
+                          disabled
+                          v-model="sum1"
+                        ></el-input>
+                      </p>
+                      <p>
+                        <el-input
+                          placeholder="转正基本工资"
+                          v-model="value3"
+                          @input="getSumTwo"
+                        ></el-input>
+                      </p>
+                      <p>
+                        <el-input
+                          placeholder="转正岗位工资"
+                          v-model="value4"
+                          @input="getSumTwo"
+                        ></el-input>
+                      </p>
+                      <p>
+                        <el-input
+                          placeholder=""
+                          disabled
+                          v-model="sum2"
+                        ></el-input>
+                      </p>
+                      <el-button type="primary" @click="getFn(row.id)"
+                        >保存</el-button
+                      >
+                      <el-button type="primary" @click="noShowFn"
+                        >关闭</el-button
+                      >
+                    </el-col>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+            <!-- <div class="salarybgBox" ref="salaryShow">
               <div class="salary">
                 <el-row>
                   <el-col :span="12">
@@ -134,19 +226,20 @@
                   </el-col>
                 </el-row>
               </div>
-            </div>
-            <el-button type="primary" @click="skipFn">查看</el-button>
+            </div> -->
+            <!-- <el-button type="primary" @click="skipFn(row.id)">查看</el-button> -->
+          </template>
         </el-table-column>
       </el-table>
       <div class="block">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
-          :total="400"
-          layout="sizes, prev, pager, next, jumper"
+          :current-page="currentPage"
+          :page-sizes="[10, 20, 30]"
+          :page-size="pageSize"
+          :total="saList.length"
+          layout="total,sizes, prev, pager, next, jumper"
           background
         >
         </el-pagination>
@@ -156,32 +249,59 @@
 </template>
 
 <script>
+import {
+  salarysAPI,
+  salarysInitAPI,
+  departmentAPI,
+  lookAPI,
+} from "@/api/salarys";
 export default {
   data() {
     return {
+      value1: "",
+      value2: "",
+      value3: "",
+      value4: "",
+      sum1: "",
+      sum2: "",
       checkList: ["选中且禁用", "复选框 A"],
-      tableData: [
-        {
-          id: 1,
-          name: "cgx",
-          phone: "11111111111",
-          jobNo: 1000,
-        },
-      ],
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      saList: [],
+      pageSize: 10, //每页的数据条数
+      currentPage: 1, //当前页码
+      total: 25, //总条数
       circleUrl:
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      deList: [],
     };
   },
   methods: {
-    // 点击调薪/定薪弹出弹框
-    showFn() {
+    // 点击调薪/定薪弹出弹框 并获取id对应数据
+    async showFn() {
       this.$nextTick(() => {
         this.$refs.salaryShow.style.display = "block";
       });
+    },
+    // 定薪
+    async getFn(id) {
+      console.log(id);
+      const res = await salarysInitAPI({
+        userId: id,
+        currentBasicSalary: this.value1,
+        currentPostWage: this.value2,
+        correctionOfBasicWages: this.value3,
+        turnToPostWages: this.value4,
+      });
+      console.log(res);
+      // 定薪成功提示弹框
+      if ((res.code = 10000 && (res.message = "操作成功！"))) {
+        this.$message({
+          message: "保存成功",
+          type: "success",
+        });
+        this.$nextTick(() => {
+          this.$refs.salaryShow.style.display = "none";
+        });
+      }
     },
     // 点击调薪/定薪弹框右上角x取消弹框
     noShowFn() {
@@ -189,18 +309,61 @@ export default {
         this.$refs.salaryShow.style.display = "none";
       });
     },
-    // 点击查看按钮跳转路由到员工信息页面
-    skipFn(){
-      this.$router.push({
-        path:"/layout/lookup"
-      })
+    //统计薪资
+    getSumOne() {
+      this.sum1 = Number(this.value1) + Number(this.value2);
     },
+    getSumTwo() {
+      this.sum2 = Number(this.value3) + Number(this.value4);
+    },
+    // 点击查看按钮跳转路由到员工信息页面
+    async skipFn(id) {
+      this.$router.push({
+        path: "/lookup",
+        query: {
+          id: id,
+        },
+      });
+    },
+    // 日期格式转换
+    formatTime(row, column) {
+      let data = row[column.property];
+      let dtime = new Date(data);
+      const year = dtime.getFullYear();
+      let month = dtime.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = dtime.getDate();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      return year + "-" + month + "-" + day + " ";
+    },
+    // 分页功能
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
     },
+    // async fn(e) {
+      
+    // },
+  },
+  async mounted () {
+    // 获取工资列表
+    const res = await salarysAPI({
+      page: 1,
+      pageSize: 28,
+    });
+    this.saList = res.data.rows;
+    // 获取工资部门列表
+    const res2 = await departmentAPI({});
+    this.deList = res2.data.depts;
   },
 };
 </script>
@@ -273,6 +436,7 @@ export default {
               border: 1px solid green;
               width: 86%;
               line-height: 35px;
+              display: flex;
               .el-checkbox {
                 margin-right: 5px;
                 height: 30px;
@@ -314,11 +478,16 @@ export default {
             line-height: 28px;
           }
           .checkBox {
-            width: 86%;
+            width: 100px;
             line-height: 35px;
-            .el-checkbox {
-              margin-right: 5px;
-              height: 30px;
+            .el-checkbox-group {
+              border: 1px solid red;
+              width: 100px !important;
+              .el-checkbox {
+                margin-right: 5px;
+                height: 30px;
+                width: 100px !important;
+              }
             }
           }
           .checkText {
@@ -350,6 +519,15 @@ export default {
       background: white;
       border-radius: 3px;
       box-shadow: 0px 0px 10px rgb(177, 177, 177);
+      /deep/ th {
+        padding: 0;
+        height: 44px;
+      }
+
+      /deep/ td {
+        padding: 0;
+        height: 49px;
+      }
       .el-table-column:last-of-type {
         font-size: 12px;
         border-radius: 3px;
@@ -360,6 +538,9 @@ export default {
         line-height: 30px;
         font-size: 12px;
         border-radius: 3px;
+        background: #66b1ff !important;
+        color: white !important;
+        border: none !important;
       }
       .salarybgBox {
         display: none;
@@ -371,8 +552,8 @@ export default {
         background-color: rgba(0, 0, 0, 0.4);
         z-index: 99;
         .salary {
-          width: 676px;
-          height: 568px;
+          width: 666px;
+          height: 515px;
           position: fixed;
           left: 50%;
           top: 90px;
@@ -393,7 +574,7 @@ export default {
             }
           }
           .el-row:last-of-type {
-            padding: 30px 20px;
+            padding: 30px 5px;
             .salary_t {
               color: black;
               height: 100px;
@@ -421,7 +602,7 @@ export default {
                     margin-left: 10px;
                   }
                 }
-                p:not(:first-of-type){
+                p:not(:first-of-type) {
                   font-size: 14px;
                 }
               }
@@ -441,8 +622,9 @@ export default {
                 p {
                   line-height: 56px;
                   .el-input {
-                    width: 220px;
+                    width: 300px;
                     height: 36px;
+                    margin-left: 25px;
                   }
                   span {
                     font-size: 14px;
@@ -454,10 +636,10 @@ export default {
                   width: 70px;
                   height: 36px;
                   line-height: 36px;
-                  margin-top: 50px;
+                  margin-top: 10px;
                 }
                 .el-button:first-of-type {
-                  margin-left: 200px;
+                  margin-left: 30px;
                 }
               }
             }
@@ -468,8 +650,18 @@ export default {
         background: white;
         border: 1px solid #ccc;
         color: black;
-        margin-left: 10px;
+        // margin-left: 10px;
       }
+    }
+    .el-table__header tr,
+    .el-table__header th {
+      padding: 0;
+      height: 44px;
+    }
+    .el-table__body tr,
+    .el-table__body td {
+      padding: 0;
+      height: 49px;
     }
     .block {
       width: 43%;

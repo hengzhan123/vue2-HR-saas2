@@ -1,17 +1,17 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { loginAPI, getUserProfileAPI,getUserDetailById } from '@/api/user'
 
-const getDefaultState = () => {
+const getDefaultState = () => { 
   return {
     token: getToken(), // 用户 Token，默认去本地取
     userInfo: {}
   }
 }
-const state = getDefaultState()
+const state = getDefaultState() 
 
 const mutations = {
   RESET_STATE: (state) => {
-    Object.assign(state, getDefaultState())
+    Object.assign(state, getDefaultState()) 
   },
   // 设置token
   SET_TOKEN(state, token) {
@@ -36,14 +36,14 @@ const mutations = {
 
 const actions = {
   // 登录逻辑-封装
-  async loginActions(context,data) {
+  async loginActions(context, data) {
     // 调用api接口
-    const result=await loginAPI(data)  //拿到token
+    const result = await loginAPI(data)  //拿到token
     // console.log(result);
     // axios里有一层data                
     // if(result.data.success){
-      // 为true ，则登录成功
-      context.commit("SET_TOKEN",result.data)   //设置token
+    // 为true ，则登录成功
+    context.commit("SET_TOKEN", result.data)   //设置token
     // }
     // try {
     //   const res = await loginAPI(value)
@@ -60,7 +60,7 @@ const actions = {
   async getUserInfoActions(context){
     // // 获取用户资料
     // // const result=await getUserProfileAPI()  //提交到mutations
-    //     // console.log(result);
+    //     // // console.log(result);
         // console.log(result.data.userId,111);
     const {data:userObj }=await getUserProfileAPI()  //提交到mutations
     localStorage.setItem("userId",userObj.userId)
@@ -80,7 +80,7 @@ const actions = {
     // const baseResult = {...result,...baseInfo}//将两个接口合并
     // context.commit('SET_USER',baseResult)//提交mutations
     // return baseResult //这里为什么要返回 为后面埋下伏笔
-    
+
   //   const result = await getUserProfileAPI()
   //   // 获取用户的详情 用户的详情数据
   //   const baseInfo = await getUserDetailById(result.userId)

@@ -5,14 +5,19 @@ import settings from './modules/settings'
 import user from './modules/user'
 import tagsView from './modules/tagsView';
 
+import social from './modules/social'
+import salarys from './modules/salarys'  
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     app,
-    settings,
+    settings, 
     user,
-    tagsView
+    tagsView,
+    social,
+    salarys
   },
   getters
 })
