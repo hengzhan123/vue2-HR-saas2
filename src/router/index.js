@@ -13,6 +13,11 @@ import salarys from "@/views/salarys"
 import apprmission from "@/views/approvals"
 import Login from "@/views/login"
 import falses from "@/views/404"
+import security from "@/views/approvals/security";
+import report from "@/views/attendances/report";
+import archiving from "@/views/attendances/historical";
+import attimport from "@/views/attendances/components/att-import.vue"
+import importExcel  from "@/views/import"
 import historical from "@/views/social/Historical"
 import reportforms from "@/views/social/ReportForms"
 import setup from "@/views/salarys/SetUp"
@@ -20,137 +25,118 @@ import payrollreport from "@/views/salarys/PayrollReport"
 import lookup from "@/views/salarys/LookUp"
 import details from "@/views/social/Details"
 Vue.use(VueRouter)
-const routes=[
-    {
-        path:'/login',
-        component:Login,
+const routes = [
+  // 登录
+  {
+    path: '/login',
+    component: Login,
+  },
+  {
+    path: "/",
+    component: layout,
+    redirect: "/dashboard",
+    children: [
+      {
+        path: "dashboard",
+        component: dashboard,
+        // meta:{
+        //     title:"首页"
+        //  }
+      },
+      {
+        path: "departments",
+        component: departments
+      },
+      {
+        path: "employees",
+        component: employees
+      },
+      {
+        path: "detail",
+        component: detail
+      },
+      {
+        path: "setting",
+        component: setting
+      },
+      {
+        path: "permission",
+        component: permission
+      },
+      {
+        path: "social",
+        component: social
+      },
+      {
+        path: "attendances",
+        component: attendances,
+      },
+      {
+        //考勤-月份报表
+        path: "report/:month",
+          component: report,
+            meta: {
+          title: "月份报表",
+              },
+      },
+      {
+        //考勤- 历史归档
+        path: "archiving",
+          component: archiving,
+            meta: {
+          title: "历史归档",
+              },
+      },
+      {
+        // 考勤-导入
+        path:"attimport",
+        component:attimport,
+        meta:{
+          title:"导入模块"
+        }
+      },
+       {
+            // 审批- 流程设置
+            path: "security",
+              component: security,
+                meta: {
+              title: "流程设置",
+                  },
+          },
+          // 导入模块
+      {
+        path: "importExcel",
+        component: importExcel
+      },
+          
+      {
+        path: "salarys",
+        component: salarys
+      },
+      {
+        path: "apprmission",
+        component: apprmission
+      },
+      {
+        path:"historical",
+        component:historical
     },
-   
     {
-        path:"/",
-        component:layout,
-        redirect:"/dashboard",
-        children:[
-            {
-                path:"dashboard",
-                component:dashboard,
-                // meta:{
-                //     title:"首页"
-                //  }
-            },
-            {
-                path:"departments",
-                component:departments
-            },
-            {
-                path:"employees",
-                component:employees
-            },
-            {
-                path:"setting",
-                component:setting
-            },
-            {
-                path:"permission",
-                component:permission
-            },
-            {
-                path:"social",
-                component:social
-            },
-            {
-              path:"historical",
-              component:historical
-          },
-          {
-              path: "reportforms",
-              component: reportforms
-          },
-          {
-              path: "details",
-              component: details
-          },
-            {
-                path:"attendances",
-                component:attendances
-            },
-            {
-                path:"salarys",
-                component:salarys
-            },
-            {
-              path: "setup",
-              component: setup
-          },
-          {
-              path: "payrollreport",
-              component: payrollreport
-          },
-          {
-              path: "lookup",
-              component: lookup
-          },
-            {
-                path:"apprmission",
-                component:apprmission
-            },
-
-        ]
+        path: "reportforms",
+        component: reportforms
     },
     {
-        path:"/404",
-        component:falses
-    }
-]
+        path: "details",
+        component: details
+    },
+    ]
+  },
 
-// const whiteList = ['/login','/404'] // 白名单
+];
 
-// router.beforeEach(async(to, from, next) => {
-//   // start progress bar
-//   NProgress.start()
 
-//   // set page title
-//   document.title = getPageTitle(to.meta.title)
-
-//   // determine whether the user has logged in
-//   const hasToken = getToken()
-
-//   if (store.getters.token) {
-//     if (to.path === '/login') {
-//       // 如果当前为登录页，跳转首页
-//       next('/')
-     
-//     } else {
-  
-//       if (!store.getters.userId) {
-
-//           // get user info
-//           await store.dispatch('user/getUserInfo')
-//       }
-//           next()
-//     }
-  
-//   } else {
-//     /* has no token*/
-
-//     if (whiteList.indexOf(to.path) > -1) {
-//       // in the free login whitelist, go directly
-//       next()
-//     } else {
-//       // other pages that do not have permission to access are redirected to the login page.
-//       next("/login")
-//       NProgress.done()
-//     }
-//   }
-// })
-
-// router.afterEach(() => {
-//   // finish progress bar
-//   NProgress.done()
-// })
-
-const router=new VueRouter({
-    routes,
-    mode:"history"   //上线需要 服务器支持 否则找的是文件夹
-  });
+const router = new VueRouter({
+  routes,
+  mode: "history"   //上线需要 服务器支持 否则找的是文件夹
+});
 export default router

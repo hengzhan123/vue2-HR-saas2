@@ -108,7 +108,7 @@
   </template>
   <script>
   import{assignPremAPI,PermissionsAPI,getUserProfileAPI,listRolesAPI,InquireEnterpriseAPI,addRolesAPI,RoledetailsAPI,updateRoleAPI,DeleteRoleAPI}from"@/api"
-  import{tranListToTreeData} from "@/utils"
+  import{transTree} from "@/utils"
   import AssignPermission from "./assignPermission.vue" 
   export default {
   components: { AssignPermission },
@@ -228,8 +228,7 @@
             },
             async PermissionsFn(){
               const res= await PermissionsAPI()
-              console.log(res)
-              this.PermissionsList= tranListToTreeData(res.data,'0')
+              this.PermissionsList= transTree(res.data,'0')
               
             }, 
             perDialogCloseFn(){

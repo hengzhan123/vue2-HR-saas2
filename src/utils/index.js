@@ -136,23 +136,15 @@ export function transTree(list, rootValue) { // list: 整个数组, rootValue本
   return treeData // 遍历结束, rootValue的id对应下属们收集成功, 返回给上一次递归调用children, 加到父级对象的children属性下
 }
 
-/** *
- *
- *  将列表型的数据转化成树形数据 => 递归算法 => 自身调用自身 => 一定条件不能一样， 否则就会死循环
- *  遍历树形 有一个重点 要先找一个头儿
- * ***/
-export function tranListToTreeData(list, rootValue) {
-  var arr = []
-  list.forEach(item => {
-    if (item.pid === rootValue) {
-      // 找到之后 就要去找 item 下面有没有子节点
-      const children = tranListToTreeData(list, item.id)
-      if (children.length) {
-        // 如果children的长度大于0 说明找到了子节点
-        item.children = children
-      }
-      arr.push(item) // 将内容加入到数组中
-    }
-  })
-  return arr
+export function dateFormat(date, format = "YYYY-MM-DD") {
+  var date = new Date(date)
+  const config = {
+    YYYY: date.getFullYear(),
+    MM: date.getMonth(),
+    DD: date.getDate(),
+  };
+  for (const key in config) {
+    format = format.replace(key, config[key])
+  }
+  return format;
 }
