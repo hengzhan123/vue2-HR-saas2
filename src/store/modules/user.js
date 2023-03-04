@@ -3,7 +3,7 @@ import { loginAPI, getUserProfileAPI } from '@/api'
 
 const getDefaultState = () => { 
   return {
-    token: getToken(), // 用户 Token，默认  为 ''
+    token: getToken(), // 用户 Token，默认去本地取
     userInfo: {}
   }
 }
@@ -16,7 +16,7 @@ const mutations = {
   // 设置token
   SET_TOKEN(state, token) {
     state.token = token
-    // 同步缓存
+    // 同步缓存本地
     setToken(token)
   },
   // 删除token
@@ -36,14 +36,14 @@ const mutations = {
 
 const actions = {
   // 登录逻辑-封装
-  async loginActions(context,data) {
+  async loginActions(context, data) {
     // 调用api接口
-    const result=await loginAPI(data)  //拿到token
+    const result = await loginAPI(data)  //拿到token
     // console.log(result);
     // axios里有一层data                
     // if(result.data.success){
-      // 为true ，则登录成功
-      context.commit("SET_TOKEN",result.data)   //设置token
+    // 为true ，则登录成功
+    context.commit("SET_TOKEN", result.data)   //设置token
     // }
     // try {
     //   const res = await loginAPI(value)
@@ -59,8 +59,10 @@ const actions = {
   // 获取用户-信息
   async getUserInfoActions(context){
     const result=await getUserProfileAPI()  //提交到mutations
-    context.commit('SET_USER',result)
+    // console.log(result);
+    context.commit('SET_USER',result.data)
     return result
+
   },
   // 复杂写法
   // async getUserInfoActions({ commit }) {

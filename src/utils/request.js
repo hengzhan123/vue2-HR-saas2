@@ -34,11 +34,10 @@ service.interceptors.response.use(
   },
   error => {
     Message.error(error.response.data.message)  //提示错误信息
-    // if (error.response && error.response.data && error.response.data.code === 10002) {
-    //   store.commit('user/REMOVE_TOKEN')
-    //   store.commit('user/RESET_STATE')
-    //   router.replace(`/login?redirect=${encodeURIComponent(router.currentRoute.fullPath)}`)
-    // }
+    if (error.response && error.response.data && error.response.data.code === 10002) {
+      store.dispatch('user/logOutActions')
+      router.replace('/login')
+    }
     return Promise.reject(error)
   }
 )

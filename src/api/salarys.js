@@ -78,3 +78,11 @@ export function reportsAPI(params) {
     params
   })
 }
+
+export function getSettingsAPI(id) {
+  return request({
+    url: `/salarys/modify/${id}`,
+    method: 'post',
+    // data
+  }) 
+}
