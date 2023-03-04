@@ -25,14 +25,11 @@ const routes=[
         path:'/login',
         component:Login,
     },
+   
     {
-        path:'/',
-        redirect:'/layout' 
-    },
-    {
-        path:"/layout",
+        path:"/",
         component:layout,
-        redirect:"/layout/dashboard",
+        redirect:"/dashboard",
         children:[
             {
                 path:"dashboard",
