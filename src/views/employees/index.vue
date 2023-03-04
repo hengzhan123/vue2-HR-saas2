@@ -15,28 +15,28 @@
                             class="el-icon-plus"></i>新增员工</el-button>
                 </template>
             </page-tools>
-            <el-card style="margin-top: 10px;width: 91%;">
+            <el-card style="margin-top: 10px;width: 100%;">
                 <el-table :data="employeesList" style="width: 100%;" border size="medium">
-                    <el-table-column type="index" label="序号" width="160" />
-                    <el-table-column prop="username" label="姓名" sortable width="150" />
-                    <el-table-column prop="staffPhoto" label="头像" width="150"></el-table-column>
-                    <el-table-column prop="mobile" label="手机号" sortable width="150" />
-                    <el-table-column prop="workNumber" label="工号" sortable width="150" :sort-method="workNumberSortFn" />
-                    <el-table-column prop="formOfEmployment" label="聘用形式" sortable width="160">
+                    <el-table-column type="index" label="序号" width="70" />
+                    <el-table-column prop="username" label="姓名" sortable width="110" />
+                    <el-table-column prop="staffPhoto" label="头像" width="140"></el-table-column>
+                    <el-table-column prop="mobile" label="手机号" sortable width="130" />
+                    <el-table-column prop="workNumber" label="工号" sortable width="100" :sort-method="workNumberSortFn" />
+                    <el-table-column prop="formOfEmployment" label="聘用形式" sortable width="120">
                         <template v-slot="scope">
                             <span>{{ formatter(scope.row) }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="departmentName" label="部门" sortable width="150" />
-                    <el-table-column prop="timeOfEntry" label="入职时间" sortable width="150" :formatter="timeFormatter" />
-                    <el-table-column prop="status" label="状态" sortable width="150" />
-                    <el-table-column label="操作" fixed="right" width="280" align="center">
-                        <template slot-scope="scope">
+                    <el-table-column prop="departmentName" label="部门" sortable width="100" />
+                    <el-table-column prop="timeOfEntry" label="入职时间" sortable width="120" :formatter="timeFormatter" />
+                    <el-table-column prop="status" label="状态" sortable width="100" />
+                    <el-table-column label="操作" width="260" fixed="right" align="center">
+                        <template slot-scope="">
                             <el-button @click="lookDetailFn" type="text" size="small">查看</el-button>
                             <el-button type="text" size="small">转正</el-button>
-                            <el-button @click="" type="text" size="small">调岗</el-button>
+                            <el-button  type="text" size="small">调岗</el-button>
                             <el-button type="text" size="small">离职</el-button>
-                            <el-button @click="" type="text" size="small">角色</el-button>
+                            <el-button  type="text" size="small">角色</el-button>
                             <el-button @click="open" type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
@@ -161,7 +161,7 @@ export default {
         },
         //员工列表->点击查看
         lookDetailFn() {
-            this.$router.push('/layout/detail')
+            this.$router.push('/detail')
         }
     },
     created() {
@@ -174,7 +174,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// *{
+//     margin: 0;
+//     padding: 0;
+// }
+.employees-container{
+    width: 98%;
+}
 .app-container {
+    width: 98%;
     padding: 20px;
 }
 

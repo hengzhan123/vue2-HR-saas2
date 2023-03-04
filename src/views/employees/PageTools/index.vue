@@ -27,7 +27,7 @@ export default {}
 
 <style lang="less" scoped>
 .card {
-  width: 91%;
+  width: 100%;
 }
 
 .page-tools {

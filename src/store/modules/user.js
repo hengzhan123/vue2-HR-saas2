@@ -59,7 +59,7 @@ const actions = {
   // 获取用户-信息
   async getUserInfoActions(context){
     const result=await getUserProfileAPI()  //提交到mutations
-    console.log(result);
+    // console.log(result);
     context.commit('SET_USER',result.data)
     return result
     

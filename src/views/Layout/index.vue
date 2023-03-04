@@ -1,7 +1,6 @@
 <template>
     <div class="bigbox">
-
-    <el-menu route default-active="1" class="el-menu-vertical-demo"  @close="handleClose"
+    <el-menu  default-active="" class="el-menu-vertical-demo" 
      :collapse="isCollapse" 
      text-color="#fff"  active-text-color="#5485FE" >
       <img src="@/assets/common/logo.png" class="logo" width="90%">
@@ -69,7 +68,7 @@
  
   class="el-menu-demo"
   mode="horizontal"
-  @select="handleSelect"
+
   background-color="#5485FD"
   text-color="#fff"
   active-text-color="#ffd04b">
@@ -92,8 +91,8 @@
    </label>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item @click.native="goIndex">首页</el-dropdown-item>
-    <!-- 注意：此组件点击事件需加 .native 生效 -->
+    <el-dropdown-item @click.native="$router.push('/dashboard')">首页</el-dropdown-item>
+   <!-- 注意：此组件点击事件需加 .native 生效 -->
     <el-dropdown-item   @click.native="loginout">退出登录</el-dropdown-item>
     
   </el-dropdown-menu>
@@ -101,7 +100,9 @@
  </div>
 </div>
 <div id="main">
-        <router-view></router-view>
+        <router-view>
+          <router-view></router-view>
+        </router-view>
     </div>
 </el-menu>
 </div>
@@ -122,28 +123,10 @@ import {mapGetters} from 'vuex'
     computed:{
       ...mapGetters(['name'])
     },
-  //  watch:{
-  //   $route(){
-  //     this.titles=this.$route.meta.title
-  //   }
-  //  },
   created(){
 
   },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      goIndex(){
-        this.$router.push('/')
-        console.log(111);
-      },
       // 退出账户
     loginout(){
       this.$confirm('确定退出？','提示',{
@@ -171,6 +154,8 @@ margin-left: 184px;
 transition:all 0.32s linear;
 }
 #main{
+  // position: absolute;
+  // right: 0%;
   width: 100%;
 }
 .ss{
@@ -200,7 +185,7 @@ body{
     width: 100%; 
     height: 100%; 
     .el-menu-demo{
-     
+    //  position: relative;
        width: 100%;
         height: 50px;
         // line-height: 50px;

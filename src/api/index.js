@@ -7,3 +7,5 @@ export * from "./permission"    //权限管理
 
 export * from './departments'
 export * from './employees'
+export * from './salarys'     //工资
+export * from './attendances'    //考勤

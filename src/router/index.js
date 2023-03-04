@@ -16,9 +16,12 @@ import falses from "@/views/404"
 import security from "@/views/approvals/security";
 import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
+import attimport from "@/views/attendances/components/att-import.vue"
+import importExcel  from "@/views/import"
 
 Vue.use(VueRouter)
 const routes = [
+  // 登录
   {
     path: '/login',
     component: Login,
@@ -69,8 +72,46 @@ const routes = [
       },
       {
         path: "attendances",
-        component: attendances
+        component: attendances,
       },
+      {
+        //考勤-月份报表
+        path: "report/:month",
+          component: report,
+            meta: {
+          title: "月份报表",
+              },
+      },
+      {
+        //考勤- 历史归档
+        path: "archiving",
+          component: archiving,
+            meta: {
+          title: "历史归档",
+              },
+      },
+      {
+        // 考勤-导入
+        path:"attimport",
+        component:attimport,
+        meta:{
+          title:"导入模块"
+        }
+      },
+       {
+            // 审批- 流程设置
+            path: "security",
+              component: security,
+                meta: {
+              title: "流程设置",
+                  },
+          },
+          // 导入模块
+      {
+        path: "importExcel",
+        component: importExcel
+      },
+          
       {
         path: "salarys",
         component: salarys
@@ -79,38 +120,10 @@ const routes = [
         path: "apprmission",
         component: apprmission
       },
-
+  
     ]
   },
 
-]
-{
-  // 审批
-  path: "security",
-    component: security,
-      meta: {
-    title: "流程设置",
-        },
-},
-
-{
-  //考勤
-  path: "report",
-    component: report,
-      meta: {
-    title: "月份报表",
-        },
-},
-{
-  //考勤
-  path: "archiving",
-    component: archiving,
-      meta: {
-    title: "历史归档",
-        },
-},
-    ],
-  },
 ];
 
 
