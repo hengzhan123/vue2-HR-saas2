@@ -2,7 +2,7 @@ import request from "@/utils/request"
 // 获取社保列表
 export function socialAPI(data) {
   return request({
-    url: 'api/social_securitys/list', 
+    url: '/social_securitys/list', 
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export function socialAPI(data) {
 // 查询所有部门
 export function departmentAPI() {
   return request({
-    url: `api/company/department`,
+    url: `/company/department`,
     method: 'get',
   })
 }
@@ -19,14 +19,14 @@ export function departmentAPI() {
 // 查询社保历史归档
 export function historysAPI(params) {
   return request({
-    url: `api/social_securitys/historys/${params.yearMonth}/list`,
+    url: `/social_securitys/historys/${params.yearMonth}/list`,
     method: 'get',
     params
   })
 };
 export function historysAPI2(data) {
   return request({
-    url: `api/social_securitys/historys/${data.month}?yearMonth=${data.yearMonth}&opType=2`,
+    url: `/social_securitys/historys/${data.month}?yearMonth=${data.yearMonth}&opType=2`,
     method: 'get',
     data
   })
@@ -35,7 +35,7 @@ export function historysAPI2(data) {
 // 查询月份数据报表
 export function monthAPI(params){
   return request({
-    url: `api/social_securitys/historys/202001?yearMonth=202001&opType=2`,
+    url: `/social_securitys/historys/202001?yearMonth=202001&opType=2`,
     method: 'get',
     params
   })
@@ -44,7 +44,7 @@ export function monthAPI(params){
 // 归档01月份报表
 export function placeAPI(data){
   return request({
-    url: `/api/social_securitys/historys/${data.yearMonth}/archive`,
+    url: `/social_securitys/historys/${data.yearMonth}/archive`,
     method: 'post',
     data
   })
@@ -53,7 +53,7 @@ export function placeAPI(data){
 // 获取社保员工详情
 export function userAPI(params){
   return request({
-    url: `api/social_securitys/${params.id}`,
+    url: `/social_securitys/${params.id}`,
     method: 'get',
     params
   })
@@ -62,7 +62,7 @@ export function userAPI(params){
 // 查询参保城市的参保项目
 export function citysAPI(params){
   return request({
-    url: `api/social_securitys/payment_item/${params.id}`,
+    url: `/social_securitys/payment_item/${params.id}`,
     method: 'get',
     params
   })
@@ -71,7 +71,7 @@ export function citysAPI(params){
 // 保存更新用户社保数据
 export function updateUserAPI(data){
   return request({
-    url: `api/social_securitys/payment_item/${data.id}`,
+    url: `/social_securitys/payment_item/${data.id}`,
     method: 'put',
     data
   })

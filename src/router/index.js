@@ -17,6 +17,10 @@ import report from "@/views/attendances/report";
 import archiving from "@/views/attendances/historical";
 import myInfo from "@/views/users/info"
 import detail from "@/views/employees/detail"
+import importExcel from "@/components/UploadExcel"
+import socialhis from "@/views/social/Historical";
+import reportforms from "@/views/social/ReportForms";
+import setup from "@/views/salarys/SetUp"
 Vue.use(VueRouter);
 const routes = [
   // 登录
@@ -76,6 +80,16 @@ const routes = [
           title:"社保"
        }
       },
+      // 社保-历史归档
+      {
+        path:"socialhis",
+        component:socialhis
+      },
+      // 社保-报表
+      {
+        path:"reportforms",
+        component:reportforms
+      },
       {
         path: "attendances",
         component: attendances,
@@ -106,6 +120,11 @@ const routes = [
           title:'工资'
         }
       },
+      // 工资-设置
+      {
+        path:"setup",
+        component:setup
+      },
       {
         path:"approvals",
         component:approvals,
@@ -133,7 +152,12 @@ const routes = [
             meta:{
               title:"404"
             }
-           }
+           },
+          //  上传
+          {
+            path:"importExcel",
+            component:importExcel
+          }
     ],
   },
 

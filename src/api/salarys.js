@@ -1,9 +1,9 @@
 import request from "@/utils/request"
 
 // 查询所有部门
-export function departmentAPI() {
+export function departmentsAPI() {
   return request({
-    url: `api/company/department`,
+    url: `/company/department`,
     method: 'get',
   })
 }
@@ -11,7 +11,7 @@ export function departmentAPI() {
 // 获取工资列表
 export function salarysAPI(data) {
   return request({
-    url: 'api/salarys/list',
+    url: '/salarys/list',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export function salarysAPI(data) {
 // 获取计薪/津贴设置列表
 export function settingsAPI(data) {
   return request({
-    url: 'api/salarys/settings',
+    url: '/salarys/settings',
     method: 'get',
     // data
   })
@@ -28,7 +28,7 @@ export function settingsAPI(data) {
 // 提交计薪/津贴设置列表
 export function submitSettingsAPI(data) {
   return request({
-    url: `api/salarys/settings`,
+    url: `/salarys/settings`,
     method: 'post',
     data
   })
@@ -37,7 +37,7 @@ export function submitSettingsAPI(data) {
 // 获取调薪
 export function modifyAPI(data) {
   return request({
-    url: `api/salarys/modify/${data.id}`,
+    url: `/salarys/modify/${data.id}`,
     method: 'get',
     data
   })
@@ -46,7 +46,7 @@ export function modifyAPI(data) {
 // 设置定薪
 export function salarysInitAPI(data) {
   return request({
-    url: `api/salarys/init/${data.userId}`,
+    url: `/salarys/init/${data.userId}`,
     method: 'post',
     data
   })
@@ -55,7 +55,7 @@ export function salarysInitAPI(data) {
 // 获取查看薪资补贴
 export function lookOverAPI(data) {
   return request({
-    url: 'api/salarys/settings',
+    url: '/salarys/settings',
     method: 'get',
     data
   })
@@ -64,7 +64,7 @@ export function lookOverAPI(data) {
 // 查询用户薪资
 export function userSalarysAPI(params) {
   return request({
-    url: `api/sys/user/${params.id}`,
+    url: `/sys/user/${params.id}`,
     method: 'get',
     params
   })

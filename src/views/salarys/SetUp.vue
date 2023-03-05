@@ -147,7 +147,7 @@
               <el-form-item label="适用计税方式" label-width="130px">
                 <el-radio-group v-model="seList.taxCalculationType">
                   <el-radio
-                    @change="fn"
+                  
                     v-for="item in options3"
                     :key="item.value"
                     :label="item.label"

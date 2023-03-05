@@ -11,7 +11,7 @@
         </el-col>
         <el-col :span="4">
           <div class="grid-content bg-purple social_t_r">
-            <router-link to="/historical" class="skip">历史归档</router-link>
+            <router-link to="/socialhis" class="skip">历史归档</router-link>
             <router-link to="/reportforms" class="skip"
               >202001月报表</router-link
             >
@@ -249,7 +249,8 @@ export default {
       }
     }
     .social-table {
-      width: 1150px;
+      // width: 1150px;
+      width: 98%;
       margin: 0 auto;
       padding: 15px;
       margin-top: 15px;

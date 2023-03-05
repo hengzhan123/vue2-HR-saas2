@@ -38,7 +38,7 @@
             class="checkBox"
             v-for="obj in deList"
             :key="obj.id"
-            @change="fn"
+           
           >
             <el-checkbox :label="obj.name"></el-checkbox>
           </el-checkbox-group>
@@ -51,7 +51,7 @@
           saList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
         "
         stripe
-        style="width: 1100px"
+        style="width: 100%"
       >
         <el-table-column type="index" prop="index" label="序号" width="50">
         </el-table-column>
@@ -252,7 +252,7 @@
 import {
   salarysAPI,
   salarysInitAPI,
-  departmentAPI,
+  departmentsAPI,
   lookAPI,
 } from "@/api/salarys";
 export default {
@@ -362,7 +362,7 @@ export default {
     });
     this.saList = res.data.rows;
     // 获取工资部门列表
-    const res2 = await departmentAPI({});
+    const res2 = await departmentsAPI({});
     this.deList = res2.data.depts;
   },
 };
@@ -671,4 +671,5 @@ export default {
     }
   }
 }
+
 </style>
