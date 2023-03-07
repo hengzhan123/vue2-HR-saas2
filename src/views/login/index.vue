@@ -1,17 +1,10 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <!-- 放置标题图片 @是设置的别名, 是在vue.config.js中设置的路径别名, 代表src绝对地址 -->
       <div class="title-container">
         <h3 class="title">
-          <img src="@/assets/common/login-logo.png" alt="">
+          <img src="@/assets/common/login-logo.png" alt="" />
         </h3>
       </div>
 
@@ -19,145 +12,112 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="mobile"
-          v-model="loginForm.mobile"
-          placeholder="Mobile"
-          name="mobile"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="mobile" v-model="loginForm.mobile" placeholder="Mobile" name="mobile" type="text" tabindex="1" auto-complete="on" />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.prevent="handleLogin"
-        />
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.prevent="handleLogin" />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-          />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <el-button
-        class="login_btn"
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-      >登录</el-button>
+      <el-button class="login_btn" :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.native.prevent="handleLogin">登录</el-button>
 
       <div class="tips">
-       <a>账号：1380000000-  密码：123456</a>
+        <a>账号：1380000000- 密码：123456</a>
       </div>
-
-      
     </el-form>
-   
   </div>
 </template>
 
 <script>
-import { validMobile } from '@/utils/validate' 
-import { mapActions } from 'vuex'
+import { validMobile } from "@/utils/validate";
+import { mapActions } from "vuex";
 // import { getUserProfileAPI } from '@/api'
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     const validateMobile = (rule, value, callback) => {
       if (!validMobile(value)) {
-        callback(new Error('请输入正确的手机号'))
+        callback(new Error("请输入正确的手机号"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       loginForm: {
-        mobile: '13800000002',
-        password: '123456'
+        mobile: "13800000002",
+        password: "123456",
       },
       loginRules: {
         mobile: [
-          { required: true, trigger: 'blur', validator: validateMobile }
+          { required: true, trigger: "blur", validator: validateMobile },
         ],
         password: [
           {
             required: true,
-            trigger: 'blur',
+            trigger: "blur",
             min: 6,
             max: 16,
-            message: '密码长度在6-16位'
-          }
-        ]
+            message: "密码长度在6-16位",
+          },
+        ],
       },
       loading: false,
-      passwordType: 'password',
-      redirect: undefined
-    }
+      passwordType: "password",
+      redirect: undefined,
+    };
   },
   watch: {
     $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
-  
-    ...mapActions (['user/loginActions']),
+    ...mapActions(["user/loginActions"]),
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     // 登录
     handleLogin() {
-      this.$refs.loginForm.validate(async isOK=> {
+      this.$refs.loginForm.validate(async (isOK) => {
         // 登录校验
-        if (isOK) {        
+        if (isOK) {
           try {
-            this.loading = true
+            this.loading = true;
             // 效验通过在执行，防止页面先跳转
-           await this['user/loginActions'](this.loginForm)
+            await this["user/loginActions"](this.loginForm);
             // this.$message.success(res.message)
             // this.$router.replace(this.redirect || '/')
             // 登录成功之后跳转
-            this.$router.replace('/')
-            
+            this.$router.replace("/");
           } catch (err) {
-            console.error(err)
-          } finally{
-            this.loading = false
+            console.error(err);
+          } finally {
+            this.loading = false;
           }
-          
-        // } else {
-        //   return false // 未通过
+
+          // } else {
+          //   return false // 未通过
         }
-      })
-     
+      });
     },
-  
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">
@@ -168,16 +128,18 @@ export default {
   font-size: 24px;
 }
 
-
 /* reset element-ui css */
 .el-form-item__error {
   font-size: 14px;
 }
 .login-container {
-  height: 730px;
-  width: 100%;
-  background-image: url("@/assets/common/login.jpg") ; // 设置背景图片
-  background-position: center; // 将图片位置设置为充满整个屏幕
+
+  background:url("@/assets/common/login.jpg") no-repeat center center; // 设置背景图片
+  // background-position: center; // 将图片位置设置为充满整个屏幕
+  background-size: 100%;
+    width: 100vw;
+    height: 100vh;
+    background-attachment: fixed;
   .el-input {
     display: inline-block;
     height: 47px;
@@ -189,7 +151,6 @@ export default {
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
       height: 47px;
-    
     }
   }
 
@@ -204,7 +165,6 @@ export default {
 </style>
 
 <style lang="less" scoped>
-
 .login-container {
   min-height: 100%;
   width: 100%;
@@ -259,5 +219,4 @@ export default {
     user-select: none;
   }
 }
-
 </style>

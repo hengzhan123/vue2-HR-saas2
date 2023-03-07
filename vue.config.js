@@ -2,7 +2,7 @@ const path = require('path')
 const { defineConfig } = require('@vue/cli-service')
 
 module.exports = defineConfig({
-  
+
   transpileDependencies: true,
   lintOnSave: false,
   devServer: {
@@ -14,11 +14,11 @@ module.exports = defineConfig({
     //   },
     // 配置反向代理
     proxy: {
-      "": {
+      "/api": {
         // target: "http://ihrm-java.itheima.net",
         target: "http://ihrm.itheima.net",
         changeOrigin: true,  //是否跨域
-         // 添加路径前缀
+        // 添加路径前缀
         //  pathRewrite: {
         //   "^/api": "",
         // }
@@ -46,5 +46,5 @@ module.exports = defineConfig({
 
     // config.resolve.alias.set('@img', path.resolve(__dirname, 'src/assets/img/'))
   },
-  
+
 })

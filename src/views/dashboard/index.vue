@@ -90,7 +90,8 @@
             </div>
             <div class="right-btnBox">
               <el-button class="flow-btn" @click="dialogVisible = true">加班离职</el-button>
-              <el-button class="flow-btn">请假调休</el-button>
+              <!-- <el-button class="flow-btn">请假调休</el-button> -->
+              <el-button class="flow-btn" @click="dialogLeave = true">请假调休</el-button>
               <el-button class="flow-btn">审批列表</el-button>
               <el-button class="flow-btn" @click="$router.push('myInfo')">我的信息</el-button>
             </div>
@@ -167,10 +168,10 @@
         <!-- 加班 -->
         <template v-else>
           <el-form-item label="加班开始时间" prop="exceptTime">
-            <el-date-picker v-model="ruleForm.exceptTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
+            <el-date-picker v-model="ruleForm.start_time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
           </el-form-item>
           <el-form-item label="加班结束时间" prop="exceptTime">
-            <el-date-picker v-model="ruleForm.exceptTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
+            <el-date-picker v-model="ruleForm.end_time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" />
           </el-form-item>
           <el-form-item label="加班原因" prop="reason">
             <el-input v-model="ruleForm.reason" type="textarea" :autosize="{ minRows: 3, maxRows: 8 }" placeholder="请输入内容" />
@@ -182,6 +183,53 @@
         <el-col :offset="3" :span="6">
           <el-button @click="btnOK">提交</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-col>
+      </el-row>
+    </el-dialog>
+
+    <!-- 请假调休对话框 -->
+    <el-dialog title="申请" :visible="dialogLeave" width="40%" @close="btnCancel2">
+      <el-form ref="ruleForm2" :model="ruleForm2" label-width="120px">
+        <!-- 假期类型 -->
+        <el-form-item label="申请类型" prop="processName">
+          <el-select v-model="ruleForm2.processName" placeholder="请选择">
+            <el-option v-for="item in processList2" :defaultProps="{ label: 'processName' }" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="申请单位" prop="applyUnit" style="width: 217px;">
+          <!-- <el-input class="borderNone" v-model="ruleForm2.applyUnit" style="border: none !important;" >按天</el-input> -->
+          <span>按天</span>
+        </el-form-item>
+        <template>
+          <el-form-item label="开始时间" style="width: 100px" prop="startTime">
+            <el-date-picker v-model="ruleForm2.startTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="结束时间" style="width: 100px" prop="endTime">
+            <el-date-picker v-model="ruleForm2.endTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+          <template v-if="ruleForm2.processName == '请假'">
+            <el-form-item label="请假时长" style="width: 100px" prop="duration">
+              <el-input v-model="ruleForm2.duration" type="input" style="width: 217px" />
+            </el-form-item>
+          </template>
+          <template v-else>
+            <el-form-item label="申请天数" style="width: 100px" prop="duration">
+              <el-input type="input" v-model="ruleForm2.duration" style="width: 217px;" placeholder="请输入内容"></el-input>
+            </el-form-item>
+          </template>
+          <el-form-item label="申请理由" prop="reason">
+            <el-input v-model="ruleForm2.reason" type="textarea" :autosize="{ minRows: 3, maxRows: 8 }" placeholder="请输入内容" />
+          </el-form-item>
+        </template>
+      </el-form>
+      <!-- 提交 重置 -->
+      <el-row slot="footer" type="flex" justify="flex-start">
+        <el-col :offset="3" :span="6">
+          <el-button @click="btnOK2">提交</el-button>
+          <el-button @click="resetForm2('ruleForm2')">重置</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -200,14 +248,31 @@ export default {
     workdayCalendar,
     Radar,
   },
+    //* 新版接口离职没有用，加班新旧都没有用，我的信息新接口显示一部分，旧接口都能显示，头像新接口是能看到动态的，旧接口的不可以
   data() {
     return {
-      dialogVisible: false,
+      dialogVisible: false,//加班离职对话框
+      dialogLeave: false,//请假调休对话框
       ruleForm: {
         exceptTime: "", //离职时间
-        reason: "", //离职原因
+        reason: "", //离职/加班原因
         processKey: "process_dimission", // 特定的审批
-        processName: "离职",
+        processName: "离职",//申请类型
+        // endTime:'',
+        // startTime:'',
+        // start_time: '',//加班开始时间
+        // end_time: '',//加班结束时间
+      },
+      ruleForm2: {
+        applyUnit: "按天",
+        duration: '',
+        endTime: "",
+        holidayType: "1",
+        processKey: "process_leave",
+        processName: "",
+        reason: "",
+        startTime: "",
+        // userId
       },
       defaultImg: require("@/assets/common/head.jpg"),
       processList: [
@@ -220,6 +285,16 @@ export default {
           label: "离职",
         },
       ],
+      processList2: [
+        {
+          value: "请假",
+          label: "请假",
+        },
+        {
+          value: "调休",
+          label: "调休",
+        },
+      ],
     };
   },
   computed: {
@@ -227,12 +302,15 @@ export default {
     ...mapState(["userInfo"]),
   },
   methods: {
-    // 重置
+    // 加班离职重置
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    // 请假调休重置
+    resetForm2(formName) {
+      this.$refs[formName].resetFields();
+    },
     // 离职加班提交
-    //* 新版接口离职没有用，加班新旧都没有用，我的信息新接口显示一部分，旧接口都能显示，头像新接口是能看到动态的，旧的不可以
     btnOK() {
       this.$refs.ruleForm.validate(async (isOK) => {
         if (isOK) {
@@ -249,16 +327,50 @@ export default {
     // 关闭离职对话框
     btnCancel() {
       this.ruleForm = {
-        exceptTime: "",
+        exceptTime: "",//
         reason: "",
-        processKey: "process_dimission", // 特定的审批
+        processKey: "process_dimission",
         processName: "离职",
-        startTime: "",
-        endTime: "",
-        overtimeReason: "",
+        // startTime: "",
+        // endTime: "",//
+        // start_time: '',
+        // end_time: '',
+        // overtimeReason: "",
       };
       this.dialogVisible = false;
       this.$refs.ruleForm.resetFields();
+    },
+    // 请假调休
+    btnOK2() {
+      this.$refs.ruleForm2.validate(async (isOK) => {
+        if(this.ruleForm2.processName=== "调休"){
+         this.ruleForm2.holidayType = 0
+        }
+        if (isOK) {
+          await startProcess({
+            ...this.ruleForm2,
+            userId: this.userInfo.userId,
+            username: this.userInfo.username,
+          });
+          this.$message.success("操作成功");
+          this.dialogLeave = false;
+        }
+      });
+    },
+    // 关闭请假调休对话框
+    btnCancel2() {
+      this.ruleForm2 = {
+        applyUnit: "按天",
+        duration: '',
+        endTime: "",
+        holidayType: "1",
+        processKey: "process_leave",
+        processName: "",
+        reason: "",
+        startTime: "",
+      };
+      this.dialogLeave = false;
+      this.$refs.ruleForm2.resetFields();
     },
   },
 };
@@ -462,6 +574,9 @@ a {
         }
       }
     }
+  }
+  .borderNone /deep/ .el-input__inner {
+    border: none;
   }
 }
 </style>

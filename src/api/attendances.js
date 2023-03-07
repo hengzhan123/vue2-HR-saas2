@@ -12,7 +12,7 @@ export function getAttendancesAPI(params){
 // 编辑更新考勤记录
 export function updateAttendanceAPI(data) {
    return request({
-     url: `/attendances/${data.userId}`,
+     url: `/attendances/${data.id}`,
      method: 'put',
      data
    })
