@@ -7,5 +7,9 @@ const getters = {
   userId: state => state.user.userInfo.userId,
   staffPhoto: state => state.user.userInfo.staffPhoto, // 建立用户头像的映像
   comanyId: state => state.user.userInfo.companyId,
+  depts:state=>state.attendances.departmentsList,
+  tableList:state=>state.attendances.tableDataList,
+  yuefen:state=>state.attendances.yuefen,
+  count:state=>state.attendances.count,
 }
 export default getters 

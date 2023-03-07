@@ -103,9 +103,9 @@
           if (valid.length!==0) {
            this.$emit('addFn',{...this.ruleForm});
            this.dialogVisible=false
-           this.cancelFn();  //调用关闭窗口关闭清空数据函数
           }
           this.dialogVisible=true
+          this.cancelFn();  //调用关闭窗口关闭清空数据函数
         })
         
       },

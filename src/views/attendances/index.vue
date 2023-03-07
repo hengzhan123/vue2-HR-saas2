@@ -27,17 +27,16 @@
     <el-card> 
       <el-form  label-width="120px" class="formInfo"> 
         <el-form-item label="部门：">
-          <el-checkbox-group class="checkboxs" v-model="departmentBool" >
-            <el-checkbox v-for="(item,index) in departmentsList" :label="item.name" :key="index" @change="tickFn(item.name,index)">{{ item.name }}</el-checkbox>  
-          </el-checkbox-group>
+          <!-- <el-checkbox-group class="checkboxs" v-model="departmentBool" > -->
+            <el-checkbox v-for="(item,index) in departmentsList" :label="item.name" :key="index" v-model="arrs[index]" @change="tickFn(item.name,index)">{{ item.name }}</el-checkbox>  
+          <!-- </el-checkbox-group> -->
         </el-form-item>
         <!-- 考勤状态 -->
         <el-form-item label="考勤状态:">
           <el-radio-group v-model="stateBool">
             <el-radio v-for="item in stateData.holidayType" :label="item.value" :value="item.value" :key="item.id">
               {{ item.value }}
-            </el-radio>
-           
+            </el-radio>           
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -122,7 +121,7 @@
                 <el-radio
                   v-for="item in stateData.vacationtype"
                   :key="item.id"
-                  :label="item.name"
+                  :label="item.id"
                   :value="item.id"
                 >{{ item.name }}</el-radio>
               </el-radio-group></p>
@@ -146,7 +145,7 @@
 </template>
 
 <script>
-import { getAttendancesAPI,departmentsListAPI,updateAttendanceAPI } from '@/api';
+// import { getAttendancesAPI,departmentsListAPI,updateAttendanceAPI } from '@/api';
 import attendances from "@/api/constant/attendance"
 import attSet from './components/att-set.vue';
 
@@ -155,8 +154,7 @@ export default {
     return {
       remind: false,        //提醒对话框
       dialogVisible: false,    //考勤方案
-      stateData: attendances,     //请假类型列表
-      
+      stateData: attendances,     //请假类型列表 
      obj:{
       page:1,
       pagesize:10,
@@ -166,7 +164,7 @@ export default {
       //   page:1,
       //   pagesize:10,
         departmentBool:[],
-      stateBool:[],
+      stateBool:'',
       // },
       departmentsList:[],     //部门列表
       tableData:[],           //考勤表格信息
@@ -194,7 +192,6 @@ export default {
   created(){
     this.getList();
     this.getDepartments();
-   
   },
   methods: {
     // 提醒
@@ -227,20 +224,28 @@ export default {
         return index * 1;
     },
     // 获取部门列表
-    async getDepartments(){
-      const res=await departmentsListAPI()
-        // console.log(1,res.data);
-     this.departmentsList=res.data.depts
+     getDepartments(){
+      this.$store.dispatch("attendances/getDepartments").then(res=>{
+        this.departmentsList=this.$store.getters.depts
+         this.departmentsList.forEach((item,index)=>{
+      this.arrs[index]=false
+     })
+      })
+    //   const res=await departmentsListAPI()
+    //     // console.log(1,res.data);
+    //  this.departmentsList=res.data.depts
       
+    //  this.departmentsList.forEach((item,index)=>{
+    //   this.arrs[index]=false
+    //  })
     },
       // 获取考勤表格信息
-   async getList(){
-      const res =await getAttendancesAPI(this.obj)
-      // console.log(11,res);
-      this.tableData=res.data.data.rows    //存入总数据
-      // console.log(this.tableData);
-      const monrept=res.data.monthOfReport   //月份
-      this.obj.total =res.data.data.total     // 总条数
+    getList(){
+      this.$store.dispatch("attendances/getAttends").then(()=>{
+        this.tableData=this.$store.getters.tableList  //显示所有数据
+      const monrept=this.$store.getters.yuefen   //月份
+      this.obj.total =this.$store.getters.count    // 总条数
+      // console.log(this.obj.total);
       this.attenInfo.month=monrept
 
       var date = new Date()       
@@ -250,18 +255,40 @@ export default {
       this.monrept = d.getDate() // 获取日期
       this.yearMonth = year + ('' + month < 10 ? '0' + month : month)
       this.month =monrept
-   
+    })
     },
     // 筛选
-    tickFn(){  
+    tickFn(name,index){  
       // this.arrs=this.tableData.filter(item=>item.departmentName==this.departmentBool)
       // this.arrs=this.tableData.filter(item=>this.departmentBool.indexOf(item.departmentName)!=-1)
-   
-        this.arrs=this.tableData.filter(item=>this.departmentBool.some(ele=>ele==item.departmentName))
-      this.resList= this.arrs
-      console.log(1,this.departmentBool);
-      console.log(2,this.resList);
+     
+      //   this.arrs=this.tableData.filter(item=>this.departmentBool.some(ele=>ele==item.departmentName))
+      // this.resList= this.arrs
+      // console.log(1,this.departmentBool);
+      // console.log(2,this.resList);
       // this.tableData=this.resList
+
+      this.$store.dispatch("attendances/getAttends").then(()=>{
+        // 如果全为真或全为false ，默认渲染显示全部数据
+         if (this.arrs.every((item) => item === true) || this.arrs.every((item) => item === false)) {
+          this.tableData=this.$store.getters.tableList  //显示所有数据
+          // console.log(11111);
+        } else {
+          // console.log(22222);
+          this.tableData=this.$store.getters.tableList //显示所有数据
+          this.carrs = [];  //定义存放部门的空数组
+          this.arrs.forEach((item, index) => {
+            if (item) {   //循环遍历arrs里存在的下标，根据下标添加部门名称到carrs数组
+              this.carrs.push(this.departmentsList[index].name);   
+            }  
+          });
+          // 过滤两个数组返回相同的部门名称赋值替换tableData
+          this.tableData = this.tableData.filter((item, index) => {
+            return this.carrs.indexOf(item.departmentName) != -1; 
+          });
+        }
+      })
+     
       },
     // 确定按钮
    async sureFn(){
@@ -269,12 +296,12 @@ export default {
       this.dialogVisible = false    //显示弹窗
     //  const res= await updateAttendanceAPI(this.modifyData)
     //  console.log(222,res);
-        this.getList();       //重新执行获取数据列表方法
+    this.tableData=this.$store.getters.tableList    //重新执行获取数据列表方法
     },
     //  页码处理
     pageChange(page){
       this.obj.page=page;
-      this.getList();
+      this.tableData=this.$store.getters.tableList
     }
   },
   components:{

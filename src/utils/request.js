@@ -4,6 +4,7 @@ import store from '@/store'
 import router from '@/router'
 
 const service = axios.create({
+  // 基地址    process.env是nodejs内置的固定环境变量对象 区分开发和上线打包
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000 
 })

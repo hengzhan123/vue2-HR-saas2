@@ -7,7 +7,7 @@ import tagsView from './modules/tagsView';
 
 import social from './modules/social'
 import salarys from './modules/salarys'  
-
+import attendances from "./modules/attendances"
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -17,7 +17,8 @@ const store = new Vuex.Store({
     user,
     tagsView,
     social,
-    salarys
+    salarys,
+    attendances
   },
   getters
 })
