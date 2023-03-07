@@ -20,7 +20,10 @@ import detail from "@/views/employees/detail";
 import importExcel from "@/views/import/index";
 import socialhis from "@/views/social/Historical";
 import reportforms from "@/views/social/ReportForms";
-import setup from "@/views/salarys/SetUp";
+import setup from "@/views/salarys/SetUp"
+import attimport from "@/views/attendances/components/att-import"
+import viewSee from "@/views/approvals/viewSee"
+import details from "@/views/social/Details"
 Vue.use(VueRouter);
 const routes = [
   // 登录
@@ -101,8 +104,13 @@ const routes = [
       },
       // 社保-报表
       {
-        path: "reportforms",
+        path:"reportforms",
         component: reportforms,
+      },
+      // 社保-详情
+      {
+        path:"details",
+        component:details
       },
       {
         path: "attendances",
@@ -127,6 +135,11 @@ const routes = [
           title: "历史归档",
         },
       },
+      // 考勤 -导入
+      {
+        path:"attimport",
+        component:attimport
+      },
       {
         path: "salarys",
         component: salarys,
@@ -148,18 +161,39 @@ const routes = [
       },
       // 审批-流程设置
       {
-        path: "security",
-        component: security,
+        path:"security",
+        component:security,
       },
+      // 审批-查看
+      {
+        path:"viewSee/:processId",
+        component:viewSee
+      },
+            // 个人信息
+            {
+              path: "myInfo",
+              component:myInfo,
+              name: 'myInfo',
+              meta: {
+                title: '我的信息'
+              }
+            },
+           
+          //  上传
+          {
+            path:"importExcel",
+            component:importExcel
+          }
     ],
   },
+  // 404页面
   {
-    path: "/404",
-    component: falses,
-    meta: {
-      title: "404",
-    },
-  },
+    path:"/404",
+    component:falses,
+    meta:{
+      title:"404"
+    }
+   },
 ];
 
 const router = new VueRouter({

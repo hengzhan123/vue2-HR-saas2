@@ -315,7 +315,7 @@ import attendance from "@/api/constant/attendance";
           // 
          async getItemOne(){
            const res=await getItemAPI()
-            // console.log(res);
+            console.log(res);
             this.setOne=res.data
           }
         }

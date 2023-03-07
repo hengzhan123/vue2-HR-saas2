@@ -30,17 +30,15 @@
       label="操作"
       width="500" >
       <template  v-slot="{row}" >
-        <el-button type="text" v-if="row.type==1" size="small" @click="addOpenFn(2,row.id)">添加</el-button>
-        <el-button type="text" size="small" @click="EditFn(row.id)">编辑</el-button>
-        <el-button type="text" size="small" @click="delFn(row.id)">删除</el-button>
+        <el-button type="text" v-if="row.type==1" size="medium" @click="addOpenFn(2,row.id)">添加</el-button>
+        <el-button type="text" size="medium" @click="EditFn(row.id)">编辑</el-button>
+        <el-button type="text" size="medium" @click="delFn(row.id)">删除</el-button>
       </template>
     </el-table-column> 
     </el-table>
 </el-card>
 <!-- 添加权限  弹框 -->
     <perChildren ref="perChildren" @addFn="addFns" :distinguish="distinguish"/>
-    <!-- 添加菜单弹窗 -->
-    <!-- <perMenu ref="perMenu"/> -->
     </div>
     </div>
 </template>
@@ -48,7 +46,6 @@
 <script>
 import {addPermissionAPI, getIdDetailAPI, getPermissionAPI,updatePermissionAPI,delPermissionAPI} from "@/api"
 import perChildren from "./components/perChildren.vue"
-// import perMenu from "./components/perMenu.vue"
 import {transTree} from "@/utils/index"
     export default {
         data(){
@@ -89,19 +86,22 @@ import {transTree} from "@/utils/index"
             },
             // 新增或编辑权限
             async addFns(ruleForm){
-                console.log(ruleForm);
+                // console.log(ruleForm);
                  if(!this.distinguish){    //编辑更新
-                    await updatePermissionAPI(ruleForm)                
+                    await updatePermissionAPI(ruleForm);
                  }else{     // 新增
-                    await addPermissionAPI(ruleForm)
-                }             
-                this.getPermissionList()
+                    await addPermissionAPI(ruleForm);
+                }   
+                this.$message.success("操作成功")          
+                this.getPermissionList();
             }, 
             // 删除权限 
           async delFn(did){
             // console.log(did);
+            await this.$confirm("确定删除该数据吗？")
                 await delPermissionAPI(did);
-                this.getPermissionList()
+                this.getPermissionList();
+                this.$message.success("删除成功!")
             }    
         },
         components:{
