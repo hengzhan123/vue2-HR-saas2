@@ -7,7 +7,7 @@
         <span>员工历史归档</span>
       </el-col>
       <el-col :span="6" class="calendar">
-        <el-date-picker v-model="value1" type="year" placeholder="2023">
+        <el-date-picker v-model="yearVal" type="year" placeholder="2023">
         </el-date-picker>
       </el-col>
       </el-row>
@@ -63,35 +63,16 @@
             <el-table-column prop="name" label="姓名" width="120" />
             <el-table-column prop="workNumber" label="工号" width="100" />
             <el-table-column prop="mobile" label="手机号" width="200" />
-            <!-- <el-table-column prop="atteSolution" label="当月考勤方案" width="200"></el-table-column>-->
             <el-table-column prop="department" label="部门" width="200" />
-            <!-- <el-table-column prop="twoLevelDepartment" label="二级部门" width="200"></el-table-column>
-            <el-table-column prop="threeLevelDepartment" label="三级部门" width="200"></el-table-column>
-            <el-table-column prop="workCity" label="工作城市" width="200"></el-table-column>-->
             <el-table-column prop="leaveDays" label="事假" width="100" />
             <el-table-column prop="dayOffLeaveDays" label="调休" width="100" />
             <el-table-column prop="normalDays" label="正常" width="100" />
             <el-table-column prop="laterTimes" label="迟到次数" width="100" />
             <el-table-column prop="earlyTimes" label="早退次数" width="100" />
-            <!--
-            <el-table-column prop="hoursPerDays" label="日均时长（自然日）" width="150"></el-table-column>
-            <el-table-column prop="hoursPerWorkDay" label="日均时长（工作日）" width="150"></el-table-column>
-            <el-table-column prop="hoursPerRestDay" label="日均时长（休息日）" width="150"></el-table-column>
-            <el-table-column prop="clockRate" label="打卡率（%）" width="120"></el-table-column>
-            -->
             <el-table-column prop="absenceDays" label="旷工天数" width="100" />
             <el-table-column prop="isFullAttendanceint" :formatter="fStandards" label="是否全勤" width="100" />
-            <!--
-            <el-table-column prop="actualAtteUnofficialDays" label="实际出勤天数（非正式）" width="180"></el-table-column>
-            -->
             <el-table-column prop="actualAtteOfficialDays" label="实际出勤天数（正式）" width="180" />
             <el-table-column prop="workingDays" label="应出勤工作日" width="120" />
-            <!--
-            <el-table-column prop="salaryStandards" label="计薪标准" width="100"></el-table-column>
-            <el-table-column prop="salaryAdjustmentDays" label="计薪天数调整" width="120"></el-table-column>
-            <el-table-column prop="workHour" label="工作时长" width="100"></el-table-column>
-            <el-table-column prop="salaryUnofficialDays" label="计薪天数（非正式）" width="150"></el-table-column>
-            -->
             <el-table-column prop="salaryOfficialDays" label="计薪天数（正式）" width="150" />
           </el-table>
           <!-- 分页 -->
@@ -118,18 +99,19 @@ import { departmentsListAPI,getArchivingListAPI } from '@/api';
 export default {
 data(){
   return{
-    value1:'',
+    yearVal:"",        //输入的年份
     tableData:[],           //历史归档列表
     departmentData:[],      //部门信息
     requestParameters: {
         departmentId: '',
-        year: ''
+        year: '2023'
       },
   }
 },
 created(){
   this.getDepartments();
-  const { preDates, preYear } = this.getMonth()
+  const { preDates, preYear } = this.getMonth();
+  this.yearVal=preDates;
   this.requestParameters.year = preYear
 },
 methods:{

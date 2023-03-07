@@ -9,7 +9,7 @@
             条考勤审批尚未处理</span>
         </el-col>
         <el-col :span="8" :push="6">
-          <el-button size="mini" type="success" @click="$router.push('/attimport')">导入</el-button>
+          <!-- <el-button size="mini" type="success" @click="$router.push('/attimport')">导入</el-button> -->
           <el-badge is-dot style="margin: 0 10px;">
             <el-button size="mini" type="warning" @click="remind = true">提醒</el-button>
           </el-badge>
@@ -27,13 +27,13 @@
     <el-card> 
       <el-form  label-width="120px" class="formInfo"> 
         <el-form-item label="部门：">
-          <el-checkbox-group class="checkboxs" v-model="formData.departmentBool" >
-            <el-checkbox v-for="item in departmentsList" :label="item.id" :key="item.id" @change="tickFn">{{ item.name }}</el-checkbox>  
+          <el-checkbox-group class="checkboxs" v-model="departmentBool" >
+            <el-checkbox v-for="(item,index) in departmentsList" :label="item.name" :key="index" @change="tickFn(item.name,index)">{{ item.name }}</el-checkbox>  
           </el-checkbox-group>
         </el-form-item>
         <!-- 考勤状态 -->
         <el-form-item label="考勤状态:">
-          <el-radio-group v-model="formData.stateBool">
+          <el-radio-group v-model="stateBool">
             <el-radio v-for="item in stateData.holidayType" :label="item.value" :value="item.value" :key="item.id">
               {{ item.value }}
             </el-radio>
@@ -122,8 +122,8 @@
                 <el-radio
                   v-for="item in stateData.vacationtype"
                   :key="item.id"
-                  :label="item.id"
-                  :value="item.name"
+                  :label="item.name"
+                  :value="item.id"
                 >{{ item.name }}</el-radio>
               </el-radio-group></p>
   <span slot="footer" class="dialog-footer">
@@ -162,12 +162,12 @@ export default {
       pagesize:10,
       total:0
      },
-      formData:{              //部门、考勤状态是否选中过滤
-        page:1,
-        pagesize:10,
+      // formData:{              //部门、考勤状态是否选中过滤
+      //   page:1,
+      //   pagesize:10,
         departmentBool:[],
-      stateBool:[]
-      },
+      stateBool:[],
+      // },
       departmentsList:[],     //部门列表
       tableData:[],           //考勤表格信息
       monrept:"",       //考勤表格月份
@@ -182,14 +182,19 @@ export default {
       modifyData: {        //修改数据
         userId: '',
         day: '',
-        adtStatu: ''
+        adtStatu: '',
+        attendanceRecord:[]
       },
-
+      filtersList:[],
+      arrs:[],
+      resList:[],
+      carrs:[]
     };
   },
   created(){
     this.getList();
-    this.getDepartments()
+    this.getDepartments();
+   
   },
   methods: {
     // 提醒
@@ -200,7 +205,6 @@ export default {
     // 设置按钮 显示弹窗
     setFn(){
       this.$refs.set.setShowDialog()
-
     },
     // 隐藏弹窗
     setFn2(){
@@ -212,12 +216,10 @@ export default {
       this.modifyData.day = it.day
       this.modifyData.departmentId = item.departmentId
       this.modifyData.adtStatu = it.adtStatu + '' // 数字转成字符串
-
       if (it.adtStatu !== '') {
         this.attenInfo.getDate = parseInt(int + 1)
         this.attenInfo.getInfo = it.adtStatu
-        this.attenInfo.name = item.name
-        
+        this.attenInfo.name = item.name     
       }
     },
     // 表格序号从 0 开始
@@ -227,16 +229,16 @@ export default {
     // 获取部门列表
     async getDepartments(){
       const res=await departmentsListAPI()
-        // console.log(res.data);
+        // console.log(1,res.data);
      this.departmentsList=res.data.depts
       
     },
       // 获取考勤表格信息
    async getList(){
-    try{
-      const res =await getAttendancesAPI({...this.obj,...this.formData})
+      const res =await getAttendancesAPI(this.obj)
       // console.log(11,res);
       this.tableData=res.data.data.rows    //存入总数据
+      // console.log(this.tableData);
       const monrept=res.data.monthOfReport   //月份
       this.obj.total =res.data.data.total     // 总条数
       this.attenInfo.month=monrept
@@ -248,18 +250,25 @@ export default {
       this.monrept = d.getDate() // 获取日期
       this.yearMonth = year + ('' + month < 10 ? '0' + month : month)
       this.month =monrept
-    } catch(error){
-      console.log(error);
-    }
+   
     },
-    async tickFn(){  
-      console.log(this.formData); 
-        this.getList()
-    },
+    // 筛选
+    tickFn(){  
+      // this.arrs=this.tableData.filter(item=>item.departmentName==this.departmentBool)
+      // this.arrs=this.tableData.filter(item=>this.departmentBool.indexOf(item.departmentName)!=-1)
+   
+        this.arrs=this.tableData.filter(item=>this.departmentBool.some(ele=>ele==item.departmentName))
+      this.resList= this.arrs
+      console.log(1,this.departmentBool);
+      console.log(2,this.resList);
+      // this.tableData=this.resList
+      },
     // 确定按钮
    async sureFn(){
+    // console.log(this.modifyData);
       this.dialogVisible = false    //显示弹窗
-       await updateAttendanceAPI(this.modifyData)
+    //  const res= await updateAttendanceAPI(this.modifyData)
+    //  console.log(222,res);
         this.getList();       //重新执行获取数据列表方法
     },
     //  页码处理
@@ -275,12 +284,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// .tablebigbox{
-//   width: 100%;
-//   position: relative;
-//       overflow-x:auto;
-//   overflow-y:hidden;
-// }
 .checkboxs{
   display: inline-block;
   padding:0px 10px;
@@ -300,11 +303,6 @@ export default {
   width: 98%;
   height: 100%;
   padding-bottom: 50px;
-  //     overflow-x:hidden;
-  // overflow-y:hidden;
-  // padding: 20px;
-  // background: #fff;
-  // border-radius: 3px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
   .el-card {
