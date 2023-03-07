@@ -445,6 +445,7 @@ a {
           position: relative;
           padding: 0;
           margin: 0;
+          line-height: 100px;
           .date-top {
             position: absolute;
             left: 20px;
