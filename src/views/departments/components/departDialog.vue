@@ -131,12 +131,6 @@ export default {
     enterFn() {
       this.$refs.deptForm.validate(async (valid) => {
         if (valid) {
-          // 细节: 有可能会出现, 也有可能不会出现问题
-          // 问题: 网络请求读取form对象是空值
-          // 原因: 传递form对象, 在ajax要发起前一瞬间, 如果这边把form对象清空, 那边读到的就是空字符串给后台, 所以为了防止这个问题出现
-          // 解决:
-          // 1. 复制一个新的对象给外面请求接口用, 里面改变this.form不会影响到外面(拷贝)
-          // 2. 清空的慢一些. 但是时间不太好掌握
           this.$emit('addDepartEV', { ...this.form })
           this.$emit('update:dialogVisible', false)
         }
