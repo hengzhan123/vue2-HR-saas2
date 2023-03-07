@@ -445,7 +445,6 @@ a {
           position: relative;
           padding: 0;
           margin: 0;
-          line-height: 100px;
           .date-top {
             position: absolute;
             left: 20px;
@@ -457,10 +456,12 @@ a {
               color: #2c3e50;
               font-size: 24px;
               margin-left: 20px;
+          line-height: 100px;
             }
           }
           .date-main {
             margin-top: 70px;
+            padding-top: 20px;
             border-top: 1px solid #ebeef5;
           }
         }
