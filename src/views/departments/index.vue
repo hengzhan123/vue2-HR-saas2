@@ -73,7 +73,8 @@
             </el-card>
             <!-- 新增-子部门-弹窗 -->
             <depart-dialog ref="departDialog" :dialog-visible.sync="showDepartDialog" :employees-list="employeesList"
-                :origin-list="originList" :is-edit="isEdit" :parent-id="clickDepartId" @addDepartEV="addDepartmentsFn" />
+                :origin-list="originList" :is-edit="isEdit" :parent-id="clickDepartId" @addDepartEV="addDepartmentsFn"
+                :type="type" />
         </div>
     </div>
 </template>
@@ -97,7 +98,8 @@ export default {
             employeesList: [], // 员工列表
             clickDepartId: '', // 正在编辑部门的id
             isEdit: false, // 编辑状态(false未编辑)
-            originList: [] // 用于弹窗内-校验部门code和name是否重复数据数组
+            originList: [], // 用于弹窗内-校验部门code和name是否重复数据数组
+            type: ''
         }
     },
     created() {
@@ -130,6 +132,7 @@ export default {
         handleClick() { },
         // 右侧 - 添加子部门
         add(data) {
+            this.type = '添加子部门'
             this.isEdit = false
             if (data) { // 添加二级以下部门
                 this.clickDepartId = data.id // 保存当前部门id
@@ -142,6 +145,7 @@ export default {
         },
         // 右侧 - 编辑子部门
         async edit(data) {
+            this.type = '编辑部门'
             this.isEdit = true
             this.clickDepartId = data.id // 编辑的部门id
             // 弹窗显示

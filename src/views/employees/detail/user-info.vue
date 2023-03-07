@@ -47,7 +47,7 @@
                     <el-form-item label="聘用形式">
                         <el-select v-model="userInfo.formOfEmployment" class="inputw">
                             <el-option v-for="itme in Employees.hireType" :key="itme.id" :value="itme.id"
-                                :label="itme.value"></el-option>
+                                :label="itme.value" />
                         </el-select>
                     </el-form-item>
                 </el-col>
@@ -176,8 +176,8 @@
 
                     <el-form-item label="子女有无商业险">
                         <el-radio-group v-model="personalInfo.doChildrenHaveCommercialInsurance">
-                            <el-radio label="有"></el-radio>
-                            <el-radio label="无"></el-radio>
+                            <el-radio label="1">有</el-radio>
+                            <el-radio label="2">无</el-radio>
                         </el-radio-group>
                     </el-form-item>
 

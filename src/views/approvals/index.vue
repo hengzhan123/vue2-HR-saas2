@@ -12,8 +12,8 @@
     </el-card>
     <!-- 主要内容 -->
     <el-card style="margin-top: 10px;">
-      <el-table :data="tableData" style="width: 99.5%" :default-sort="{prop: 'date', order: 'descending'}">
-        <el-table-column type="selection" width="30" />
+      <el-table :data="tableData" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
+        <!-- <el-table-column type="selection" width="30" /> -->
         <el-table-column type="index" width="80" label="序号" />
         <el-table-column prop="processName" label="审批类型" sortable>
         </el-table-column>

@@ -20,10 +20,10 @@ import detail from "@/views/employees/detail";
 import importExcel from "@/views/import/index";
 import socialhis from "@/views/social/Historical";
 import reportforms from "@/views/social/ReportForms";
-import setup from "@/views/salarys/SetUp"
-import attimport from "@/views/attendances/components/att-import"
-import viewSee from "@/views/approvals/viewSee"
-import details from "@/views/social/Details"
+import setup from "@/views/salarys/SetUp";
+import attimport from "@/views/attendances/components/att-import";
+import viewSee from "@/views/approvals/viewSee";
+import details from "@/views/social/Details";
 Vue.use(VueRouter);
 const routes = [
   // 登录
@@ -39,6 +39,7 @@ const routes = [
       {
         path: "dashboard",
         component: dashboard,
+        name: "dashboard",
         meta: {
           title: "首页",
         },
@@ -48,6 +49,7 @@ const routes = [
         path: "myInfo",
         component: myInfo,
         name: "myInfo",
+        hidden: true,
         meta: {
           title: "我的信息",
         },
@@ -55,6 +57,7 @@ const routes = [
       {
         path: "departments",
         component: departments,
+        name: "departments",
         meta: {
           title: "组织架构",
         },
@@ -62,6 +65,7 @@ const routes = [
       {
         path: "employees",
         component: employees,
+        name: "employees",
         meta: {
           title: "员工",
         },
@@ -70,15 +74,26 @@ const routes = [
       {
         path: "importExcel",
         component: importExcel,
+        name: "importExcel",
+        hidden: true,
+        meta: {
+          title: "员工上传",
+        },
       },
       // 员工-查看
       {
         path: "detail",
         component: detail,
+        name: "detail",
+        hidden: true,
+        meta: {
+          title: "员工查看",
+        },
       },
       {
         path: "setting",
         component: setting,
+        name: "setting",
         meta: {
           title: "公司设置",
         },
@@ -86,6 +101,7 @@ const routes = [
       {
         path: "permission",
         component: permission,
+        name: "permission",
         meta: {
           title: "权限设置",
         },
@@ -93,6 +109,7 @@ const routes = [
       {
         path: "social",
         component: social,
+        name: "social",
         meta: {
           title: "社保",
         },
@@ -101,20 +118,34 @@ const routes = [
       {
         path: "socialhis",
         component: socialhis,
+        name: "socialhis",
+        hidden: true,
+        meta: {
+          title: "历史归档",
+        },
       },
       // 社保-报表
       {
-        path:"reportforms",
+        path: "reportforms",
         component: reportforms,
+        name: "reportforms",
+        meta: {
+          title: "报表",
+        },
       },
-      // 社保-详情
+      // 社保-员工详情
       {
-        path:"details",
-        component:details
+        path: "details",
+        component: details,
+        name: "details",
+        meta: {
+          title: "社保-员工详情",
+        },
       },
       {
         path: "attendances",
         component: attendances,
+        name: "attendances",
         meta: {
           title: "考勤",
         },
@@ -123,6 +154,8 @@ const routes = [
         //考勤-月份报表
         path: "report/:month",
         component: report,
+        name: "report",
+        hidden: true,
         meta: {
           title: "月份报表",
         },
@@ -131,18 +164,21 @@ const routes = [
         //考勤- 历史归档
         path: "archiving",
         component: archiving,
+        name: "archiving",
+        hidden: true,
         meta: {
-          title: "历史归档",
+          title: "考勤-历史归档",
         },
       },
       // 考勤 -导入
       {
-        path:"attimport",
-        component:attimport
+        path: "attimport",
+        component: attimport,
       },
       {
         path: "salarys",
         component: salarys,
+        name: "salarys",
         meta: {
           title: "工资",
         },
@@ -151,49 +187,57 @@ const routes = [
       {
         path: "setup",
         component: setup,
+        name: "salarys",
+        hidden: true,
+        meta: {
+          title: "工资设置",
+        },
       },
       {
         path: "approvals",
         component: approvals,
+        name: "approvals",
         meta: {
           title: "审批",
         },
       },
       // 审批-流程设置
       {
-        path:"security",
-        component:security,
+        path: "security",
+        component: security,
+        name: "security",
+        hidden: true,
+        meta: {
+          title: "流程设置",
+        },
       },
-      // 审批-查看
+      // /审批-查看
       {
-        path:"viewSee/:processId",
-        component:viewSee
+        path: "viewSee/:processId",
+        component: viewSee,
+        name: "viewSee",
+        hidden: true,
+        meta: {
+          title: "查看",
+        },
       },
-            // 个人信息
-            {
-              path: "myInfo",
-              component:myInfo,
-              name: 'myInfo',
-              meta: {
-                title: '我的信息'
-              }
-            },
-           
-          //  上传
-          {
-            path:"importExcel",
-            component:importExcel
-          }
+      {
+        path: "falses",
+        component: falses,
+        meta: {
+          title: "404",
+        },
+      },
     ],
   },
   // 404页面
   {
-    path:"/404",
-    component:falses,
-    meta:{
-      title:"404"
-    }
-   },
+    path: "/404",
+    component: falses,
+    meta: {
+      title: "404",
+    },
+  },
 ];
 
 const router = new VueRouter({

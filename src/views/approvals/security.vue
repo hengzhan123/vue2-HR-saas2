@@ -84,6 +84,7 @@ export default {
           processKey:processKey,
           enable:!enable
         })
+        this.$message.success("状态修改成功")
     }
   },
   created() {

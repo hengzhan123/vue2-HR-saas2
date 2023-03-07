@@ -109,6 +109,7 @@
   <script>
   import{assignPremAPI,PermissionsAPI,getUserProfileAPI,listRolesAPI,InquireEnterpriseAPI,addRolesAPI,RoledetailsAPI,updateRoleAPI,DeleteRoleAPI}from"@/api"
   import{transTree} from "@/utils"
+import { TypedChainedSet } from "webpack-chain"
   import AssignPermission from "./assignPermission.vue" 
   export default {
   components: { AssignPermission },
@@ -174,27 +175,45 @@
           this.formLabelAlign=res.data[0]
         },
          //删除
-         async open(roleObj) {
-          await DeleteRoleAPI(roleObj.id)
-          if(this.rows.length===1){
+          open(roleObj) {
+          this.$confirm("你确定删除吗",{
+            confirmButtonText: '确定',
+             cancelButtonText: '取消',
+             type: 'warning'
+          }).then( async ()=>{
+             await DeleteRoleAPI(roleObj.id)
+           if(this.rows.length===1){
             this.query.page--
             if(this.query.page===0){
               this.query.page=1
             }
           }
+          }).then(res=>{
+            this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
           this.listRolesFn()
-         },
+          }).catch(()=>{
+            this.$message({
+            type: 'error',
+            message: '已取消删除'
+            })
+          })
+        },
           //新建
           roleSubmit(){
            this.$refs.roleForm.validate(async valid=>{
               if(valid){
                 if(this.isEdit){
                  await updateRoleAPI(this.roleForm)
+                 this.$message.success("修改成功")
                 }else{
                   await addRolesAPI(this.roleForm)
+                  this.$message.success("新增成功")
                 }
                 this.listRolesFn()
-                this.showDialog=false
+                this.showDialog=false           
               }
             })
           },
@@ -216,9 +235,6 @@
              const res=await RoledetailsAPI(roleObj.id)
              this.roleForm=res.data
                 },
-               confirm(){
-               
-                  },
           //权限
           async  Assign(roleObj){
             this.dialogVisible=true
@@ -263,14 +279,14 @@
   }
   .block{
     position: relative;
-    left: 530px;
+    left: 450px;
     bottom: 20px;
   }
   .bq{
    font-size: 14px;
    color: gray;
-   margin-left: 550px;
-   margin-top: 30px;
+   margin-left: 500px;
+   margin-top: 60px;
   }
   .input1{
     margin: 30px 50px; 

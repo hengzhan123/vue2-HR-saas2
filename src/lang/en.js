@@ -1,7 +1,6 @@
 export default {
   route: {
     dashboard: 'dashboard',
-    undefined:'home',
     manage: 'manage',
     users: 'users',
     menus: 'menus',
@@ -74,7 +73,16 @@ export default {
     // 企业
     'saas-clients': 'Saas-Clients',
     'saas-clients-details': 'Saas-Details',
-    'permissions': 'permissions' // 权限管理
+    'permissions': 'permissions', // 权限管理
+    myInfo:'myInfo',//首页-我的信息
+    importExcel:'uploading',//员工-上传
+    detail:"view",//员工-查看
+    reportforms:"Monthly statement",//社保-当月报表
+    socialhis:"social-Historical",//社保-历史归档
+    report:"Monatsbericht", //考勤-月份报表
+    archiving:'attendances-Historical',//考勤历史归档
+    salarys:'salarys-setting',//工资-设置
+    security:'security-setting'//审批-设置
 
   },
   navbar: {

@@ -1,6 +1,5 @@
 export default {
   route: {
-    undefined:'首页',
     dashboard: '首页',
     manage: '后台管理',
     users: '用户管理',
@@ -14,7 +13,7 @@ export default {
     employeesInfo: '个人信息',
     postInfo: '岗位信息',
     manageSelf: '经理自助',
-    setting: '设置',
+    setting: '公司设置',
     report: '报表',
     employeesAdd: '添加员工',
     EditiNfo: '编辑信息',
@@ -73,7 +72,16 @@ export default {
     'saas-clients': '企业',
     'saas-clients-details': '企业详情',
     // 权限
-    'permissions': '权限管理' // 权限管理
+    'permissions': '权限管理',// 权限管理
+    myInfo:'我的信息',//首页-我的信息
+    importExcel:'上传',//员工-上传
+    detail:'查看',//员工查看
+    reportforms:'当月报表',//社保当月报表
+    socialhis:'历史归档',//社保-历史归档
+    report:'月报表',//考勤-月份报表
+    archiving:'考勤历史归档',//考勤历史归档
+    salarys:'工资设置',//工资-设置
+    security:'流程设置'//审批-设置
   },
   navbar: {
     search: '站内搜索',
