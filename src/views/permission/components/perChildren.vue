@@ -17,22 +17,13 @@
     <el-input v-model="ruleForm.description"></el-input>
   </el-form-item>
 
-  <el-form-item label="企业可见" prop="delivery">
+  <el-form-item label="企业可见" prop="enVisible">
     <el-switch
-  v-model="ruleForm.delivery"
-  active-text="可见"
-  inactive-text="不可见">
+  v-model="ruleForm.enVisible"
+  active-value="1"
+  inactive-value="0">
 </el-switch>
   </el-form-item>
-  <!-- <el-form-item label="按钮样式" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
-  <el-form-item label="按钮icon" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
-  <el-form-item label="按钮状态" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item> -->
 </el-form>
 <el-row slot="footer" type="flex" justify="center">
                     <el-col :span="6">
@@ -58,7 +49,7 @@
           delivery: false,
           type: '',       //类型
           pid: '',        //判断哪个节点
-                 
+          enVisible:''      //是否可见
         },
         // rules: {
         //   name: [
@@ -95,8 +86,7 @@
     watch:{
       ruleForm(){
         this.ruleForm.type=this.type;
-        this.ruleForm.pid=this.pid
-       
+        this.ruleForm.pid=this.pid      
       }
     },
     methods: {
@@ -110,10 +100,12 @@
       // 确定 点击按钮
       sureFn(){
         this.$refs.ruleForm.validate((valid) => {
-          if (valid) {
+          if (valid.length!==0) {
            this.$emit('addFn',{...this.ruleForm});
            this.dialogVisible=false
-          } 
+           this.cancelFn();  //调用关闭窗口关闭清空数据函数
+          }
+          this.dialogVisible=true
         })
         
       },
@@ -125,6 +117,7 @@
         this.$refs.ruleForm.resetFields()
         // $options 内置方法，初始化data.ruleForm的数据再赋值到上面 
         this.ruleForm=this.$options.data().ruleForm
+        // console.log(this.ruleForm);
       },
     }
     }

@@ -3,41 +3,22 @@
     <el-card>
       <!-- 自定义左侧内容 -->
       <template>
-        <span
-          style="
-            background-color: #e6f7ff;
-            padding: 5px 10px;
-            border-radius: 3px;
-            border: 1px solid #91d5ff;
-          "
-          ><i class="el-icon-info" style="color: #409eff"></i>共
-          {{ total }} 条记录</span
-        >
+        <span style="
+                                      background-color: #e6f7ff;
+                                      padding: 5px 10px;
+                                      border-radius: 3px;
+                                      border: 1px solid #91d5ff;
+                                    "><i class="el-icon-info" style="color: #409eff"></i>共
+          {{ total }} 条记录</span>
       </template>
       <!-- 自定义右侧内容 -->
       <template>
         <span style="float: right">
-          <el-button
-            type="primary"
-            size="mini"
-            class="top-right"
-            @click="$router.push('/importExcel')"
-            >excel导入</el-button
-          >
-          <el-button
-            type="primary"
-            size="mini"
-            class="top-right"
-            @click="exportExcel"
-            >excel导出</el-button
-          >
-          <el-button
-            type="primary"
-            size="mini"
-            class="top-right"
-            @click="addEmpShowDialogFn"
-            ><i class="el-icon-plus"></i>新增员工</el-button
-          >
+          <el-button type="primary" size="mini" class="top-right"
+            @click="$router.push('/importExcel')">excel导入</el-button>
+          <el-button type="primary" size="mini" class="top-right" @click="exportExcel">excel导出</el-button>
+          <el-button type="primary" size="mini" class="top-right" @click="addEmpShowDialogFn"><i
+              class="el-icon-plus"></i>新增员工</el-button>
         </span>
       </template>
     </el-card>
@@ -51,51 +32,26 @@
           </template>
         </el-table-column>
         <el-table-column prop="mobile" label="手机号" width="120" sortable />
-        <el-table-column
-          prop="workNumber"
-          label="工号"
-          width="100"
-          sortable
-          :sort-method="workNumberSortFn"
-        />
-        <el-table-column
-          prop="formOfEmployment"
-          label="聘用形式"
-          width="120"
-          sortable
-        >
+        <el-table-column prop="workNumber" label="工号" width="100" sortable :sort-method="workNumberSortFn" />
+        <el-table-column prop="formOfEmployment" label="聘用形式" width="120" sortable>
           <template v-slot="scope">
             <span>{{ formatter(scope.row) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="departmentName"
-          label="部门"
-          width="100"
-          sortable
-        />
-        <el-table-column
-          prop="timeOfEntry"
-          label="入职时间"
-          width="120"
-          sortable
-          :formatter="timeFormatter"
-        />
-        <el-table-column prop="status" label="状态" width="100" sortable
-          ><el-switch active-color="#13ce66" inactive-color="#dcdfe6">
-          </el-switch>
+        <el-table-column prop="departmentName" label="部门" width="100" sortable />
+        <el-table-column prop="timeOfEntry" label="入职时间" width="120" sortable :formatter="timeFormatter" />
+        <el-table-column prop="status" label="状态" width="100" sortable>
+          <template v-slot="{ row }">
+            <el-switch :value="row.enableState === 1" active-color="#13ce66" inactive-color="#dcdfe6" />
+          </template>
         </el-table-column>
         <el-table-column label="操作" fixed="right" width="250">
           <template v-slot="{ row }">
-            <el-button @click="lookDetailFn(row.id)" type="text" size="small"
-              >查看</el-button
-            >
+            <el-button @click="lookDetailFn(row.id)" type="text" size="small">查看</el-button>
             <!-- <el-button type="text" size="small">转正</el-button>
                         <el-button type="text" size="small">调岗</el-button>
                         <el-button type="text" size="small">离职</el-button> -->
-            <el-button @click="cancleDialog(row)" type="text" size="small"
-              >角色</el-button
-            >
+            <el-button @click="cancleDialog(row)" type="text" size="small">角色</el-button>
             <el-button disabled type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -103,37 +59,18 @@
       <!-- 分页组件 -->
       <!-- 分页区域 -->
       <div class="pages">
-        <el-pagination
-          :current-page="query.page"
-          :page-size="query.size"
-          layout="total, prev, pager, next"
-          :total="total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+        <el-pagination :current-page="query.page" :page-size="query.size" layout="total, prev, pager, next" :total="total"
+          @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
     <!-- 新增员工-弹窗 -->
-    <el-dialog
-      title="新增员工"
-      :visible.sync="showDialog"
-      @close="addEmpDialogCloseFn"
-    >
-      <emp-dialog
-        ref="addEmpDialog"
-        :show.sync="showDialog"
-        :tree-data="treeData"
-        @addEmpEV="addEmpFn"
-      />
+    <el-dialog title="新增员工" :visible.sync="showDialog" @close="addEmpDialogCloseFn">
+      <emp-dialog ref="addEmpDialog" :show.sync="showDialog" :tree-data="treeData" @addEmpEV="addEmpFn" />
     </el-dialog>
-    <!-- 角色-弹窗 -->
-    <el-dialog title="角色" :visible.sync="showRoleDialog">
-      <assign-role-dialog
-        ref="assignRoleDialog"
-        :show.sync="showRoleDialog"
-        :all-role-list="allRoleList"
-        @addRoleEV="addRoleFn"
-      />
+    <!-- 分配角色-弹窗 -->
+    <el-dialog title="分配角色" :visible.sync="showRoleDialog">
+      <assign-role-dialog ref="assignRoleDialog" :show.sync="showRoleDialog" :all-role-list="allRoleList"
+        @addRoleEV="addRoleFn" />
     </el-dialog>
   </div>
 </template>
@@ -149,12 +86,11 @@ import {
 } from "@/api";
 import EmpDialog from "./components/empDialog.vue";
 import AssignRoleDialog from "./components/assignRoleDialog.vue";
-import Employees from "@/api/constant";
+import Employees from "@/api/constant/index";
 import Detail from "./detail.vue";
 import ImageHolder from "./components/imageHolder.vue";
 import { transTree } from "@/utils";
 import dayjs from "dayjs";
-import { formatDate } from "@/filters";
 export default {
   components: {
     EmpDialog,
@@ -175,7 +111,7 @@ export default {
       showRoleDialog: false, //角色弹窗
       allRoleList: [], //所有角色列表
       clickEmpId: "", //点击分配角色时，选中员工id
-      allEmployeeList: [], //所有員工列表
+      allEmployeeList: [], //所有员工列表
     };
   },
   created() {
@@ -205,7 +141,7 @@ export default {
     //角色->点击弹窗
     async cancleDialog(empObj) {
       const res = await getDepartAPI(empObj.id);
-      console.log(res);
+      // console.log(res);
       this.clickEmpId = empObj.id;
       this.showRoleDialog = true;
       this.$nextTick(() => {
@@ -224,7 +160,7 @@ export default {
     // 获取员工列表
     async getEmployeeListFn() {
       const res = await getEmployeesListAPI(this.query);
-      console.log(res);
+      // console.log(res);
       this.employeesList = res.data.rows;
       this.total = res.data.total;
 
@@ -233,7 +169,7 @@ export default {
         page: 1,
         size: res.data.total,
       })
-      this.allEmployeeList =allRes.data.rows//为了导出
+      this.allEmployeeList = allRes.data.rows//为了导出
     },
     // 获取部门列表
     async getDepartments() {
@@ -260,7 +196,7 @@ export default {
       const obj = Employees.hireType.find(
         (item) => item.id === row.formOfEmployment
       );
-      return obj ? obj.value : "未知";
+      return obj ? obj.value : "非正式";
     },
     //日期格式转换
     timeFormatter(row) {
@@ -288,6 +224,7 @@ export default {
       console.log(this.$refs.addEmpDialog);
       this.$refs.addEmpDialog.$refs.addForm.resetFields();
     },
+    //点击查看跳转页面
     lookDetailFn(empId) {
       this.$router.push(`/detail?id=${empId}`);
     },
@@ -354,9 +291,10 @@ export default {
 //     margin: 0;
 //     padding: 0;
 // }
-.employees-container{
-    width: 98%;
+.employees-container {
+  width: 98%;
 }
+
 .app-container {
   padding: 20px;
 }
