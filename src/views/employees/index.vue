@@ -4,11 +4,11 @@
       <!-- 自定义左侧内容 -->
       <template>
         <span style="
-                              background-color: #e6f7ff;
-                              padding: 5px 10px;
-                              border-radius: 3px;
-                              border: 1px solid #91d5ff;
-                            "><i class="el-icon-info" style="color: #409eff"></i>共
+                                      background-color: #e6f7ff;
+                                      padding: 5px 10px;
+                                      border-radius: 3px;
+                                      border: 1px solid #91d5ff;
+                                    "><i class="el-icon-info" style="color: #409eff"></i>共
           {{ total }} 条记录</span>
       </template>
       <!-- 自定义右侧内容 -->
@@ -67,8 +67,8 @@
     <el-dialog title="新增员工" :visible.sync="showDialog" @close="addEmpDialogCloseFn">
       <emp-dialog ref="addEmpDialog" :show.sync="showDialog" :tree-data="treeData" @addEmpEV="addEmpFn" />
     </el-dialog>
-    <!-- 角色-弹窗 -->
-    <el-dialog title="角色" :visible.sync="showRoleDialog">
+    <!-- 分配角色-弹窗 -->
+    <el-dialog title="分配角色" :visible.sync="showRoleDialog">
       <assign-role-dialog ref="assignRoleDialog" :show.sync="showRoleDialog" :all-role-list="allRoleList"
         @addRoleEV="addRoleFn" />
     </el-dialog>
@@ -91,7 +91,6 @@ import Detail from "./detail.vue";
 import ImageHolder from "./components/imageHolder.vue";
 import { transTree } from "@/utils";
 import dayjs from "dayjs";
-// import { formatDate } from "@/filters";
 export default {
   components: {
     EmpDialog,
@@ -197,7 +196,7 @@ export default {
       const obj = Employees.hireType.find(
         (item) => item.id === row.formOfEmployment
       );
-      return obj ? obj.value : "未知";
+      return obj ? obj.value : "非正式";
     },
     //日期格式转换
     timeFormatter(row) {
