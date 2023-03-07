@@ -382,7 +382,7 @@ export default {
         width: 99%;
         margin: 0 auto;
         padding: 20px;
-        margin-top: 15px;
+        margin-top: 5px;
         margin-bottom: 15px;
         background: white;
         border-radius: 3px;

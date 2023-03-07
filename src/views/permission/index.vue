@@ -116,7 +116,7 @@ import {transTree} from "@/utils/index"
     padding: 0 !important;
 }
 .box{
-    padding: 20px;
+    padding:0px 20px;
     width:97%;
     el-card{
     width: 100%;

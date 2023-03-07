@@ -195,7 +195,7 @@ export default {
 
 <style lang="less" scoped>
 .app-container {
-    padding: 20px;
+    padding:0px 20px;
 }
 
 .box-card {

@@ -104,7 +104,7 @@ import {DetailsAPI,DetailAPT, }from "@/api"
 .body1{
     width: 850px;
     height: 700px;
-    padding: 30px 0px 0px 0px;
+    padding: 30px 10px 0px 30px;
 }
 .body2{
     width: 300px;

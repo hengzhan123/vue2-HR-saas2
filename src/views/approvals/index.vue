@@ -12,12 +12,12 @@
     </el-card>
     <!-- 主要内容 -->
     <el-card style="margin-top: 10px;">
-      <el-table :data="tableData" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
+      <el-table :data="tableData" style="width: 93%" :default-sort="{prop: 'date', order: 'descending'}">
         <!-- <el-table-column type="selection" width="30" /> -->
         <el-table-column type="index" width="80" label="序号" />
         <el-table-column prop="processName" label="审批类型" sortable>
         </el-table-column>
-        <el-table-column prop="username" label="申请人" sortable>
+        <el-table-column prop="username"  label="申请人" sortable>
         </el-table-column>
         <el-table-column prop="procCurrNodeUserName" label="审批人" sortable>
         </el-table-column>

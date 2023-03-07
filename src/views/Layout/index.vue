@@ -169,6 +169,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+#tags-view-container{
+  margin-bottom: 30px;
+}
 .navs {
   width: 100%;
   margin-left: 184px;
@@ -238,7 +241,7 @@ body {
   }
 
   .el-icon-s-fold {
-    height: 50px;
+    height: 46px;
   }
 
   .title {

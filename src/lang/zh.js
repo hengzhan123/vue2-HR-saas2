@@ -80,8 +80,9 @@ export default {
     socialhis:'历史归档',//社保-历史归档
     report:'月报表',//考勤-月份报表
     archiving:'考勤历史归档',//考勤历史归档
-    salarys:'工资设置',//工资-设置
-    security:'流程设置'//审批-设置
+    setup:'工资-设置',//工资-设置
+    security:'流程设置',//审批-设置
+    viewSee:'审批查看',//审批-查看
   },
   navbar: {
     search: '站内搜索',

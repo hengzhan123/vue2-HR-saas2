@@ -187,10 +187,10 @@ const routes = [
       {
         path: "setup",
         component: setup,
-        name: "salarys",
+        name: "setup",
         hidden: true,
         meta: {
-          title: "工资设置",
+          title: "工资-设置",
         },
       },
       {

@@ -81,9 +81,9 @@ export default {
     socialhis:"social-Historical",//社保-历史归档
     report:"Monatsbericht", //考勤-月份报表
     archiving:'attendances-Historical',//考勤历史归档
-    salarys:'salarys-setting',//工资-设置
-    security:'security-setting'//审批-设置
-
+    setup:'salarys-setting',//工资-设置
+    security:'security-setting',//审批-设置
+    viewSee:"approvals-view"
   },
   navbar: {
     dashboard:'dashboard',

@@ -117,7 +117,7 @@ export default {
     },
     initTags() {
       const affixTags = (this.affixTags = this.filterAffixTags(this.routes));
-      console.log(affixTags);
+      // console.log(affixTags);
       for (const tag of affixTags) {
         if (tag.name) {
           this.$store.dispatch("tagsView/addVisitedView", tag);
@@ -129,7 +129,7 @@ export default {
       if (name) {
         this.$store.dispatch("tagsView/addView", this.$route);
       }
-      console.log(131,this.routes);
+      // console.log(131,this.routes);
       return false;
     },
     moveToCurrentTag() {
