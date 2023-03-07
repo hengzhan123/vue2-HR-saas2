@@ -34,8 +34,7 @@
                                 </el-col>
                             </el-row>
 
-                            <el-tree class="departments-tree" :data="treeData" :props="defaultProps"
-                                :default-expand-all="true">
+                            <el-tree class="departments-tree" :data="treeData" :default-expand-all="true">
                                 <template #default="{ data }">
                                     <el-row type="flex" justify="space-between" align="middle"
                                         style="height: 40px; width: 100%;">
@@ -93,11 +92,7 @@ export default {
         return {
             activeName: 'first', // 被激活的 Tab 标签页
             // 树形控件数据
-            treeData: [
-
-            ],
-            // 定义结构显示
-            defaultProps: {},
+            treeData: [],
             showDepartDialog: false, // 新增子部门弹框是否出现
             employeesList: [], // 员工列表
             clickDepartId: '', // 正在编辑部门的id
@@ -129,12 +124,10 @@ export default {
                     pid: item.pid // 下面使用
                 }
             ))
-            this.treeData = transTree(res.data.depts, '') // 因为后台返回的字段是id和pid而且根是空字符串, 如果不是需要自己改变transTree里判断条件等
+            this.treeData = transTree(res.data.depts, '')
         },
         // tab导航点击
-        handleClick() {
-
-        },
+        handleClick() { },
         // 右侧 - 添加子部门
         add(data) {
             this.isEdit = false
@@ -189,6 +182,7 @@ export default {
                 const res = await addDepartmentsAPI(dataObj)
                 console.log(res)
             }
+            // 添加后需要重新获取当前页面数据
             this.getDepartMentsListFn()
         }
     }
@@ -196,9 +190,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// .departments-container{
-//     width: 100% !important;
-// }
 .app-container {
     padding: 20px;
 }
